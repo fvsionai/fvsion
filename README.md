@@ -16,7 +16,7 @@
 1. Linux and MacOS not yet supported
 
 # Development Installation
-1. Make sure you have [git](https://git-scm.com/downloads), [python](https://www.python.org/downloads/) & [virtualenv](https://pypi.org/project/virtualenv/) installed.
+1. Make sure you have [git](https://git-scm.com/downloads), [python 3.10.7](https://www.python.org/downloads/) & [virtualenv](https://pypi.org/project/virtualenv/) installed.
 1. Clone git via `git clone https://github.com/fvsionai/fvsion.git <folder-name>`. Replaced `<folder-name>` with your desired folder name.
 1. Navigate to the newly created folder `cd <folder-name>`
 1. Download diffusers model as per instruction below: [Link](# Diffusers Model Download)
