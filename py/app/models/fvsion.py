@@ -12,7 +12,9 @@ class FvsionModel(BaseModel):
     eta = 0.0
     # other 
     seed = 1024
-    allowNSFW = True
+    allowNSFW = False
+    # other utilities
+    filename: str | None = None
 
     @validator('height', 'width')
     def h_and_w_must_be_multiple_of_8(cls, v):
