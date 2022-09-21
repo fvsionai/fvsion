@@ -3,18 +3,17 @@
 1. `Fvsion`, pronounced `Fusion` is a quick bundle of `FastAPI` + `Vite and Vue` + `Stable Diffusion` with Async first design.
 1. Built on top of [electron-vite-vue-fastapi boilerplate](https://github.com/Hafiidz/electron-vite-vue-fastapi).
 
-# Features
+# Features & Motivation
 1. Independent frontend and backend, choose what you need and as you need.
 1. Image generation is sent asynchronously to the fastAPI engine, allowing for automatic queue.
-1. Flexible api modules allowing for independent Contributors to add in your own or publically shared modules .
+1. Flexible api modules to allow ease of use to add your own or publically shared modules, without interference with UI.
 1. Integration with Node for faster prototyping.
 1. Versatile UI in Vue & Electron.
 1. Cross platform features incoming via Electron and packaged pyInstaller (coming soon).
 
-# Beginner Friendly Installation (Coming Soon)
+# Beginner Friendly Installation 
 1. Windows Installer/Executable (Coming Soon)
 1. Linux and MacOS not yet supported
-
 
 # Development Installation
 1. Make sure you have [git](https://git-scm.com/downloads), [python](https://www.python.org/downloads/) & [virtualenv](https://pypi.org/project/virtualenv/) installed.
