@@ -1,0 +1,4 @@
+# don't store any other data here except this gitignore & add-model-ckpt-here 
+*
+*/
+!.gitignore

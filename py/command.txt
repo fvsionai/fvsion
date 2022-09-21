@@ -1,0 +1,5 @@
+pip install -r py/requirements.txt
+pyinstaller py/main.py --onefile --distpath dist
+
+
+pip freeze > py/requirements.txt

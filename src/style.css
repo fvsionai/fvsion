@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.height-control {
+  /* height: calc(100vh - 57px); */
+  min-height: 100vh;
+  box-sizing: border-box;
+}

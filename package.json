@@ -1,0 +1,90 @@
+{
+  "name": "fvsion",
+  "version": "0.0.1",
+  "main": "dist/electron/main/index.js",
+  "description": "Standalone electron build for Stable Diffusion",
+  "author": "Fvsion AI",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "reminder": "this is a comment, don't forget to manulally run `.venv/scripts/activate` to activate your virtual environment before running other command",
+    "dev": "vite",
+    "py": "python py/main.py",
+    "build:vite": "vue-tsc --noEmit && vite build",
+    "build:py": "pyinstaller main.spec",
+    "build:e": "electron-builder",
+    "build": "npm run build:vite && npm run build:py && npm run build:e",
+    "exec": "cd build/win-unpacked/ && start MyApp.exe"
+  },
+  "build": {
+    "appId": "com.example.fvsion",
+    "productName": "Fvsion",
+    "copyright": "Copyright © 2022 ${author}",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "build"
+    }
+  },
+  "engines": {
+    "node": "^14.18.0 || >=16.0.0"
+  },
+  "dependencies": {
+    "node-fetch": "^3.2.10"
+  },
+  "devDependencies": {
+    "@formkit/vue": "^1.0.0-beta.10",
+    "@iconify/json": "^2.1.109",
+    "@tailwindcss/typography": "^0.5.7",
+    "@vitejs/plugin-vue": "^3.0.1",
+    "@vueuse/core": "^9.2.0",
+    "@vueuse/head": "^0.7.12",
+    "autoprefixer": "^10.4.11",
+    "axios": "^0.27.2",
+    "daisyui": "^2.28.0",
+    "electron": "^20.0.2",
+    "electron-builder": "^23.3.3",
+    "pinia": "^2.0.22",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8",
+    "typescript": "^4.7.4",
+    "unplugin-auto-import": "^0.11.2",
+    "unplugin-icons": "^0.14.10",
+    "unplugin-vue-components": "^0.22.7",
+    "v-wave": "^1.5.0",
+    "vite": "^3.0.8",
+    "vite-plugin-electron": "^0.9.3",
+    "vite-plugin-static-copy": "^0.9.0",
+    "vue": "^3.2.37",
+    "vue-axios": "^3.4.1",
+    "vue-router": "^4.1.5",
+    "vue-tsc": "^0.40.1"
+  },
+  "debug": {
+    "env": {
+      "VITE_DEV_SERVER_HOSTNAME": "127.0.0.1",
+      "VITE_DEV_SERVER_PORT": 3344,
+      "VITE_DEV_SERVER_URL": "http://127.0.0.1:3344"
+    }
+  },
+  "keywords": [
+    "electron",
+    "rollup",
+    "vite",
+    "vue3",
+    "vue",
+    "python",
+    "FastAPI",
+    "Stable Diffusion"
+  ]
+}
