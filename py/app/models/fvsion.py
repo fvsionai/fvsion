@@ -1,10 +1,11 @@
+from distutils import extension
 from turtle import width
 from pydantic import BaseModel, validator
 
 # when a value is given for the parameters, type is auto assigned and will be used as default when not given 
 class FvsionModel(BaseModel):
     # this is for pipe input
-    prompt: str # required, for now, might give a default value in wrapper function
+    prompt: str | list[str] # required, for now, might give a default value in wrapper function, allow for list of string for multi prompts
     height = 512
     width = 512
     num_inference_steps = 16
@@ -14,7 +15,10 @@ class FvsionModel(BaseModel):
     seed = 1024
     allowNSFW = False
     # other utilities
-    filename: str | None = None
+    filename: str | None = None #include extension
+    filepath: str | None = None #might be better changed to pathlib.path later
+    doYAML: False # if True generate a YAML file that save all config
+    doJSON: True # if True generate a JSON file that save all config
 
     @validator('height', 'width')
     def h_and_w_must_be_multiple_of_8(cls, v):
