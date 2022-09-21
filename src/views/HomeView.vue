@@ -35,6 +35,17 @@ axios.interceptors.response.use(
   }
 );
 
+// interface ref <{
+//     prompt: string;
+//     height: number;
+//     width: number;
+//     num_inference_steps: number;
+//     guidance_scale: number;
+//     eta: number;
+//     seed: number;
+//     allowNSFW: boolean;
+// }>
+
 const api = "http://localhost:4242/pid";
 const apiArt = "http://localhost:4242/api/v00/txt2img/";
 
