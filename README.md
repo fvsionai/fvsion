@@ -1,11 +1,7 @@
-# electron-vite-vue
+# About
 
-- `Fvsion`, pronounced `Fusion` is a quick bundle of `FastAPI` + `Vite and Vue` + `Stable Diffusion` with Async first design.
-- Built on top of [electron-vite-vue-fastapi boilerplate](https://github.com/Hafiidz/electron-vite-vue-fastapi).
-
-- Currently support windows, scaffolding ready for MacOS & Linux but no development yet. Please test and send PR for Mac & Linux 
-- Using virtualenv & pip for python and pyInstaller for standalone server
-- Using Vite, Vuejs & Electron for frontend
+1. `Fvsion`, pronounced `Fusion` is a quick bundle of `FastAPI` + `Vite and Vue` + `Stable Diffusion` with Async first design.
+1. Built on top of [electron-vite-vue-fastapi boilerplate](https://github.com/Hafiidz/electron-vite-vue-fastapi).
 
 # Features
 1. Independent frontend and backend, choose what you need and as you need.
@@ -15,7 +11,7 @@
 1. Versatile UI in Vue & Electron.
 1. Cross platform features incoming via Electron and packaged pyInstaller (coming soon).
 
-# Beginner Installation
+# Beginner Friendly Installation (Coming Soon)
 1. Windows Installer/Executable (Coming Soon)
 1. Linux and MacOS not yet supported
 
