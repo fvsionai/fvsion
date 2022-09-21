@@ -30,16 +30,16 @@ const navLinks = [
 ];
 
 const navLinksSecond = [
-  {
-    text: "Privacy",
-    to: "/privacy",
-    icon: "ic:baseline-privacy-tip",
-  },
-  {
-    text: "ToS",
-    to: "/terms",
-    icon: "ic:baseline-info",
-  },
+  // {
+  //   text: "Privacy",
+  //   to: "/privacy",
+  //   icon: "ic:baseline-privacy-tip",
+  // },
+  // {
+  //   text: "ToS",
+  //   to: "/terms",
+  //   icon: "ic:baseline-info",
+  // },
   {
     text: "Support",
     to: "/support",

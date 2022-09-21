@@ -1,6 +1,4 @@
-<script setup lang="ts">
-import FormKitExample from "@/components/FormKitExample.vue";
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="content">
@@ -8,15 +6,29 @@ import FormKitExample from "@/components/FormKitExample.vue";
       <div class="flex flex-wrap md:justify-between">
         <div>
           <h1 class="text-3xl font-medium">About Fvsion AI</h1>
-
-          <p>Update as of 25 June 2022</p>
+          <ul>
+            <li>
+              <span class="strong">Fvsion</span>, pronounced
+              <span class="strong">Fusion</span> is a quick bundle of
+              <span class="strong">FastAPI</span> +
+              <span class="strong">Vite</span> and
+              <span class="strong">Vue</span> +
+              <span class="strong">Stable Diffusion</span> with Async first
+              design.
+            </li>
+            <li>
+              Built on top of
+              <a href="https://github.com/Hafiidz/electron-vite-vue-fastapi"
+                >electron-vite-vue-fastapi boilerplate</a
+              >
+            </li>
+          </ul>
+          <p>Update as of 22 Sept 2022</p>
           <p>Storyteller and fun-maker</p>
         </div>
 
         <div><BrandType /></div>
       </div>
-
-      <FormKitExample></FormKitExample>
     </div>
   </div>
 </template>
