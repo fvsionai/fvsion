@@ -1,6 +1,6 @@
 # About
 
-1. `Fvsion`, pronounced `Fusion` is a quick bundle of `FastAPI` + `Vite and Vue` + `Stable Diffusion` with Async first design.
+1. `Fvsion`, pronounced `Fusion` is a quick bundle of `FastAPI` + `Vite and Vue` + `Stable Diffusion` with async first design.
 1. Built on top of [electron-vite-vue-fastapi boilerplate](https://github.com/Hafiidz/electron-vite-vue-fastapi).
 
 # Features & Motivation
@@ -39,8 +39,8 @@
 1. Once completed please ensure that you are in the root directory.
 
 # Known Issues
-1. `C:\Users\test\AppData\Local\Temp`
-1. UX: No loading indicator when loading generation 
+1. There might be undeleted temporary files in `C:\Users\test\AppData\Local\Temp`. Please check if you storage is heavily used. Do note that diffusers libary tend to cache files to speed up operation which also use some amount of data. More details [here](https://huggingface.co/docs/datasets/cache). 
+1. UX: Minimal loading indicator when loading generation. 
 
 # Contributors
 
