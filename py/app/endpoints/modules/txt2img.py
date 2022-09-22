@@ -55,31 +55,29 @@ def wrapper(fv: FvsionModel):
     # the actual generation happens here.
     with autocast("cuda"):
         image = pipe(fv.prompt,  height=fv.height, width=fv.width, num_inference_steps=fv.num_inference_steps, 
-        guidance_scale = fv.guidance_scale,  generator=gen, eta = fv.eta)["sample"][0]  
+        guidance_scale = fv.guidance_scale,  generator=gen, eta = fv.eta).images[0]  
 
 
     # UTILITY: saving the file to a unique name, if fails, try one more time, which will generate a new secret
 
     def saveJson(j: FvsionModel):
-        print(j.json())
-        print(str(jsonable_encoder(j)))
-
         with open(f"{j.out_image.path}/{j.out_image.name}.json", "w") as f:
             f.write(json.dumps(jsonable_encoder(j)))
 
     def saveImage():
         fv.out_image.name = filenameUnique(fv.prompt)
         fv.out_image.path = f"{pathToOutput.strip('/')}"
+        fv.out_image.type = "png"
 
         # save image
-        print(f"Completed Generation. Attempting to save file as {fv.out_image.path}/{fv.out_image.name}")   
-        fpname = f"{fv.out_image.path}/{fv.out_image.name}.png" 
+        print(f"Completed Generation. Attempting to save file as {fv.out_image.path}/{fv.out_image.name}.{fv.out_image.type}")   
+        fpname = f"{fv.out_image.path}/{fv.out_image.name}.{fv.out_image.type}" 
         image.save(fpname)
 
     try:
         saveImage()
         saveJson(fv)
-
+        print("check 1")
         return jsonable_encoder(fv)
     except:
         try:
