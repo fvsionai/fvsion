@@ -1,5 +1,5 @@
 # AI ML imports
-from turtle import width
+from cmath import log
 from torch import autocast, Generator, float16
 from diffusers import StableDiffusionPipeline
 
@@ -11,6 +11,8 @@ import pathlib
 import time
 import secrets
 from slugify import slugify
+from fastapi.encoders import jsonable_encoder
+import json
 
 def wrapper(fv: FvsionModel):
     
@@ -27,12 +29,13 @@ def wrapper(fv: FvsionModel):
 
     def filenameUnique(p):
         # prompt cut in front to avoid too long prompt text, os path limit 
-        # return path/to/file/file-name-from-prompt-cut.png
-        return f"{pathToOutput.strip('/')}/{prefix()}_{slugify(p)[0:30]}.png" 
+        # return file-name-from-prompt-cut (i.e. no path or extension)
+        return f"{prefix()}_{slugify(p)[0:30]}" 
 
 
     # UTILITY: create folder if it doesn't exist yet
     pathlib.Path(pathToOutput.strip('/')).mkdir(parents=True, exist_ok=True) 
+
 
     # DIFFUSERS: setup diffusers pipe
     gen = Generator("cuda").manual_seed(fv.seed)
@@ -57,10 +60,31 @@ def wrapper(fv: FvsionModel):
 
     # UTILITY: saving the file to a unique name, if fails, try one more time, which will generate a new secret
 
+    def saveJson(j):
+        print(j.json())
+        print(str(jsonable_encoder(j)))
+
+        with open(f"{j.filepath}/{j.filename}.json", "w") as f:
+            f.write(json.dump(jsonable_encoder(j)))
+
+    def saveImage():
+        fv.filename = filenameUnique(fv.prompt)
+        fv.filepath = f"{pathToOutput.strip('/')}"
+
+        # save image
+        print(f"Completed Generation. Attempting to save file as {fv.filepath}/{fv.filename}")   
+        fpname = f"{fv.filepath}/{fv.filename}.png" 
+        image.save(fpname)
+
     try:
-        image.save(filenameUnique(fv.prompt))
+        saveImage()
+        saveJson(fv)
+
+        return jsonable_encoder(fv)
     except:
         try:
-            image.save(filenameUnique(fv.prompt))
+            saveImage()
+            saveJson(fv)
+            return jsonable_encoder(fv)
         except Exception as e:
             print(e)
