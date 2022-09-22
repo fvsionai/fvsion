@@ -6,11 +6,10 @@ from diffusers import StableDiffusionPipeline
 # Object models import
 from app.models.fvsion import FvsionModel
 
+
 # Utility imports
+from app.endpoints.modules import utils
 import pathlib
-import time
-import secrets
-from slugify import slugify
 from fastapi.encoders import jsonable_encoder
 import json
 
@@ -21,16 +20,7 @@ def wrapper(fv: FvsionModel):
     pathToLocalModel = "models/stable-diffusion-v1-4"
     pathToOutput = "output"
 
-    # UTILITY: create prefixes to filename to try to increase uniqueness of filename 
-    def prefix():
-        timestr = time.strftime("%Y%m%d_%H%M%S")
-        secstr = secrets.token_hex(8)
-        return timestr+"_"+secstr
 
-    def filenameUnique(p):
-        # prompt cut in front to avoid too long prompt text, os path limit 
-        # return file-name-from-prompt-cut (i.e. no path or extension)
-        return f"{prefix()}_{slugify(p)[0:30]}" 
 
 
     # UTILITY: create folder if it doesn't exist yet
@@ -65,7 +55,7 @@ def wrapper(fv: FvsionModel):
             f.write(json.dumps(jsonable_encoder(j)))
 
     def saveImage():
-        fv.out_image.name = filenameUnique(fv.prompt)
+        fv.out_image.name = utils.filenameUnique(fv.prompt)
         fv.out_image.path = f"{pathToOutput.strip('/')}"
         fv.out_image.type = "png"
 
@@ -77,7 +67,7 @@ def wrapper(fv: FvsionModel):
     try:
         saveImage()
         saveJson(fv)
-        print("check 1")
+        print("check 2")
         return jsonable_encoder(fv)
     except:
         try:
