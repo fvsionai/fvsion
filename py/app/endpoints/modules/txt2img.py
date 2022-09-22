@@ -65,7 +65,7 @@ def wrapper(fv: FvsionModel):
         print(str(jsonable_encoder(j)))
 
         with open(f"{j.out_image.path}/{j.out_image.name}.json", "w") as f:
-            f.write(json.dump(jsonable_encoder(j)))
+            f.write(json.dumps(jsonable_encoder(j)))
 
     def saveImage():
         fv.out_image.name = filenameUnique(fv.prompt)
