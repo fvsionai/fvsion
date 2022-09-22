@@ -2,6 +2,14 @@ from distutils import extension
 from turtle import width
 from pydantic import BaseModel, validator
 
+from enum import Enum
+
+class ModeEnum(str, Enum):
+    txt2img = 'txt2img'
+    img2img = 'img2img'
+
+
+
 # when a value is given for the parameters, type is auto assigned and will be used as default when not given 
 class FvsionModel(BaseModel):
     # this is for pipe input
@@ -11,11 +19,14 @@ class FvsionModel(BaseModel):
     num_inference_steps = 16
     guidance_scale = 7.5
     eta = 0.0
+    strength = 0.75 #for img2img
     # other 
     seed = 1024
     allowNSFW = False
+    mode: ModeEnum = ModeEnum.txt2img 
     # other utilities
-    filename: str | None = None #include extension
+    filename: str | None = None #exclude extension
+    filetype: str | None = None
     filepath: str | None = None #might be better changed to pathlib.path later
     doYAML = False # if True generate a YAML file that save all config
     doJSON = True # if True generate a JSON file that save all config
