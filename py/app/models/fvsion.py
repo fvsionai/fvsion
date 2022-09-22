@@ -17,8 +17,8 @@ class FvsionModel(BaseModel):
     # other utilities
     filename: str | None = None #include extension
     filepath: str | None = None #might be better changed to pathlib.path later
-    doYAML: False # if True generate a YAML file that save all config
-    doJSON: True # if True generate a JSON file that save all config
+    doYAML = False # if True generate a YAML file that save all config
+    doJSON = True # if True generate a JSON file that save all config
 
     @validator('height', 'width')
     def h_and_w_must_be_multiple_of_8(cls, v):
