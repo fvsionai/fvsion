@@ -76,10 +76,17 @@ const createPyProc = () => {
   let port = "" + selectPort();
 
   if (app.isPackaged) {
-    pyProc = require("child_process").execFile(script, [port]);
+    // pyProc = require("child_process").execFile(script, [port]);
+    console.log("current setup: separate python server start up");
+    console.log(
+      "Please ensure server is running by going to http://127.0.0.1:4242/"
+    );
+    pyProc = null;
   } else {
-    pyProc = require("child_process").spawn(".venv/scripts/python", [
+    pyProc = require("child_process").spawn("python", [
+      // "py/main.py",
       script,
+      "-p",
       port,
     ]);
   }
@@ -89,8 +96,8 @@ const createPyProc = () => {
     console.log("child process forced on port " + port);
     console.log("port: " + port + ", script: " + script);
   } else {
-    console.log("no py process");
-    console.log("port: " + port + ", script: " + script);
+    console.log(" ");
+    // console.log("port: " + port + ", script: " + script);
   }
 };
 
