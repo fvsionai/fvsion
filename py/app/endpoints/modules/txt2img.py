@@ -1,5 +1,4 @@
 # AI ML imports
-from cmath import log
 from torch import autocast, Generator, float16
 from diffusers import StableDiffusionPipeline
 
