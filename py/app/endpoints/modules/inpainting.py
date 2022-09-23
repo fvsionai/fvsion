@@ -29,16 +29,16 @@ def wrapper(fv: FvsionModel):
     # Try loading init_image and mask_image
     try:
         init_image = utils.initProcessing(fv) 
-        print("success loading init_image")
+        print("init_image successfully loaded")
     except Exception as e:
-        print("error loading init_image")
+        print("error in loading init_image")
         print(e)
 
     try:
         mask_image = utils.maskProcessing(fv)
-        print("success loading masked_image")
+        print("masked_image successfully loaded")
     except Exception as e:
-        print("error loading mask_image")
+        print("error in loading mask_image")
         print(e)
 
     utils.createFolder(pathToOutput)
@@ -61,7 +61,8 @@ def wrapper(fv: FvsionModel):
     with autocast("cuda"):
         # image = pipe(prompt=fv.prompt, init_image=init_image, mask_image=mask_image,  strength=0.75, generator=gen, eta = fv.eta, num_inference_steps=fv.num_inference_steps, 
         # guidance_scale = fv.guidance_scale).images[0] 
-        image = pipe(prompt=fv.prompt, init_image=init_image, mask_image=mask_image,  strength=0.75, generator=gen).images[0] 
+        image = pipe(prompt=fv.prompt, init_image=init_image, mask_image=mask_image,  strength=fv.strength, generator=gen,
+        eta = fv.eta, num_inference_steps=fv.num_inference_steps, guidance_scale = fv.guidance_scale).images[0] 
 
     print(f"Completed Generation. Attempting to save file")   
 

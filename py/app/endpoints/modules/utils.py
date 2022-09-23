@@ -74,7 +74,7 @@ def maskProcessing(fv):
     # else:
     #     print('using black from init_image as mask')
 
-    # mask_image.save(f'output/example/diagnostic_{fv.mask_image_type}.png')
+    mask_image.save(f'output/example/diagnostic_mask_{fv.mask_image_type}.png')
     return(mask_image.convert("RGB"))
 
 def initProcessing(fv):
@@ -85,6 +85,7 @@ def initProcessing(fv):
         white = PIL.Image.new("RGBA", init_image.size, "WHITE")
         # paste our partially transparent image on top
         white.paste(init_image, (0, 0), init_image)
+        white.save(f'output/example/diagnostic_init_{fv.mask_image_type}.png')
         return(white.convert("RGB"))
 
         

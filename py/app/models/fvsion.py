@@ -30,7 +30,7 @@ class FvsionModel(BaseModel):
     num_inference_steps = 16
     guidance_scale = 7.5
     eta = 0.0
-    strength = 0.75 #for img2img
+    strength = 0.85 #for img2img, higher more variation especially useful for inpainting, other default is 0.75
     # other 
     seed = 1024
     allowNSFW = False
