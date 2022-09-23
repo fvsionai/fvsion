@@ -1,6 +1,7 @@
 from distutils import extension
 from turtle import width
 from pydantic import BaseModel, validator
+from pydantic.color import Color
 
 from enum import Enum
 
@@ -14,7 +15,7 @@ class MaskImageEnum(str, Enum):
     default = 'default' # use separate file (white as area to be changed)
     alpha = 'alpha' # use same file as init, but using alpha channel as mask
     white = 'white' # use same file as init, but using color white as mask
-    # black = 'black' # use same file as init, but using color black as mask, disabled option for now, need to do proper code , TODO
+    color = 'color' # use pydantic color, as input to select mask
 
 class FileModel(BaseModel):
     name: str | None = None # exclude extension
@@ -42,7 +43,8 @@ class FvsionModel(BaseModel):
     # specific to img2img
     init_image: FileModel | None 
     mask_image_type: MaskImageEnum = MaskImageEnum.default # whether to use other files or not 
-    mask_image: FileModel | None 
+    mask_image: FileModel | None
+    mask_color: Color | None = Color('white')
 
     doYAML = False # if True generate a YAML file that save all config
     doJSON = True # if True generate a JSON file that save all config
