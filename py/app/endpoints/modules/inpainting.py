@@ -3,7 +3,7 @@ from torch import autocast, Generator, float16
 from diffusers import StableDiffusionInpaintPipeline
 
 # Object models import
-from app.models.fvsion import FvsionModel
+from app.models.fvsion import FvsionModel, MaskImageEnum
 
 
 # Utility imports
@@ -19,13 +19,25 @@ def wrapper(fv: FvsionModel):
     pathToLocalModel = "models/stable-diffusion-v1-4"
     pathToOutput = "output"
 
+
+    # from diffusers library
+    # `Image`, or tensor representing an image batch, to mask `init_image`. White pixels in the mask will be
+    # replaced by noise and therefore repainted, while black pixels will be preserved. If `mask_image` is a
+    # PIL image, it will be converted to a single channel (luminance) before use. If it's a tensor, it should
+    # contain one color channel (L) instead of 3, so the expected shape would be `(B, H, W, 1)`.
+
     try:
         init_image_pfname = f"{fv.init_image.path}/{fv.init_image.name}.{fv.init_image.type}"
-        mask_image_pfname = f"{fv.mask_image.path}/{fv.mask_image.name}.{fv.mask_image.type}"
         print(f'set {init_image_pfname} as init_image')
+        init_image = PIL.Image.open(init_image_pfname) 
+
+        try:
+            mask_image = utils.maskProcessing(fv)
+        except Exception as e:
+            print(e)
+
         # require convert to RGB otherwise silent failure
-        init_image = PIL.Image.open(init_image_pfname).convert("RGB") 
-        mask_image = PIL.Image.open(mask_image_pfname).convert('RGBA').split()[-1] 
+        init_image = init_image.convert("RGB")
         # TODO, need some logic for resize
         # init_image = init_image.resize((fv.height,fv.width)) 
         print("success loading init")
