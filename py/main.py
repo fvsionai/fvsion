@@ -3,8 +3,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from routes.api import router as api_router
 
 import uvicorn
-import sys
 import os
+
+import argparse
+
+parser = argparse.ArgumentParser(description='Run FastAPI server for Fvsion: AI Image Generation')
+parser.add_argument('--port', '-p' , type=int, default=4242, help='port to run the server on')
+parser.add_argument('--reload', '-r' , type=str, default="no", help='yes/no. set the server to either hot reload or not when *.py files changes')
+
+args = parser.parse_args()
+
 
 # TODO, to make this flexible when Vite change their port#, i.e. auto track port allowed list
 origins = [
@@ -26,15 +34,20 @@ with open('pid.txt', 'w') as f:
 def setPort():
     p:int = 4242
     try:
-        p = int(sys.argv[1])
-        print("info: assigned default port "+ str(p))  
+        p = int(args.port)
+        print("info: assigned port "+ str(p))  
     except:
         print("info: assigned default port 4242")   
     return p
 
 def setReload():
     r: bool = False
-    # TODO, later check if in dev and perform hot reload
+    try:
+        if(args.reload.lower() == "y" or args.reload.lower() == "yes"):
+            r = True  
+            print("info: server set to auto reload on *.py file changes")  
+    except:
+        print("info: running in production mode. No auto reload") 
     return r
 
 app = FastAPI()
@@ -64,6 +77,6 @@ def read_root():
 app.include_router(api_router)
 
 if __name__ == "__main__":
-    # uvicorn.run(app, host='127.0.0.1', port=port)
-    uvicorn.run(app, host='127.0.0.1', port=port, log_level="info", reload=reload)
+    uvicorn.run("main:app", host='127.0.0.1', port=port, log_level="info", reload=reload)
+    # uvicorn.run(app, host='127.0.0.1', port=port, log_level="info", reload=reload)
     print("running")

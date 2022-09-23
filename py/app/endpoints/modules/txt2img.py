@@ -60,20 +60,20 @@ def wrapper(fv: FvsionModel):
 
     # UTILITY: saving the file to a unique name, if fails, try one more time, which will generate a new secret
 
-    def saveJson(j):
+    def saveJson(j: FvsionModel):
         print(j.json())
         print(str(jsonable_encoder(j)))
 
-        with open(f"{j.filepath}/{j.filename}.json", "w") as f:
+        with open(f"{j.out_image.path}/{j.out_image.name}.json", "w") as f:
             f.write(json.dump(jsonable_encoder(j)))
 
     def saveImage():
-        fv.filename = filenameUnique(fv.prompt)
-        fv.filepath = f"{pathToOutput.strip('/')}"
+        fv.out_image.name = filenameUnique(fv.prompt)
+        fv.out_image.path = f"{pathToOutput.strip('/')}"
 
         # save image
-        print(f"Completed Generation. Attempting to save file as {fv.filepath}/{fv.filename}")   
-        fpname = f"{fv.filepath}/{fv.filename}.png" 
+        print(f"Completed Generation. Attempting to save file as {fv.out_image.path}/{fv.out_image.name}")   
+        fpname = f"{fv.out_image.path}/{fv.out_image.name}.png" 
         image.save(fpname)
 
     try:

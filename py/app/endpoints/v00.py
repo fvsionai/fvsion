@@ -21,7 +21,7 @@ async def read_root():
 
 
 @router.post("/txt2img/")
-async def generateT2I(fv: FvsionModel):
+async def generateTxt2Img(fv: FvsionModel):
     try:
         jsonReturned = txt2img.wrapper(fv)
         return JSONResponse(content=jsonReturned, status_code=200)
@@ -31,7 +31,7 @@ async def generateT2I(fv: FvsionModel):
 
 
 @router.post("/img2img/")
-async def generateT2I(fv: FvsionModel):
+async def generateImg2Img(fv: FvsionModel):
     try:
         jsonReturned = img2img.wrapper(fv)
         return JSONResponse(content=jsonReturned, status_code=200)

@@ -4,11 +4,22 @@ from pydantic import BaseModel, validator
 
 from enum import Enum
 
+# mode to follow diffusers pipeline functions, relatively specific
 class ModeEnum(str, Enum):
     txt2img = 'txt2img'
     img2img = 'img2img'
+    img2img_inpainting = 'img2img_inpainting'
 
+class InitMaskEnum(str, Enum):
+    default = 'default' # use separate file (white as area to be changed)
+    alpha = 'alpha' # use same file as init, but using alpha channel as mask
+    white = 'white' # use same file as init, but using color white as mask
+    black = 'black' # use same file as init, but using color black as mask
 
+class FileModel(BaseModel):
+    name: str | None = None # exclude extension
+    type: str | None = None # eg. png, jpg, webp, 
+    path: str | None = None # might be better changed to pathlib.path later
 
 # when a value is given for the parameters, type is auto assigned and will be used as default when not given 
 class FvsionModel(BaseModel):
@@ -24,10 +35,15 @@ class FvsionModel(BaseModel):
     seed = 1024
     allowNSFW = False
     mode: ModeEnum = ModeEnum.txt2img 
+
     # other utilities
-    filename: str | None = None #exclude extension
-    filetype: str | None = None
-    filepath: str | None = None #might be better changed to pathlib.path later
+    out_image: FileModel | None # filename and path
+
+    # specific to img2img
+    init_mask_type: InitMaskEnum = InitMaskEnum.default 
+    init_image: FileModel | None 
+    init_mask: FileModel | None 
+
     doYAML = False # if True generate a YAML file that save all config
     doJSON = True # if True generate a JSON file that save all config
 
