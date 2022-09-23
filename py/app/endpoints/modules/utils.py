@@ -54,7 +54,7 @@ def maskProcessing(fv):
 
     if(fv.mask_image_type == MaskImageEnum.default):
         mask_image_pfname = f"{fv.mask_image.path}/{fv.mask_image.name}.{fv.mask_image.type}"
-        mask_image = PIL.Image.open(mask_image_pfname) 
+        mask_image = PIL.Image.open(mask_image_pfname).convert("RGB") 
 
     elif(fv.mask_image_type == MaskImageEnum.alpha):
         print('using alpha channel from init_image as mask')
@@ -74,7 +74,17 @@ def maskProcessing(fv):
     # else:
     #     print('using black from init_image as mask')
 
-    mask_image.save(f'output/example/diagnostic_{fv.mask_image_type}.png')
+    # mask_image.save(f'output/example/diagnostic_{fv.mask_image_type}.png')
     return(mask_image.convert("RGB"))
+
+def initProcessing(fv):
+        init_image_pfname = f"{fv.init_image.path}/{fv.init_image.name}.{fv.init_image.type}"
+        print(f'set {init_image_pfname} as init_image')
+        init_image = PIL.Image.open(init_image_pfname).convert("RGBA")
+        # create a dummy image as black background
+        white = PIL.Image.new("RGBA", init_image.size, "WHITE")
+        # paste our partially transparent image on top
+        white.paste(init_image, (0, 0), init_image)
+        return(white.convert("RGB"))
 
         

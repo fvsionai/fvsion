@@ -26,26 +26,22 @@ def wrapper(fv: FvsionModel):
     # PIL image, it will be converted to a single channel (luminance) before use. If it's a tensor, it should
     # contain one color channel (L) instead of 3, so the expected shape would be `(B, H, W, 1)`.
 
+    # Try loading init_image and mask_image
     try:
-        init_image_pfname = f"{fv.init_image.path}/{fv.init_image.name}.{fv.init_image.type}"
-        print(f'set {init_image_pfname} as init_image')
-        init_image = PIL.Image.open(init_image_pfname) 
+        init_image = utils.initProcessing(fv) 
+        print("success loading init_image")
+    except Exception as e:
+        print("error loading init_image")
+        print(e)
 
-        try:
-            mask_image = utils.maskProcessing(fv)
-        except Exception as e:
-            print(e)
-
-        # require convert to RGB otherwise silent failure
-        init_image = init_image.convert("RGB")
-        # TODO, need some logic for resize
-        # init_image = init_image.resize((fv.height,fv.width)) 
-        print("success loading init")
-    except:
-        print("error loading init")
+    try:
+        mask_image = utils.maskProcessing(fv)
+        print("success loading masked_image")
+    except Exception as e:
+        print("error loading mask_image")
+        print(e)
 
     utils.createFolder(pathToOutput)
-
 
     # DIFFUSERS: setup diffusers pipe
     gen = Generator("cuda").manual_seed(fv.seed)
@@ -63,8 +59,9 @@ def wrapper(fv: FvsionModel):
     # https://github.com/huggingface/diffusers/blob/91db81894b44798649b6cf54be085c205e146805/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion_inpaint.py#L157
     # the actual generation happens here.
     with autocast("cuda"):
-        image = pipe(prompt=fv.prompt, init_image=init_image, mask_image=mask_image,  strength=0.75, generator=gen, eta = fv.eta, num_inference_steps=fv.num_inference_steps, 
-        guidance_scale = fv.guidance_scale).images[0]  
+        # image = pipe(prompt=fv.prompt, init_image=init_image, mask_image=mask_image,  strength=0.75, generator=gen, eta = fv.eta, num_inference_steps=fv.num_inference_steps, 
+        # guidance_scale = fv.guidance_scale).images[0] 
+        image = pipe(prompt=fv.prompt, init_image=init_image, mask_image=mask_image,  strength=0.75, generator=gen).images[0] 
 
     print(f"Completed Generation. Attempting to save file")   
 
