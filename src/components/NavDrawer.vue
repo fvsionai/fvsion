@@ -27,6 +27,11 @@ const navLinks = [
     to: "/",
     icon: "ic:baseline-home",
   },
+  {
+    text: "Paint",
+    to: "/paint",
+    icon: "ic:baseline-home",
+  },
 ];
 
 const navLinksSecond = [
