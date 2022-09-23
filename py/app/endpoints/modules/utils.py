@@ -55,26 +55,26 @@ def maskProcessing(fv):
     if(fv.mask_image_type == MaskImageEnum.default):
         mask_image_pfname = f"{fv.mask_image.path}/{fv.mask_image.name}.{fv.mask_image.type}"
         mask_image = PIL.Image.open(mask_image_pfname) 
-    else:
-        
-        if(fv.mask_image_type == MaskImageEnum.alpha):
-            print('using alpha channel from init_image as mask')
-            # first take out alpha channel
-            mask_image = init_image.convert('RGBA').split()[-1]
-            # has to invert via RGB mode to get Alpha area to be white
-            mask_image = PIL.ImageOps.invert(mask_image.convert('RGB'))
-        elif(fv.mask_image_type == MaskImageEnum.white):
-            print('using white from init_image as mask')
-            mask_image = init_image.convert("RGBA")
-            # create a dummy image as black background
-            black = PIL.Image.new("RGBA", mask_image.size, "BLACK")
-            # paste our partially transparent image on top
-            black.paste(mask_image, (0, 0), mask_image)
-            mask_image = black.convert("RGB")
-        # else:
-        #     print('using black from init_image as mask')
 
-    # mask_image.save(f'output/example/{idx}_{fv.mask_image_type}.png')
+    elif(fv.mask_image_type == MaskImageEnum.alpha):
+        print('using alpha channel from init_image as mask')
+        # first take out alpha channel
+        mask_image = init_image.convert('RGBA').split()[-1]
+        # has to invert via RGB mode to get Alpha area to be white
+        mask_image = PIL.ImageOps.invert(mask_image.convert('RGB'))
+
+    elif(fv.mask_image_type == MaskImageEnum.white):
+        print('using white from init_image as mask')
+        mask_image = init_image.convert("RGBA")
+        # create a dummy image as black background
+        black = PIL.Image.new("RGBA", mask_image.size, "BLACK")
+        # paste our partially transparent image on top
+        black.paste(mask_image, (0, 0), mask_image)
+        mask_image = black.convert("RGB")
+    # else:
+    #     print('using black from init_image as mask')
+
+    mask_image.save(f'output/example/diagnostic_{fv.mask_image_type}.png')
     return(mask_image.convert("RGB"))
 
         
