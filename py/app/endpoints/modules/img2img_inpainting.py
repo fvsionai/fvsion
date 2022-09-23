@@ -1,6 +1,6 @@
 # AI ML imports
 from torch import autocast, Generator, float16
-from diffusers import StableDiffusionImg2ImgPipeline
+from diffusers import StableDiffusionInpaintPipeline
 
 # Object models import
 from app.models.fvsion import FvsionModel
@@ -21,14 +21,16 @@ def wrapper(fv: FvsionModel):
 
     try:
         init_image_pfname = f"{fv.init_image.path}/{fv.init_image.name}.{fv.init_image.type}"
+        mask_image_pfname = f"{fv.mask_image.path}/{fv.mask_image.name}.{fv.mask_image.type}"
         print(f'set {init_image_pfname} as init_image')
         # require convert to RGB otherwise silent failure
         init_image = PIL.Image.open(init_image_pfname).convert("RGB") 
+        mask_image = PIL.Image.open(mask_image_pfname).convert('RGBA').split()[-1] 
         # TODO, need some logic for resize
         # init_image = init_image.resize((fv.height,fv.width)) 
-        print("success loading init_image")
+        print("success loading init")
     except:
-        print("error loading init_image")
+        print("error loading init")
 
     utils.createFolder(pathToOutput)
 
@@ -36,7 +38,7 @@ def wrapper(fv: FvsionModel):
     # DIFFUSERS: setup diffusers pipe
     gen = Generator("cuda").manual_seed(fv.seed)
 
-    pipe = StableDiffusionImg2ImgPipeline.from_pretrained(pathToLocalModel, revision="fp16", torch_dtype=float16, use_auth_token=False)
+    pipe = StableDiffusionInpaintPipeline.from_pretrained(pathToLocalModel, revision="fp16", torch_dtype=float16, use_auth_token=False)
 
 
     # enable/disable safety (NSFW) checker
@@ -46,10 +48,10 @@ def wrapper(fv: FvsionModel):
     # send to CUDA for NVIDIA GPU
     pipe = pipe.to("cuda")
 
-    # https://github.com/huggingface/diffusers/blob/91db81894b44798649b6cf54be085c205e146805/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion_img2img.py#L137
+    # https://github.com/huggingface/diffusers/blob/91db81894b44798649b6cf54be085c205e146805/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion_inpaint.py#L157
     # the actual generation happens here.
     with autocast("cuda"):
-        image = pipe(prompt=fv.prompt, init_image=init_image, strength=0.75, generator=gen, eta = fv.eta, num_inference_steps=fv.num_inference_steps, 
+        image = pipe(prompt=fv.prompt, init_image=init_image, mask_image=mask_image,  strength=0.75, generator=gen, eta = fv.eta, num_inference_steps=fv.num_inference_steps, 
         guidance_scale = fv.guidance_scale).images[0]  
 
     print(f"Completed Generation. Attempting to save file")   
