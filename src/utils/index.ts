@@ -8,6 +8,6 @@ export const API_library = {
 
 export function getAPI(s: string) {
   if (API_library.functionList.includes(s)) {
-    return API_library.root + "/" + API_library.version + "/" + s;
+    return API_library.root + API_library.version + "/" + s;
   }
 }
