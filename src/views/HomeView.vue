@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { defaultFvsionModel } from "../stores";
 const axios: any = inject("axios"); // inject axios
 
 let showNotice = ref(false);
 let showError = ref(false);
 let showSuccess = ref(false);
+let serverRunning = ref(false);
 
 axios.interceptors.request.use(
   function (config: any) {
@@ -35,34 +37,15 @@ axios.interceptors.response.use(
   }
 );
 
-// interface ref <{
-//     prompt: string;
-//     height: number;
-//     width: number;
-//     num_inference_steps: number;
-//     guidance_scale: number;
-//     eta: number;
-//     seed: number;
-//     allowNSFW: boolean;
-// }>
-
-const api = "http://localhost:4242/pid";
+const apiPID = "http://localhost:4242/pid";
 const apiArt = "http://localhost:4242/api/v00/txt2img/";
 
-const aiInput = ref({
-  prompt: "A beautiful cat",
-  height: 512,
-  width: 512,
-  num_inference_steps: 16,
-  guidance_scale: 7.5,
-  eta: 0,
-  seed: 4242,
-  allowNSFW: false,
-});
+const aiInput = ref(defaultFvsionModel);
 
-const getList = (): void => {
-  axios.get(api).then((response: { data: any }) => {
+const checkPID = (): void => {
+  axios.get(apiPID).then((response: { data: any }) => {
     console.log(response.data);
+    serverRunning.value = true;
   });
 };
 
@@ -70,16 +53,18 @@ let state = reactive({
   jsonInput: {},
 });
 
-const genArt = (j: any): void => {
+const genArt = (): void => {
+  let j = aiInput.value;
   axios.post(apiArt, j).then((response: { data: any }) => {
     console.log(j);
+    console.log(response);
     console.log(response.data);
   });
 };
 
 const formSubmit = (e: any) => {
   e.preventDefault();
-  genArt(aiInput.value);
+  genArt();
   showNotice.value = true;
 };
 </script>
