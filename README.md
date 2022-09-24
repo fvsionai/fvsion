@@ -21,7 +21,8 @@
 1. Navigate to the newly created folder `cd <folder-name>`
 1. Download diffusers model as per instruction below: [Link](# Diffusers Model Download)
 1. Make sure you are in the root folder and create virtualenv local folders `python -m virtualenv .venv`
-1. Activate your virtualenv by using `.venv/scripts/activate` 
+1. Activate your virtualenv by using `.venv/scripts/activate`
+1. Update pip `python -m pip install --upgrade pip`
 1. Install python requirement using `pip install -r py/requirements.txt`
 1. Run `python py/main.py` & go to `http://localhost:4242/docs` to confirm server is running. 
 1. You can start generating image by directly interacting with the built in SwaggerAPI. Click "CTRL + C" while in terminal to close the server when you are done.
