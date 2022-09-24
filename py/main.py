@@ -68,12 +68,6 @@ app.add_middleware(
 async def read_root():
     return {"status": "server is running", "docs": "go to /docs to get more info on API"}
 
-# Get the python child of child pid, for kill instructions
-@app.get("/pid")
-def read_root():
-    return {"pid": str(os.getpid())}
-
-
 app.include_router(api_router)
 
 if __name__ == "__main__":
