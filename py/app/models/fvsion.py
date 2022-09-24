@@ -25,7 +25,7 @@ class FileModel(BaseModel):
 # when a value is given for the parameters, type is auto assigned and will be used as default when not given 
 class FvsionModel(BaseModel):
     # this is for pipe input
-    prompt: str | list[str] # required, for now, might give a default value in wrapper function, allow for list of string for multi prompts
+    prompt: str  # | list[str], required, for now, might give a default value in wrapper function, allow for list of string for multi prompts
     height = 512
     width = 512
     num_inference_steps = 16
@@ -42,11 +42,11 @@ class FvsionModel(BaseModel):
 
     # specific to img2img
     init_image: FileModel | None 
-    mask_image_type: MaskImageEnum = MaskImageEnum.default # whether to use other files or not 
+    mask_image_type: MaskImageEnum = MaskImageEnum.default  # whether to use other files or not 
     mask_image: FileModel | None
     mask_color: Color | None = Color('white')
 
-    doYAML = False # if True generate a YAML file that save all config
+    # doYAML = False # if True generate a YAML file that save all config
     doJSON = True # if True generate a JSON file that save all config
 
     @validator('height', 'width')

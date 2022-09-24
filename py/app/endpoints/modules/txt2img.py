@@ -8,7 +8,6 @@ from app.models.fvsion import FvsionModel
 
 # Utility imports
 from app.endpoints.modules import utils
-from fastapi.encoders import jsonable_encoder
 
 
 def wrapper(fv: FvsionModel):
@@ -34,6 +33,8 @@ def wrapper(fv: FvsionModel):
     # send to CUDA for NVIDIA GPU
     pipe = pipe.to("cuda")
 
+    print("Complete pipe setup. Starting image generation.")
+
     # the actual generation happens here.
     with autocast("cuda"):
         image = pipe(fv.prompt,  height=fv.height, width=fv.width, num_inference_steps=fv.num_inference_steps, 
@@ -42,15 +43,14 @@ def wrapper(fv: FvsionModel):
     print(f"Completed Generation. Attempting to save file")   
 
     # UTILITY: saving the file to a unique name, if fails, try one more time, which will generate a new secret
-
     try:
         utils.saveOutput(fv=fv, pathToOutput=pathToOutput, image=image)
         print("successfully saved files")
-        return jsonable_encoder(fv)
+        return fv
     except:
         try:
             utils.saveOutput(fv=fv, pathToOutput=pathToOutput, image=image)
             print("successfully saved files after second attempt")
-            return jsonable_encoder(fv)
+            return fv
         except Exception as e:
             print(e)

@@ -31,24 +31,25 @@ def saveJson(j: FvsionModel):
     with open(f"{j.out_image.path}/{j.out_image.name}.json", "w") as f:
         f.write(json.dumps(jsonable_encoder(j)))
 
-def saveImage(fv, image):
+def saveImage(fv: FvsionModel, image):
     fpname = f"{fv.out_image.path}/{fv.out_image.name}.{fv.out_image.type}" 
     image.save(fpname)
 
-def saveOutput(fv, pathToOutput, image):
+def saveOutput(fv: FvsionModel, pathToOutput, image):
     fv.out_image.name = filenameUnique(fv.prompt)
     fv.out_image.path = f"{pathToOutput.strip('/')}"
     fv.out_image.type = "png"
 
     saveImage(fv, image)        
-    saveJson(fv)
+    if(fv.doJSON):
+        saveJson(fv)
 
 # enable/disable safety (NSFW) checker
 def dummy(images, **kwargs):
     return images, False
 
 
-def maskProcessing(fv):
+def maskProcessing(fv: FvsionModel):
     init_image_pfname = f"{fv.init_image.path}/{fv.init_image.name}.{fv.init_image.type}"
     init_image = PIL.Image.open(init_image_pfname) 
 
@@ -88,7 +89,7 @@ def maskProcessing(fv):
     mask_image.save(f'output/example/diagnostic_mask_{fv.mask_image_type}.png')
     return(mask_image.convert("RGB"))
 
-def initProcessing(fv):
+def initProcessing(fv: FvsionModel):
         init_image_pfname = f"{fv.init_image.path}/{fv.init_image.name}.{fv.init_image.type}"
         print(f'set {init_image_pfname} as init_image')
         init_image = PIL.Image.open(init_image_pfname).convert("RGBA")
