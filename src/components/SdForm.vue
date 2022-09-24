@@ -1,72 +1,26 @@
 <script setup lang="ts">
-import { defaultFvsionModel, serverStore } from "../stores";
+import { defaultFvsionModel } from "../stores";
 import { getAPI } from "../utils";
 import InfoStatus from "./InfoStatus.vue";
-const axios: any = inject("axios"); // inject axios
 
-let serverStr = storeToRefs(serverStore());
+const axios: any = inject("axios"); // inject axios
 
 // to be made from props, i.e. based on parent view
 const apiArt = getAPI("txt2img");
 
+// TODO, maybe insert useStorage, either here on in the store to save default for subsequent sessions
+// then add button to reset to default
 const aiInput = ref(defaultFvsionModel);
-
-const checkPID = (): void => {
-  axios.get(getAPI("pid")).then((response: { data: any }) => {
-    // TODO
-    // if return PID data, then server is running, else offline
-    if (Number(response.data.pid)) {
-      serverStr.isServerRunning.value = true;
-    } else {
-      serverStr.isServerRunning.value = false;
-    }
-    console.log(response.data.pid);
-  });
-};
-
-const delay = (sec: number) =>
-  new Promise((res) => setTimeout(res, sec * 1000));
-
-function retry(maxRetry: number) {
-  // TODO, do I really need this JSON part to copy value and not reference?
-  const maxRetry_ = JSON.parse(JSON.stringify(maxRetry));
-  let expectations = true;
-
-  if (maxRetry >= 0 && expectations) {
-    async () => {
-      // set the timeout to be longer for each failed start linearly
-      let delaySecond = maxRetry_ - maxRetry;
-      console.log(delaySecond);
-
-      console.log(
-        "Server offline, waiting for " + delaySecond + " seconds to retry."
-      );
-      await delay(delaySecond);
-      checkPID();
-      // retry until maxRetry ran out (becomes zero or server is online)
-      expectations != serverStr.isServerRunning.value;
-      // reduce count
-      maxRetry -= 1;
-    };
-  } else {
-    console.log("exceed maximum retry count");
-  }
-}
-
-retry(20);
 
 const genArt = (): void => {
   let j = aiInput.value;
   axios.post(apiArt, j).then((response: { data: any }) => {
-    console.log(j);
-    console.log(response);
     console.log(response.data);
   });
 };
 
 const formSubmit = (e: any) => {
   e.preventDefault();
-  checkPID();
   genArt();
 };
 </script>
@@ -91,9 +45,7 @@ const formSubmit = (e: any) => {
       </div>
 
       <div>
-        <InfoStatus
-          :is-server-running="serverStr.isServerRunning.value"
-        ></InfoStatus>
+        <InfoStatus></InfoStatus>
         <JobStatus></JobStatus>
       </div>
       <div>
