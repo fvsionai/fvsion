@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { defaultFvsionModel } from "../stores";
+import { defaultFvsionModel, jobQueue, job } from "../stores";
 const axios: any = inject("axios"); // inject axios
+
+const { joblist } = storeToRefs(jobQueue());
 
 let showNotice = ref(false);
 let showError = ref(false);
@@ -12,6 +14,8 @@ axios.interceptors.request.use(
     // Do something before request is sent
     console.log("Start Ajax Call");
     showNotice.value = true;
+    const j: job = { name: "test", status: "test" };
+    joblist.value.push(j);
     return config;
   },
   function (error: any) {
@@ -87,7 +91,7 @@ const formSubmit = (e: any) => {
           Generate Art
         </button>
       </div>
-      <div>
+      <!-- <div>
         <span v-if="showNotice"> Prompt sent for generation. </span>
         <span v-if="showError">
           Error in sending data to python. Please wait at the start for a few
@@ -100,6 +104,10 @@ const formSubmit = (e: any) => {
         <span v-if="showSuccess">
           Prompt successfully generated. Go to `output` folder
         </span>
+      </div> -->
+
+      <div>
+        <pre>{{ joblist }}</pre>
       </div>
       <div>
         <div class="form-control">
