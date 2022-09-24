@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defaultFvsionModel, serverStore } from "../stores";
 import { getAPI } from "../utils";
+import InfoStatus from "./InfoStatus.vue";
 const axios: any = inject("axios"); // inject axios
 
 let serverStr = storeToRefs(serverStore());
@@ -90,7 +91,9 @@ const formSubmit = (e: any) => {
       </div>
 
       <div>
-        <div>{{ serverStr.isServerRunning }}</div>
+        <InfoStatus
+          :is-server-running="serverStr.isServerRunning.value"
+        ></InfoStatus>
         <JobStatus></JobStatus>
       </div>
       <div>
