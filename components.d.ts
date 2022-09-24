@@ -16,12 +16,14 @@ declare module '@vue/runtime-core' {
     ICarbonMenu: typeof import('~icons/carbon/menu')['default']
     ICarbonMoon: typeof import('~icons/carbon/moon')['default']
     ICarbonSun: typeof import('~icons/carbon/sun')['default']
+    JobStatus: typeof import('./src/components/JobStatus.vue')['default']
     Kofi: typeof import('./src/components/Kofi.vue')['default']
     LoadingIcon: typeof import('./src/components/LoadingIcon.vue')['default']
     NavDrawer: typeof import('./src/components/NavDrawer.vue')['default']
     PID: typeof import('./src/components/PID.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SdForm: typeof import('./src/components/SdForm.vue')['default']
     VIconButton: typeof import('./src/components/VIconButton.vue')['default']
   }
 }
