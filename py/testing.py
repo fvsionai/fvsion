@@ -1,6 +1,6 @@
 # Object models import
 from app.models.fvsion import FvsionModel, MaskImageEnum, FileModel
-from app.endpoints.modules import utils
+from app.endpoints.v00.modules import utils
 
 # Utility imports
 import PIL.Image, PIL.ImageOps

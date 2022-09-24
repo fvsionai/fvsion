@@ -8,7 +8,7 @@ from app.models.fvsion import FvsionModel
 
 # Utility imports
 import PIL
-from app.endpoints.modules import utils
+from app.endpoints.v00.modules import utils
 from fastapi.encoders import jsonable_encoder
 
 

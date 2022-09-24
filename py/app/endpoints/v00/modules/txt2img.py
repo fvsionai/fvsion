@@ -7,7 +7,7 @@ from app.models.fvsion import FvsionModel
 
 
 # Utility imports
-from app.endpoints.modules import utils
+from app.endpoints.v00.modules import utils
 
 
 def wrapper(fv: FvsionModel):
