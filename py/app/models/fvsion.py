@@ -1,14 +1,26 @@
 from distutils import extension
 from turtle import width
 from pydantic import BaseModel, validator
+from pydantic.color import Color
 
 from enum import Enum
 
+# mode to follow diffusers pipeline functions, relatively specific
 class ModeEnum(str, Enum):
     txt2img = 'txt2img'
     img2img = 'img2img'
+    img2img_inpainting = 'img2img_inpainting'
 
+class MaskImageEnum(str, Enum):
+    default = 'default' # use separate file (white as area to be changed)
+    alpha = 'alpha' # use same file as init, but using alpha channel as mask
+    white = 'white' # use same file as init, but using color white as mask
+    color = 'color' # use pydantic color, as input to select mask
 
+class FileModel(BaseModel):
+    name: str | None = None # exclude extension
+    type: str | None = None # eg. png, jpg, webp, 
+    path: str | None = None # might be better changed to pathlib.path later
 
 # when a value is given for the parameters, type is auto assigned and will be used as default when not given 
 class FvsionModel(BaseModel):
@@ -19,15 +31,21 @@ class FvsionModel(BaseModel):
     num_inference_steps = 16
     guidance_scale = 7.5
     eta = 0.0
-    strength = 0.75 #for img2img
+    strength = 0.85 #for img2img, higher more variation especially useful for inpainting, other default is 0.75
     # other 
     seed = 1024
     allowNSFW = False
     mode: ModeEnum = ModeEnum.txt2img 
+
     # other utilities
-    filename: str | None = None #exclude extension
-    filetype: str | None = None
-    filepath: str | None = None #might be better changed to pathlib.path later
+    out_image: FileModel | None # filename and path
+
+    # specific to img2img
+    init_image: FileModel | None 
+    mask_image_type: MaskImageEnum = MaskImageEnum.default # whether to use other files or not 
+    mask_image: FileModel | None
+    mask_color: Color | None = Color('white')
+
     doYAML = False # if True generate a YAML file that save all config
     doJSON = True # if True generate a JSON file that save all config
 

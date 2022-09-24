@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from app.models.fvsion import FvsionModel
-from app.endpoints.modules import txt2img, img2img
+from app.endpoints.modules import txt2img, img2img, inpainting
 from fastapi.responses import JSONResponse
 
 
@@ -21,7 +21,7 @@ async def read_root():
 
 
 @router.post("/txt2img/")
-async def generateT2I(fv: FvsionModel):
+async def generateTxt2Img(fv: FvsionModel):
     try:
         jsonReturned = txt2img.wrapper(fv)
         return JSONResponse(content=jsonReturned, status_code=200)
@@ -31,7 +31,7 @@ async def generateT2I(fv: FvsionModel):
 
 
 @router.post("/img2img/")
-async def generateT2I(fv: FvsionModel):
+async def generateImg2Img(fv: FvsionModel):
     try:
         jsonReturned = img2img.wrapper(fv)
         return JSONResponse(content=jsonReturned, status_code=200)
@@ -39,6 +39,14 @@ async def generateT2I(fv: FvsionModel):
         # TODO improve error handling
         return JSONResponse(content={"error": "image generation error"}, status_code=500)
 
+@router.post("/inpainting/")
+async def generateInpainting(fv: FvsionModel):
+    try:
+        jsonReturned = inpainting.wrapper(fv)
+        return JSONResponse(content=jsonReturned, status_code=200)
+    except:
+        # TODO improve error handling
+        return JSONResponse(content={"error": "image generation error"}, status_code=500)
 
 @router.get("/fvsionModel")
 async def shareFvsionModel():
