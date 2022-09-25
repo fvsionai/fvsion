@@ -55,8 +55,7 @@ retry(20);
 </script>
 
 <template>
-  <h1></h1>
-  <div class="alert alert-info shadow-lg">
+  <div class="alert alert-info p-1 my-2">
     <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +70,7 @@ retry(20);
           d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
         ></path>
       </svg>
-      <span>API Server status: {{ checkMark }}</span>
+      <span class="text-xs">API Server status: {{ checkMark }}</span>
     </div>
   </div>
 </template>
