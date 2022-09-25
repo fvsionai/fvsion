@@ -10,9 +10,9 @@ const checkMark = isServerRunning.value ? "Online" : "Offline";
 const alertType = isServerRunning.value ? "alert-info" : "alert-error";
 
 // continously check server status when it is offline, in case server delay start
-if (!isServerRunning.value) {
-  setInterval(checkPID, 5000);
-}
+// if (!isServerRunning.value) {
+//   setInterval(checkPID, 5000);
+// }
 </script>
 
 <template>
