@@ -7,7 +7,7 @@ const axios: any = inject("axios"); // inject axios
 let serverStr = storeToRefs(serverStore());
 const isRunning = serverStr.isServerRunning.value;
 // TODO, to make YES/NO to Icon
-const checkMark = isRunning ? "YES" : "NO";
+const checkMark = isRunning ? "Online" : "Offline";
 
 const checkPID = (): void => {
   axios.get(getAPI("pid")).then((response: { data: any }) => {
