@@ -40,12 +40,14 @@
     "node": "~16.17.0"
   },
   "dependencies": {
-    "node-fetch": "~3.2.10"
+    "node-fetch": "~3.2.10",
+    "uuid": "9.0.0"
   },
   "devDependencies": {
     "@formkit/vue": "~1.0.0-beta.10",
     "@iconify/json": "~2.1.112",
     "@tailwindcss/typography": "~0.5.7",
+    "@types/uuid": "8.3.4",
     "@vitejs/plugin-vue": "~3.1.0",
     "@vueuse/core": "~9.2.0",
     "@vueuse/head": "~0.7.12",

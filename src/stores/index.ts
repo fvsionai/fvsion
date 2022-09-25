@@ -9,6 +9,7 @@ export const isAcceptGTM = useStorage("isAcceptGTM", false);
 
 export const defaultFvsionModel = {
   prompt: "a white cat with red hat",
+  uuid: "default",
   mode: "txt2img",
   out_image: {
     name: "string",

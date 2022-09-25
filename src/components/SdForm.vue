@@ -2,6 +2,7 @@
 import { defaultFvsionModel } from "../stores";
 import { getAPI } from "../utils";
 import InfoStatus from "./InfoStatus.vue";
+import { v4 as uuidv4 } from "uuid";
 
 const axios: any = inject("axios"); // inject axios
 
@@ -13,7 +14,9 @@ const apiArt = getAPI("txt2img");
 const aiInput = ref(defaultFvsionModel);
 
 const genArt = (): void => {
+  aiInput.value.uuid = uuidv4();
   let j = aiInput.value;
+
   axios.post(apiArt, j).then((response: { data: any }) => {
     console.log(response.data);
   });

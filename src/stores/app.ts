@@ -14,7 +14,7 @@ export const topNavStore = defineStore("topNavStore", {
 
 export const serverStore = defineStore("serverStore", {
   state: () => ({
-    isServerRunning: useLocalStorage("isServerRunning", false),
+    isServerRunning: false,
   }),
   actions: {
     set(isServerRunning: boolean) {

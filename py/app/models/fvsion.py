@@ -4,6 +4,7 @@ from pydantic import BaseModel, validator
 from pydantic.color import Color
 
 from enum import Enum
+import uuid
 
 # mode to follow diffusers pipeline functions, relatively specific
 class ModeEnum(str, Enum):
@@ -24,27 +25,31 @@ class FileModel(BaseModel):
 
 # when a value is given for the parameters, type is auto assigned and will be used as default when not given 
 class FvsionModel(BaseModel):
-    # this is for pipe input
+    # important data
     prompt: str  # | list[str], required, for now, might give a default value in wrapper function, allow for list of string for multi prompts
+    unique: uuid.UUID = uuid.uuid4()
+    mode: ModeEnum = ModeEnum.txt2img 
+
+    # this is for pipe input
     height = 512
     width = 512
     num_inference_steps = 16
     guidance_scale = 7.5
     eta = 0.0
     strength = 0.85 #for img2img, higher more variation especially useful for inpainting, other default is 0.75
-    # other 
-    seed = 1024
-    allowNSFW = False
-    mode: ModeEnum = ModeEnum.txt2img 
 
-    # other utilities
-    out_image: FileModel | None # filename and path
-
-    # specific to img2img
+    # this is for pipe input specific to img2img / inpainting
     init_image: FileModel | None 
     mask_image_type: MaskImageEnum = MaskImageEnum.default  # whether to use other files or not 
     mask_image: FileModel | None
     mask_color: Color | None = Color('white')
+
+    # other 
+    seed = 1024
+    allowNSFW = False
+
+    # other utilities
+    out_image: FileModel | None # filename and path
 
     # doYAML = False # if True generate a YAML file that save all config
     doJSON = True # if True generate a JSON file that save all config

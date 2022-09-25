@@ -1,11 +1,13 @@
 export interface job {
   name: string;
   status: string;
+  prompt: string;
+  uuid: string;
 }
 
 const jobListEmpty: job[] = [];
 
-export const jobQueue = defineStore("jobQueue", {
+export const useJobQueue = defineStore("useJobQueue", {
   state: () => ({
     joblist: useLocalStorage("joblist", jobListEmpty),
   }),

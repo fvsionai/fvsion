@@ -1,15 +1,23 @@
 <script setup lang="ts">
-import { defaultFvsionModel, jobQueue, job } from "../stores";
+import { useJobQueue, job } from "../stores";
 
 const axios: any = inject("axios"); // inject axios
-const { joblist } = storeToRefs(jobQueue());
+const jobQueueStr = useJobQueue();
 
 axios.interceptors.request.use(
   function (config: any) {
     // Do something before request is sent
     console.log("Start Ajax Call");
-    const j: job = { name: "test", status: "test" };
-    joblist.value.push(j);
+    console.log(config);
+
+    const j: job = {
+      name: "test",
+      status: "test",
+      prompt: config.data.prompt,
+      uuid: config.data.uuid,
+    };
+
+    jobQueueStr.add(j);
     return config;
   },
   function (error: any) {
@@ -34,5 +42,10 @@ axios.interceptors.response.use(
 </script>
 
 <template>
-  <pre>{{ joblist }}</pre>
+  <div>
+    <div class="font-bold">Job List</div>
+    <div v-for="(j, index) in jobQueueStr.joblist">
+      <span> {{ index }} : {{ j }}</span>
+    </div>
+  </div>
 </template>
