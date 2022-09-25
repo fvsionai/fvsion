@@ -1,61 +1,23 @@
 <script setup lang="ts">
 import { serverStore } from "../stores";
-import { getAPI } from "../utils";
+import { checkPID } from "../utils";
 
-const axios: any = inject("axios"); // inject axios
+const serverStr = storeToRefs(serverStore());
 
-let serverStr = storeToRefs(serverStore());
-const isRunning = serverStr.isServerRunning.value;
 // TODO, to make YES/NO to Icon
-const checkMark = isRunning ? "Online" : "Offline";
+const checkMark = serverStr.isServerRunning.value ? "Online" : "Offline";
+const alertType = serverStr.isServerRunning.value
+  ? "alert-info"
+  : "alert-error";
 
-const checkPID = (): void => {
-  axios.get(getAPI("pid")).then((response: { data: any }) => {
-    // TODO
-    // if return PID data, then server is running, else offline
-    if (Number(response.data.pid)) {
-      serverStr.isServerRunning.value = true;
-    } else {
-      serverStr.isServerRunning.value = false;
-    }
-    console.log(response.data.pid);
-  });
-};
-
-const delay = (sec: number) =>
-  new Promise((res) => setTimeout(res, sec * 1000));
-
-function retry(maxRetry: number) {
-  // TODO, do I really need this JSON part to copy value and not reference?
-  const maxRetry_ = JSON.parse(JSON.stringify(maxRetry));
-  let expectations = true;
-
-  if (maxRetry >= 0 && expectations) {
-    async () => {
-      // set the timeout to be longer for each failed start linearly
-      let delaySecond = maxRetry_ - maxRetry;
-      console.log(delaySecond);
-
-      console.log(
-        "Server offline, waiting for " + delaySecond + " seconds to retry."
-      );
-      await delay(delaySecond);
-      checkPID();
-      // retry until maxRetry ran out (becomes zero or server is online)
-      expectations != serverStr.isServerRunning.value;
-      // reduce count
-      maxRetry -= 1;
-    };
-  } else {
-    console.log("exceed maximum retry count");
-  }
+// continously check server status when it is offline, in case server delay start
+if (!serverStr.isServerRunning.value) {
+  setInterval(checkPID, 5000);
 }
-
-retry(20);
 </script>
 
 <template>
-  <div class="alert alert-info p-1 my-2">
+  <div class="alert p-1 my-2" :class="alertType">
     <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"

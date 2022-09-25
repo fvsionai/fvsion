@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { useJobQueue, job } from "../stores";
 
-const axios: any = inject("axios"); // inject axios
+// const axios: any = inject("axios"); // inject axios
+
+import customAxios from "@/utils/custom.axios";
+
 const jobQueueStr = useJobQueue();
 
-axios.interceptors.request.use(
+customAxios.interceptors.request.use(
   function (config: any) {
     // Do something before request is sent
     console.log("Start Ajax Call");
-    console.log(config);
 
     const j: job = {
-      name: "test",
-      status: "test",
+      status: "submitted",
       prompt: config.data.prompt,
       uuid: config.data.uuid,
     };
@@ -23,19 +24,30 @@ axios.interceptors.request.use(
   function (error: any) {
     // Do something with request error
     console.log("Error");
+    console.log(error);
+
     return Promise.reject(error);
   }
 );
 
-axios.interceptors.response.use(
+customAxios.interceptors.response.use(
   function (response: any) {
     // Do something with response data
     console.log("Done with Ajax call");
+
+    const j: job = {
+      status: "completed",
+      prompt: response.data.prompt,
+      uuid: response.data.uuid,
+    };
+
+    jobQueueStr.update(j);
     return response;
   },
   function (error: any) {
     // Do something with response error
     console.log("Error fetching the data");
+    // console.log(error);
     return Promise.reject(error);
   }
 );

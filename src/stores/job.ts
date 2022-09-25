@@ -1,8 +1,7 @@
 export interface job {
-  name: string;
-  status: string;
-  prompt: string;
   uuid: string;
+  prompt: string;
+  status: string;
 }
 
 const jobListEmpty: job[] = [];
@@ -18,16 +17,20 @@ export const useJobQueue = defineStore("useJobQueue", {
     // remove specific job
     remove(job: job) {
       this.joblist.forEach((item, index) => {
-        if (item.name === job.name) this.joblist.splice(index, 1);
+        if (item.uuid === job.uuid) this.joblist.splice(index, 1);
       });
     },
-    // add new & replace if job already exist
-    // TODO, might need to find a way to add at old index to avoid item changes to last place
     add(job: job) {
-      this.joblist.forEach((item, index) => {
-        if (item.name === job.name) this.joblist.splice(index, 1);
-      });
       this.joblist.push(job);
+    },
+    update(job: job) {
+      // try to find if job exist, if so update, otherwise add to the list
+      const idx = this.joblist.findIndex((j) => j.uuid == job.uuid);
+      if (idx >= 0) {
+        this.joblist[idx] = job;
+      } else {
+        this.joblist.push(job);
+      }
     },
   },
 });
