@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import { serverStore } from "../stores";
+import { useServerStore } from "../stores";
 import { checkPID } from "../utils";
 import { DateTime, Duration } from "luxon";
 
-const serverStr = serverStore();
-const { isServerRunning } = storeToRefs(serverStr);
-
-// TODO, to make YES/NO to Icon
-const checkMark = isServerRunning.value ? "Online" : "Offline";
-const alertType = isServerRunning.value ? "alert-info" : "alert-error";
+const serverStr = useServerStore();
+const { isServerRunning, checkMark, alertType } = storeToRefs(serverStr);
 
 const timeLastCheck = useStorage("timeLastCheck", DateTime.now());
 
@@ -19,8 +15,7 @@ const timeLastCheck = useStorage("timeLastCheck", DateTime.now());
 
 const updateServerStatus = (e: any) => {
   checkPID();
-  console.log(isServerRunning.value);
-  console.log(isServerRunning.value);
+  timeLastCheck.value = DateTime.now();
 };
 </script>
 

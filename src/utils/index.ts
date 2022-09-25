@@ -1,7 +1,8 @@
-import { serverStore } from "../stores";
+import { useServerStore } from "../stores";
+import { storeToRefs } from "pinia";
 
 import axios from "axios";
-const serverStr = serverStore();
+const serverStr = useServerStore();
 const { isServerRunning } = storeToRefs(serverStr);
 
 export * from "./app.config";

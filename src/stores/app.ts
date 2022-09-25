@@ -12,16 +12,22 @@ export const topNavStore = defineStore("topNavStore", {
   },
 });
 
-export const serverStore = defineStore("serverStore", {
+export const useServerStore = defineStore("server", {
   state: () => ({
-    isServerRunning: useStorage("isServerRunning", false),
+    isServerRunning: ref(false),
+    checkMark: ref("Offline"),
+    alertType: ref("alert-error"),
   }),
   actions: {
     set(isServerRunning: boolean) {
       this.isServerRunning = isServerRunning;
-    },
-    toggle() {
-      this.isServerRunning = !this.isServerRunning;
+      if (isServerRunning) {
+        this.checkMark = "Online";
+        this.alertType = "alert-info";
+      } else {
+        this.checkMark = "Offline";
+        this.alertType = "alert-error";
+      }
     },
   },
 });
