@@ -30,7 +30,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative">
-    <div id="painterro" style="width: 800px; height: 600px"></div>
+  <div class="fixed">
+    <div id="painterro" style="width: 600px; height: 600px"></div>
   </div>
 </template>

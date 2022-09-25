@@ -21,6 +21,7 @@ declare module '@vue/runtime-core' {
     Kofi: typeof import('./src/components/Kofi.vue')['default']
     LoadingIcon: typeof import('./src/components/LoadingIcon.vue')['default']
     NavDrawer: typeof import('./src/components/NavDrawer.vue')['default']
+    PainterroContainer: typeof import('./src/components/PainterroContainer.vue')['default']
     PID: typeof import('./src/components/PID.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

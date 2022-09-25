@@ -16,11 +16,11 @@ const router = createRouter({
           name: "home",
           component: () => import("@/views/HomeView.vue"),
         },
-        {
-          path: "/paint",
-          name: "paint",
-          component: () => import("@/views/PaintView.vue"),
-        },
+        // {
+        //   path: "/paint",
+        //   name: "paint",
+        //   component: () => import("@/views/PaintView.vue"),
+        // },
         {
           path: "/about",
           name: "about",
@@ -40,6 +40,20 @@ const router = createRouter({
           path: "/terms",
           name: "terms",
           component: () => import("@/views/TermsView.vue"),
+        },
+      ],
+    },
+    {
+      path: "/",
+      component: () => import("@/layouts/DashboardLayout.vue"),
+      meta: {
+        requiresNoAuth: true,
+      },
+      children: [
+        {
+          path: "/img2img",
+          name: "img2img",
+          component: () => import("@/views/Img2ImgView.vue"),
         },
       ],
     },

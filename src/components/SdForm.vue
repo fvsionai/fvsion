@@ -50,12 +50,9 @@ const formSubmit = (e: any) => {
       </div>
 
       <div>
-        <JobStatus></JobStatus>
-      </div>
-      <div>
         <div class="form-control">
-          <label class="label cursor-pointer">
-            <span class="label-text">Height </span>
+          <label class="label input-group">
+            <span class="label-text">Height</span>
             <input
               type="range"
               min="8"
@@ -66,8 +63,8 @@ const formSubmit = (e: any) => {
           /></label>
         </div>
         <div class="form-control">
-          <label class="label cursor-pointer">
-            <span class="label-text">Width </span>
+          <label class="label input-group">
+            <span class="label-text">Width</span>
             <input
               type="range"
               min="8"
@@ -78,8 +75,8 @@ const formSubmit = (e: any) => {
           /></label>
         </div>
         <div class="form-control">
-          <label class="label cursor-pointer">
-            <span class="label-text">Number of Inference Steps </span>
+          <label class="label input-group">
+            <span class="label-text w-40">Inference Steps</span>
             <input
               type="range"
               min="1"
@@ -89,8 +86,8 @@ const formSubmit = (e: any) => {
           /></label>
         </div>
         <div class="form-control">
-          <label class="label cursor-pointer">
-            <span class="label-text">Guidance Scale </span>
+          <label class="label input-group">
+            <span class="label-text w-40">Guidance Scale</span>
             <input
               type="range"
               min="0"
@@ -101,8 +98,8 @@ const formSubmit = (e: any) => {
           /></label>
         </div>
         <div class="form-control">
-          <label class="label cursor-pointer">
-            <span class="label-text">Eta </span>
+          <label class="label input-group">
+            <span class="label-text">Eta</span>
             <input
               type="range"
               min="0"
@@ -113,8 +110,8 @@ const formSubmit = (e: any) => {
           /></label>
         </div>
         <div class="form-control">
-          <label class="label cursor-pointer">
-            <span class="label-text">Seed </span>
+          <label class="label input-group">
+            <span class="label-text">Seed</span>
             <input
               type="range"
               min="0"
@@ -124,8 +121,8 @@ const formSubmit = (e: any) => {
           /></label>
         </div>
         <div class="form-control">
-          <label class="label cursor-pointer">
-            <span class="label-text">Allow NSFW? </span>
+          <label class="label input-group">
+            <span class="label-text">Allow NSFW?</span>
             <input
               type="checkbox"
               class="checkbox checkbox-primary"
@@ -136,7 +133,16 @@ const formSubmit = (e: any) => {
     </form>
 
     <div>
-      <pre> {{ aiInput }}</pre>
+      <div>
+        <span class="text-sm p-1">Height : {{ aiInput.height }}</span>
+        <span class="text-sm p-1">Width : {{ aiInput.width }}</span>
+        <span class="text-sm p-1"
+          >Steps : {{ aiInput.num_inference_steps }}</span
+        >
+        <span class="text-sm p-1">Guidance : {{ aiInput.guidance_scale }}</span>
+        <span class="text-sm p-1">Eta : {{ aiInput.eta }}</span>
+        <span class="text-sm p-1">Seed : {{ aiInput.seed }}</span>
+      </div>
     </div>
   </div>
 </template>
