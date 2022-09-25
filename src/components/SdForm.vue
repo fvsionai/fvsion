@@ -48,7 +48,7 @@ const formSubmit = (e: any) => {
       </div>
 
       <div>
-        <InfoStatus></InfoStatus>
+        <!-- <InfoStatus></InfoStatus> -->
         <JobStatus></JobStatus>
       </div>
       <div>
