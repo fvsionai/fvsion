@@ -27,13 +27,16 @@ export function checkPID() {
       if (response.data.pid) {
         console.log("PID : " + response.data.pid + ". Server is online");
         isServerRunning.value = true;
+        serverStr.set(true);
       } else {
         console.log("PID : " + response.data.pid + ". Server is offline");
         isServerRunning.value = false;
+        serverStr.set(false);
       }
     })
     .catch(function (error: any) {
       isServerRunning.value = false;
+      serverStr.set(false);
       console.log(error);
     });
 }

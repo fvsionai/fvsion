@@ -1,6 +1,6 @@
 export const topNavStore = defineStore("topNavStore", {
   state: () => ({
-    isNavAppear: useLocalStorage("topNavStore", true),
+    isNavAppear: useStorage("topNavStore", true),
   }),
   actions: {
     set(isNavAppear: boolean) {
@@ -14,7 +14,7 @@ export const topNavStore = defineStore("topNavStore", {
 
 export const serverStore = defineStore("serverStore", {
   state: () => ({
-    isServerRunning: false,
+    isServerRunning: useStorage("isServerRunning", false),
   }),
   actions: {
     set(isServerRunning: boolean) {

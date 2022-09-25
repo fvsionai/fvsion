@@ -32,6 +32,8 @@ const formSubmit = (e: any) => {
   <div
     class="flex flex-col flex-wrap justify-between gap-2 px-2 md:flex-row w-full pt-2"
   >
+    <!-- <InfoStatus></InfoStatus> -->
+
     <form class="w-full" @submit="formSubmit" name="aiform">
       <div class="flex flex-row w-full">
         <input
@@ -48,7 +50,6 @@ const formSubmit = (e: any) => {
       </div>
 
       <div>
-        <!-- <InfoStatus></InfoStatus> -->
         <JobStatus></JobStatus>
       </div>
       <div>

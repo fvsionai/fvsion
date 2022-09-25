@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { serverStore } from "../stores";
 import { checkPID } from "../utils";
+import { DateTime, Duration } from "luxon";
 
 const serverStr = serverStore();
 const { isServerRunning } = storeToRefs(serverStr);
@@ -9,14 +10,22 @@ const { isServerRunning } = storeToRefs(serverStr);
 const checkMark = isServerRunning.value ? "Online" : "Offline";
 const alertType = isServerRunning.value ? "alert-info" : "alert-error";
 
+const timeLastCheck = useStorage("timeLastCheck", DateTime.now());
+
 // continously check server status when it is offline, in case server delay start
 // if (!isServerRunning.value) {
 //   setInterval(checkPID, 5000);
 // }
+
+const updateServerStatus = (e: any) => {
+  checkPID();
+  console.log(isServerRunning.value);
+  console.log(isServerRunning.value);
+};
 </script>
 
 <template>
-  <div class="alert p-1 my-2" :class="alertType">
+  <div class="alert p-1 my-2 text-xs" :class="alertType">
     <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +40,12 @@ const alertType = isServerRunning.value ? "alert-info" : "alert-error";
           d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
         ></path>
       </svg>
-      <span class="text-xs">API Server status: {{ checkMark }}</span>
+      <span
+        >API Server status: {{ checkMark }} last checked at {{ timeLastCheck }}
+      </span>
+      <button class="bg-zinc-400 rounded" @click="updateServerStatus">
+        Update
+      </button>
     </div>
   </div>
 </template>

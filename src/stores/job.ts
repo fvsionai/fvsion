@@ -8,7 +8,7 @@ const jobListEmpty: job[] = [];
 
 export const useJobQueue = defineStore("useJobQueue", {
   state: () => ({
-    joblist: useLocalStorage("joblist", jobListEmpty),
+    joblist: useStorage("joblist", jobListEmpty),
   }),
   actions: {
     set(joblist: job[]) {
