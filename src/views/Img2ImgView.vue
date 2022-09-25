@@ -5,7 +5,7 @@ import PainterroContainerVue from "@/components/PainterroContainer.vue";
 <template>
   <div class="grid md:grid-cols-2 grid-cols-1">
     <div class="col-span-1">
-      <SdForm></SdForm>
+      <SdForm mode="img2img"></SdForm>
     </div>
 
     <div class="col-span-1">

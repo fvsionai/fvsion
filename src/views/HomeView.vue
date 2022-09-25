@@ -3,5 +3,5 @@ import SdForm from "@/components/SdForm.vue";
 </script>
 
 <template>
-  <SdForm></SdForm>
+  <SdForm mode="txt2img"></SdForm>
 </template>

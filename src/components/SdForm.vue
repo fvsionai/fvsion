@@ -6,12 +6,17 @@ import { v4 as uuidv4 } from "uuid";
 
 const axios: any = inject("axios"); // inject axios
 
-// to be made from props, i.e. based on parent view
-const apiArt = getAPI("txt2img");
+const props = defineProps<{
+  mode: string;
+}>();
 
 // TODO, maybe insert useStorage, either here on in the store to save default for subsequent sessions
-// then add button to reset to default
+// then add button to reset to default, need to be careful against custom value per page, like mode etc
 const aiInput = ref(defaultFvsionModel);
+aiInput.value.mode = props.mode;
+
+// to be made from props, i.e. based on parent view
+const apiArt = getAPI(aiInput.value.mode);
 
 const genArt = (): void => {
   aiInput.value.uuid = uuidv4();
@@ -134,6 +139,7 @@ const formSubmit = (e: any) => {
 
     <div>
       <div>
+        <span class="text-sm p-1">Mode : {{ aiInput.mode }}</span>
         <span class="text-sm p-1">Height : {{ aiInput.height }}</span>
         <span class="text-sm p-1">Width : {{ aiInput.width }}</span>
         <span class="text-sm p-1"
