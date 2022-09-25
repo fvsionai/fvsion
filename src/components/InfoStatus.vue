@@ -1,22 +1,24 @@
 <script setup lang="ts">
 import { useServerStore } from "../stores";
 import { checkPID } from "../utils";
-import { DateTime, Duration } from "luxon";
+
+import { useTimeAgo } from "@vueuse/core";
 
 const serverStr = useServerStore();
 const { isServerRunning, checkMark, alertType } = storeToRefs(serverStr);
 
-const timeLastCheck = useStorage("timeLastCheck", DateTime.now());
+let stamp = ref(Date.now());
+let timeAgo = useTimeAgo(stamp);
 
-// continously check server status when it is offline, in case server delay start
-// if (!isServerRunning.value) {
-//   setInterval(checkPID, 5000);
-// }
+const updateServerStatus = () => {
+  console.log(Date.now());
+  stamp.value = Date.now();
+  timeAgo = useTimeAgo(stamp);
 
-const updateServerStatus = (e: any) => {
   checkPID();
-  timeLastCheck.value = DateTime.now();
 };
+
+updateServerStatus();
 </script>
 
 <template>
@@ -36,10 +38,13 @@ const updateServerStatus = (e: any) => {
         ></path>
       </svg>
       <span
-        >API Server status: {{ checkMark }} last checked at {{ timeLastCheck }}
+        >API Server status: {{ checkMark }} last checked at {{ timeAgo }}
       </span>
-      <button class="bg-zinc-400 rounded" @click="updateServerStatus">
-        Update
+      <button
+        class="bg-primary rounded px-2 text-white"
+        @click="updateServerStatus"
+      >
+        Check Server
       </button>
     </div>
   </div>
