@@ -1,7 +1,8 @@
 import { serverStore } from "../stores";
 
 import axios from "axios";
-const serverStr = storeToRefs(serverStore());
+const serverStr = serverStore();
+const { isServerRunning } = storeToRefs(serverStr);
 
 export * from "./app.config";
 
@@ -25,14 +26,14 @@ export function checkPID() {
       // if return PID data, then server is running, else offline
       if (response.data.pid) {
         console.log("PID : " + response.data.pid + ". Server is online");
-        serverStr.isServerRunning.value = true;
+        isServerRunning.value = true;
       } else {
         console.log("PID : " + response.data.pid + ". Server is offline");
-        serverStr.isServerRunning.value = false;
+        isServerRunning.value = false;
       }
     })
     .catch(function (error: any) {
-      serverStr.isServerRunning.value = false;
+      isServerRunning.value = false;
       console.log(error);
     });
 }

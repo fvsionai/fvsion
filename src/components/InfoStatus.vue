@@ -2,16 +2,15 @@
 import { serverStore } from "../stores";
 import { checkPID } from "../utils";
 
-const serverStr = storeToRefs(serverStore());
+const serverStr = serverStore();
+const { isServerRunning } = storeToRefs(serverStr);
 
 // TODO, to make YES/NO to Icon
-const checkMark = serverStr.isServerRunning.value ? "Online" : "Offline";
-const alertType = serverStr.isServerRunning.value
-  ? "alert-info"
-  : "alert-error";
+const checkMark = isServerRunning.value ? "Online" : "Offline";
+const alertType = isServerRunning.value ? "alert-info" : "alert-error";
 
 // continously check server status when it is offline, in case server delay start
-if (!serverStr.isServerRunning.value) {
+if (!isServerRunning.value) {
   setInterval(checkPID, 5000);
 }
 </script>
