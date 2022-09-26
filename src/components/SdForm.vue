@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { defaultFvsionModel } from "../stores";
+import { defaultFvsionModel, useImgPtroStore } from "../stores";
 import { getAPI } from "../utils";
-import InfoStatus from "./InfoStatus.vue";
+import ServerStatus from "./ServerStatus.vue";
 import { v4 as uuidv4 } from "uuid";
 
 const axios: any = inject("axios"); // inject axios
@@ -9,6 +9,9 @@ const axios: any = inject("axios"); // inject axios
 const props = defineProps<{
   mode: string;
 }>();
+
+const imgPtroStr = useImgPtroStore();
+const { imgPtro, isImgSaved } = storeToRefs(imgPtroStr);
 
 const isImgMode = ref(false);
 
@@ -35,8 +38,24 @@ const genArt = (): void => {
   });
 };
 
+// function ctrlS(e: any) {
+//   let element = document.querySelector("input");
+//   element!.dispatchEvent(
+//     new KeyboardEvent("keydown", {
+//       key: "s",
+//       keyCode: 83, // example values.
+//       code: "KeyS", // put everything you need in this object.
+//       which: 83,
+//       shiftKey: false, // you don't need to include values
+//       ctrlKey: true, // if you aren't going to use them.
+//       metaKey: false, // these are here for example's sake.
+//     })
+//   );
+// }
+
 const formSubmit = (e: any) => {
   e.preventDefault();
+  // ctrlS(e);
   genArt();
 };
 </script>
@@ -45,7 +64,7 @@ const formSubmit = (e: any) => {
   <div
     class="flex flex-col flex-wrap justify-between gap-2 px-2 md:flex-row w-full pt-2"
   >
-    <InfoStatus></InfoStatus>
+    <ServerStatus></ServerStatus>
 
     <form class="w-full" @submit="formSubmit" name="aiform">
       <div class="flex flex-row w-full">
@@ -62,7 +81,7 @@ const formSubmit = (e: any) => {
         </button>
       </div>
 
-      <div class="mode-all">
+      <div class="mode-txt2img" v-if="!isImgMode">
         <div class="form-control">
           <label class="label input-group">
             <span class="label-text">Height</span>
@@ -87,6 +106,8 @@ const formSubmit = (e: any) => {
               v-model="aiInput.width"
           /></label>
         </div>
+      </div>
+      <div class="mode-all">
         <div class="form-control">
           <label class="label input-group">
             <span class="label-text w-40">Inference Steps</span>
@@ -156,20 +177,43 @@ const formSubmit = (e: any) => {
               v-model="aiInput.strength"
           /></label>
         </div>
+        <div>
+          <div class="alert text-xs alert-info">
+            Upload your image by using Painterro plugin on the right. Use paste
+            via CTRL+V or manually open. Do note the files are going to be sent
+            to output/temp/init.png prior to further processings.
+          </div>
+        </div>
+        <!-- <div class="form-control">
+          <label class="label input-group">
+            <span class="label-text">Init Image</span>
+            <input
+              type="file"
+              accept="image/*"
+              name="init_file"
+              @change="changeImg"
+          /></label>
+        </div> -->
       </div>
     </form>
 
-    <div>
+    <div class="card card-body">
       <div class="mode-all">
         <span class="text-sm p-1">Mode : {{ aiInput.mode }}</span>
+      </div>
+      <div class="mode-txt2img" v-if="!isImgMode">
         <span class="text-sm p-1">Height : {{ aiInput.height }}</span>
         <span class="text-sm p-1">Width : {{ aiInput.width }}</span>
+      </div>
+      <div class="mode-all">
         <span class="text-sm p-1"
           >Steps : {{ aiInput.num_inference_steps }}</span
         >
+        <br />
         <span class="text-sm p-1">Guidance : {{ aiInput.guidance_scale }}</span>
         <span class="text-sm p-1">Eta : {{ aiInput.eta }}</span>
         <span class="text-sm p-1">Seed : {{ aiInput.seed }}</span>
+        <span class="text-sm p-1">Allow NSFW : {{ aiInput.allowNSFW }}</span>
       </div>
       <div class="mode-img2img" v-if="isImgMode">
         <span class="text-sm p-1">Strength : {{ aiInput.strength }}</span>

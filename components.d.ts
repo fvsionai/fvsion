@@ -15,7 +15,6 @@ declare module '@vue/runtime-core' {
     ICarbonMenu: typeof import('~icons/carbon/menu')['default']
     ICarbonMoon: typeof import('~icons/carbon/moon')['default']
     ICarbonSun: typeof import('~icons/carbon/sun')['default']
-    InfoStatus: typeof import('./src/components/InfoStatus.vue')['default']
     JobStatus: typeof import('./src/components/JobStatus.vue')['default']
     Kofi: typeof import('./src/components/Kofi.vue')['default']
     LoadingIcon: typeof import('./src/components/LoadingIcon.vue')['default']
@@ -25,6 +24,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SdForm: typeof import('./src/components/SdForm.vue')['default']
+    ServerStatus: typeof import('./src/components/ServerStatus.vue')['default']
     VIconButton: typeof import('./src/components/VIconButton.vue')['default']
   }
 }

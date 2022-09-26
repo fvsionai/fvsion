@@ -2,6 +2,7 @@ export const pinia = createPinia();
 
 export * from "./job";
 export * from "./app";
+export * from "./img";
 
 export const isBrowser = typeof window !== "undefined";
 export const isDev = process.env.NODE_ENV === "development";

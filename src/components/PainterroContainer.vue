@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import Painterro from "painterro";
-import { defaultFvsionModel } from "../stores";
+import { defaultFvsionModel, useImgPtroStore } from "../stores";
 import { getAPI } from "../utils";
 import { v4 as uuidv4 } from "uuid";
 
 const axios: any = inject("axios"); // inject axios
 
+const imgPtroStr = useImgPtroStore();
+const { imgPtro } = storeToRefs(imgPtroStr);
+
 function sendAxios(image: any, done: any) {
-  aiInput.value.uuid = uuidv4();
   let j = {
     image: image.asDataURL(),
     draw_image: {
@@ -17,7 +19,8 @@ function sendAxios(image: any, done: any) {
     },
   };
 
-  console.log(j);
+  // save to store as well
+  imgPtroStr.set(image.asDataURL(), true);
 
   axios({
     method: "post",
@@ -29,6 +32,12 @@ function sendAxios(image: any, done: any) {
     done(false);
   });
 }
+
+// TODO, buggy save on change
+// function changeSaveToStore(image: any) {
+//   console.log(image);
+//   console.log(image.getHeight());
+// }
 
 const props = defineProps<{
   mode: string;
@@ -44,7 +53,9 @@ const apiRoot = getAPI("");
 const apiSave = getAPI("save-as-base64");
 
 onMounted(() => {
-  Painterro({
+  aiInput.value.uuid = uuidv4();
+
+  const ptro = Painterro({
     id: "painterro",
     defaultSize: "512x512",
     defaultTool: "brush",
@@ -59,7 +70,7 @@ onMounted(() => {
       "rotate",
       "resize",
       // "save",
-      "open",
+      // "open",
       "close",
       "undo",
       "redo",
@@ -68,6 +79,7 @@ onMounted(() => {
       "bucket",
     ],
     saveHandler: sendAxios,
+    // onChange: changeSaveToStore,
   }).show();
 });
 </script>
