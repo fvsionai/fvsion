@@ -52,6 +52,9 @@ def wrapper(fv: FvsionModel):
     # enable/disable safety (NSFW) checker
     if(fv.allowNSFW):
         pipe.safety_checker = utils.dummy
+    
+    # reduce VRAM requirement
+    pipe.enable_attention_slicing()
 
     # send to CUDA for NVIDIA GPU
     pipe = pipe.to("cuda")
