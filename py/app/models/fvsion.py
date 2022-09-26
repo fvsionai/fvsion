@@ -66,6 +66,12 @@ class FvsionModel(BaseModel):
             raise ValueError('height and weight must be multiple of 8')
         return v
 
+    @validator('strength')
+    def between_n_include_zero_to_one(cls, v):
+        if v>1 or v<0:
+            raise ValueError('strength must be between 0 <= x <= 1')
+        return v
+
 
 
 

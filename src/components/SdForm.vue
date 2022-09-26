@@ -10,6 +10,14 @@ const props = defineProps<{
   mode: string;
 }>();
 
+const isImgMode = ref(false);
+
+if (props.mode == "txt2img") {
+  isImgMode.value = false;
+} else {
+  isImgMode.value = true;
+}
+
 // TODO, maybe insert useStorage, either here on in the store to save default for subsequent sessions
 // then add button to reset to default, need to be careful against custom value per page, like mode etc
 const aiInput = ref(defaultFvsionModel);
@@ -54,7 +62,7 @@ const formSubmit = (e: any) => {
         </button>
       </div>
 
-      <div>
+      <div class="mode-all">
         <div class="form-control">
           <label class="label input-group">
             <span class="label-text">Height</span>
@@ -135,10 +143,24 @@ const formSubmit = (e: any) => {
           /></label>
         </div>
       </div>
+      <div class="mode-img2img" v-if="isImgMode">
+        <div class="form-control">
+          <label class="label input-group">
+            <span class="label-text">Strength</span>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              class="range range-primary"
+              v-model="aiInput.strength"
+          /></label>
+        </div>
+      </div>
     </form>
 
     <div>
-      <div>
+      <div class="mode-all">
         <span class="text-sm p-1">Mode : {{ aiInput.mode }}</span>
         <span class="text-sm p-1">Height : {{ aiInput.height }}</span>
         <span class="text-sm p-1">Width : {{ aiInput.width }}</span>
@@ -149,6 +171,12 @@ const formSubmit = (e: any) => {
         <span class="text-sm p-1">Eta : {{ aiInput.eta }}</span>
         <span class="text-sm p-1">Seed : {{ aiInput.seed }}</span>
       </div>
+      <div class="mode-img2img" v-if="isImgMode">
+        <span class="text-sm p-1">Strength : {{ aiInput.strength }}</span>
+      </div>
+    </div>
+    <div class="diagnostic">
+      <pre>{{ aiInput }}</pre>
     </div>
   </div>
 </template>
