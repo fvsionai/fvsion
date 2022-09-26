@@ -10,7 +10,14 @@ export * from "./app.config";
 export const API_library = {
   root: "http://localhost:4242/api/",
   version: "v00",
-  functionList: ["txt2img", "img2img", "inpainting", "pid"],
+  functionList: [
+    "",
+    "txt2img",
+    "img2img",
+    "inpainting",
+    "pid",
+    "save-as-base64",
+  ],
 };
 
 export function getAPI(s: string) {

@@ -9,7 +9,7 @@ import PainterroContainerVue from "@/components/PainterroContainer.vue";
     </div>
 
     <div class="col-span-1">
-      <PainterroContainerVue></PainterroContainerVue>
+      <PainterroContainerVue mode="img2img"></PainterroContainerVue>
     </div>
   </div>
 </template>

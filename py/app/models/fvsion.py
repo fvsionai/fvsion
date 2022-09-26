@@ -23,6 +23,11 @@ class FileModel(BaseModel):
     type: str | None = None # eg. png, jpg, webp, 
     path: str | None = None # might be better changed to pathlib.path later
 
+
+class ImageModel(BaseModel):
+    image: str
+    draw_image: FileModel | None 
+
 # when a value is given for the parameters, type is auto assigned and will be used as default when not given 
 class FvsionModel(BaseModel):
     # important data
@@ -40,6 +45,7 @@ class FvsionModel(BaseModel):
 
     # this is for pipe input specific to img2img / inpainting
     init_image: FileModel | None 
+    init_image_base64: str | None #for base64 test
     mask_image_type: MaskImageEnum = MaskImageEnum.default  # whether to use other files or not 
     mask_image: FileModel | None
     mask_color: Color | None = Color('white')
