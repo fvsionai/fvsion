@@ -16,9 +16,6 @@ process.env.PUBLIC = app.isPackaged
 const PYPATH = app.isPackaged
   ? process.env.DIST
   : join(process.env.DIST, "../py");
-const PIDPATH = app.isPackaged
-  ? join(process.env.DIST, "../../../pid.txt")
-  : join(process.env.DIST, "../pid.txt");
 
 import { app, BrowserWindow, shell, ipcMain, session } from "electron";
 import { release } from "os";
@@ -209,12 +206,7 @@ function loadPIDtxt(filename) {
 }
 
 const exitPyProc = () => {
-  pyPID = loadPIDtxt(PIDPATH);
-  console.log("Python child process pid = " + pyProc.pid);
-  console.log("Python child of child process pid = " + pyPID);
-
-  // TODO, there might be edge cases in getting process killed
-  process.kill(parseInt(pyPID));
+  // disable custom kill,
   pyProc.kill();
   pyProc = null;
   pyPort = null;

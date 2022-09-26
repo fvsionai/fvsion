@@ -28,8 +28,11 @@ origins = [
     "http://127.0.0.1:8080",
 ]
 
-with open('pid.txt', 'w') as f:
-    f.write(str(os.getpid()))
+# enable to have PID written to text. Allows for other app to read and use it to kill as part of server management
+# required since normal process.kill doesnt fully kill child of child process
+# not required for now since focus on standalone python and electron package.
+# with open('pid.txt', 'w') as f:
+#     f.write(str(os.getpid()))
 
 def setPort():
     p:int = 4242
