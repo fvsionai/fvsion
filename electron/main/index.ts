@@ -73,6 +73,7 @@ const createPyProc = () => {
   let port = "" + selectPort();
 
   if (app.isPackaged) {
+    // disable calling pyProc in packaged app, run separately
     // pyProc = require("child_process").execFile(script, [port]);
     console.log("current setup: separate python server start up");
     console.log(
@@ -80,12 +81,7 @@ const createPyProc = () => {
     );
     pyProc = null;
   } else {
-    pyProc = require("child_process").spawn("python", [
-      // "py/main.py",
-      script,
-      "-p",
-      port,
-    ]);
+    pyProc = require("child_process").spawn("python", [script, "-p", port]);
   }
 
   if (pyProc != null) {
@@ -151,8 +147,6 @@ app.whenReady().then(createWindow);
 app.on("window-all-closed", () => {
   win = null;
   if (process.platform !== "darwin") {
-    // TODO, to ensure child_process is killed
-    pyProc.kill();
     app.quit();
   }
 });
@@ -174,42 +168,13 @@ app.on("activate", () => {
   }
 });
 
-// TODO, This code below is intended to get the PID of the child of the child process, to manually kill when running in packaged mode
-// this is to ensure child of child is also killed. weirldy there is an error stil with axios, even if same code running in /src/components/PID is working
-// need to re -do later
-let pyPID = "";
-async function getPID() {
-  try {
-    const response = await axios.get("http://127.0.0.1:4242/pid");
-    console.log(response);
-    console.log(response.data);
-    pyPID = response.data;
-  } catch (error) {
-    console.log("Please ensure you manually killed python process");
-    // console.error(error);
-  }
-}
-
-function loadPIDtxt(filename) {
-  let pid = "";
-  //Check if file exists
-  if (fs.existsSync(filename)) {
-    let data = fs.readFileSync(filename, "utf8");
-    // console.log("data = " + data);
-    pid = data;
-  } else {
-    console.log(filename);
-    console.log("File Doesn't Exist");
-  }
-
-  return pid;
-}
-
+// this might not be enough when app is being packaged.
 const exitPyProc = () => {
-  // disable custom kill,
-  pyProc.kill();
-  pyProc = null;
-  pyPort = null;
+  if (pyProc) {
+    pyProc.kill();
+    pyProc = null;
+    pyPort = null;
+  }
 };
 
 app.on("ready", createPyProc);
