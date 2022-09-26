@@ -85,6 +85,11 @@ onMounted(() => {
 </script>
 
 <template>
+  <div>
+    <div class="text-xl text-primary font-extrabold">Painterro</div>
+    <div>Sketch or Load Your Image Prompts Here</div>
+  </div>
+
   <div class="fixed">
     <div id="painterro" style="width: 600px; height: 600px"></div>
   </div>

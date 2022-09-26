@@ -10,9 +10,6 @@ const props = defineProps<{
   mode: string;
 }>();
 
-const imgPtroStr = useImgPtroStore();
-const { imgPtro, isImgSaved } = storeToRefs(imgPtroStr);
-
 const isImgMode = ref(false);
 
 if (props.mode == "txt2img") {
@@ -65,6 +62,7 @@ const formSubmit = (e: any) => {
     class="flex flex-col flex-wrap justify-between gap-2 px-2 md:flex-row w-full pt-2"
   >
     <ServerStatus></ServerStatus>
+    <SavedStatus v-if="isImgMode"></SavedStatus>
 
     <form class="w-full" @submit="formSubmit" name="aiform">
       <div class="flex flex-row w-full">
@@ -180,8 +178,9 @@ const formSubmit = (e: any) => {
         <div>
           <div class="alert text-xs alert-info">
             Upload your image by using Painterro plugin on the right. Use paste
-            via CTRL+V or manually open. Do note the files are going to be sent
-            to output/temp/init.png prior to further processings.
+            via CTRL+V or manually open using the open file at Painterro bottom
+            right. Do note the files are going to be sent to
+            output/temp/init.png prior to further processings.
           </div>
         </div>
         <!-- <div class="form-control">
@@ -219,8 +218,8 @@ const formSubmit = (e: any) => {
         <span class="text-sm p-1">Strength : {{ aiInput.strength }}</span>
       </div>
     </div>
-    <div class="diagnostic">
+    <!-- <div class="diagnostic">
       <pre>{{ aiInput }}</pre>
-    </div>
+    </div> -->
   </div>
 </template>
