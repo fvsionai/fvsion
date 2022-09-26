@@ -7,7 +7,6 @@ from app.endpoints.v00.modules import txt2img, img2img, inpainting
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 import os
-import time
 
 #APIRouter creates path operations for user module
 router = APIRouter(
