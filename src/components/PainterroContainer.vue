@@ -14,7 +14,7 @@ function sendAxios(image: any, done: any) {
     image: image.asDataURL(),
     draw_image: {
       name: "init",
-      path: "output/tmp",
+      path: "outputs/tmp",
       type: "png",
     },
   };

@@ -180,7 +180,7 @@ const formSubmit = (e: any) => {
             Upload your image by using Painterro plugin on the right. Use paste
             via CTRL+V or manually open using the open file at Painterro bottom
             right. Do note the files are going to be sent to
-            output/temp/init.png prior to further processings.
+            outputs/temp/init.png prior to further processings.
           </div>
         </div>
         <!-- <div class="form-control">

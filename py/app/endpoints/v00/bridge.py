@@ -60,7 +60,7 @@ async def generateInpainting(fv: FvsionModel):
 async def shareFvsionModel():
     return FvsionModel.schema_json(indent=2)
 
-# to allow drawn sketch to download to output
+# to allow drawn sketch to download to /outputs/ folder
 @router.post("/save-as-base64")
 def base64_saver(data: ImageModel):
     fpname = os.path.join(f"{data.draw_image.path}/{data.draw_image.name}.{data.draw_image.type}")
