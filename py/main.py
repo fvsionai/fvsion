@@ -26,6 +26,8 @@ origins = [
     "http://127.0.0.1:5173",
     "http://127.0.0.1:80",
     "http://127.0.0.1:8080",
+    "https://fvsion.hafiidz.com",
+    "https://*.hafiidz.com",
 ]
 
 # enable to have PID written to text. Allows for other app to read and use it to kill as part of server management
