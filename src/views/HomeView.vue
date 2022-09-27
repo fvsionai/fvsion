@@ -1,7 +1,5 @@
-<script setup lang="ts">
-import SdForm from "@/components/SdForm.vue";
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <SdForm mode="txt2img"></SdForm>
+  <div>Home</div>
 </template>
