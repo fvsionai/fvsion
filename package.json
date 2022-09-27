@@ -13,29 +13,9 @@
     "build:vite": "vue-tsc --noEmit && vite build",
     "build:py": "pyinstaller main.spec",
     "build:e": "electron-builder",
-    "build": "npm run build:vite && npm run build:e"
-  },
-  "build": {
-    "appId": "com.example.fvsion",
-    "productName": "Fvsion",
-    "copyright": "Copyright © 2022 ${author}",
-    "mac": {
-      "category": "public.app-category.developer-tools"
-    },
-    "linux": {
-      "target": "AppImage"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true
-    },
-    "files": [
-      "dist/**/*"
-    ],
-    "directories": {
-      "buildResources": "assets",
-      "output": "build"
-    }
+    "build": "npm run build:vite && npm run build:e",
+    "exec": "start release/0.0.1/win-unpacked/fvsion.exe",
+    "be": "npm run build && npm run exec"
   },
   "engines": {
     "node": "~16.17.0"

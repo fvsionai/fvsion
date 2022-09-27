@@ -7,12 +7,11 @@ import { createHead } from "@vueuse/head";
 import VWave from "v-wave";
 import axios from "axios";
 import VueAxios from "vue-axios";
-import { plugin, defaultConfig } from "@formkit/vue";
 
 const app = createApp(App);
 const head = createHead();
 
-app.use(router).use(pinia).use(head).use(VWave).use(plugin, defaultConfig);
+app.use(router).use(pinia).use(head).use(VWave);
 app.use(VueAxios, axios).provide("axios", app.config.globalProperties.axios);
 
 app.mount("#app").$nextTick(() => {
