@@ -20,9 +20,6 @@ const PYPATH = app.isPackaged
 import { app, BrowserWindow, shell, ipcMain, session } from "electron";
 import { release } from "os";
 import { join } from "path";
-import * as fs from "fs";
-
-const axios = require("axios").default;
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
@@ -94,6 +91,10 @@ const createPyProc = () => {
   }
 };
 
+process.on("unhandledRejection", (error) => {
+  console.error(error);
+});
+
 /*************************************************************
  * window management
  *************************************************************/
@@ -103,6 +104,7 @@ let win: BrowserWindow | null = null;
 // Here, you can also use other preload
 const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL as string;
+
 const indexHtml = join(process.env.DIST, "index.html");
 
 async function createWindow() {
