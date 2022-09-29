@@ -15,7 +15,8 @@
     "build:e": "electron-builder",
     "build": "npm run build:vite && npm run build:e",
     "exec": "start release/0.0.1/win-unpacked/fvsion.exe",
-    "be": "npm run build && npm run exec" 
+    "be": "npm run build && npm run exec",
+    "preview": "vite preview" 
   },
   "engines": {
     "node": "18.9.1"
