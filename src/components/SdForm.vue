@@ -3,8 +3,7 @@ import { defaultFvsionModel, formList } from "../stores";
 import { getAPI } from "../utils";
 import ServerStatus from "./ServerStatus.vue";
 import { v4 as uuidv4 } from "uuid";
-
-const axios: any = inject("axios"); // inject axios
+import axios from "axios"
 
 const props = defineProps<{
   mode: string;

@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { useJobQueue, job } from "../stores";
-
-// const axios: any = inject("axios"); // inject axios
-
 import customAxios from "@/utils/custom.axios";
 
 const jobQueueStr = useJobQueue();

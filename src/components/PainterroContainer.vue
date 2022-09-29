@@ -3,8 +3,7 @@ import Painterro from "painterro";
 import { defaultFvsionModel, useImgPtroStore } from "../stores";
 import { getAPI } from "../utils";
 import { v4 as uuidv4 } from "uuid";
-
-const axios: any = inject("axios"); // inject axios
+import axios from "axios";
 
 const imgPtroStr = useImgPtroStore();
 const { imgPtro } = storeToRefs(imgPtroStr);
@@ -33,7 +32,7 @@ function sendAxios(image: any, done: any) {
   });
 }
 
-// TODO, buggy save on change
+// TODO, save on change
 // function changeSaveToStore(image: any) {
 //   console.log(image);
 //   console.log(image.getHeight());
