@@ -2,8 +2,7 @@ import {
   createRouter,
   createWebHistory,
   createWebHashHistory,
-  createMemoryHistory
-} from "vue-router";
+ } from "vue-router";
 import HomeView from "@/views/HomeView.vue"
 import AboutView from "@/views/AboutView.vue"
 import SupportView from "@/views/SupportView.vue"

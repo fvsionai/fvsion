@@ -10,7 +10,7 @@ import Icons from "unplugin-icons/vite";
 import IconsResolver from "unplugin-icons/resolver";
 
 import { rmSync } from "fs";
-rmSync("dist", { recursive: true, force: true }); // v14.14.0
+// rmSync("dist", { recursive: true, force: true }); // v14.14.0
 
 // https://vitejs.dev/config/
 export default defineConfig({
