@@ -1,3 +1,10 @@
+## 2022-09-29
+[v0.0.2-release-candidate](https://github.com/FvsionAI/)
+
+- Fixed electron build versions.
+- to prepare touch up for release
+
+
 ## 2022-09-21
 
 [v0.0.1](https://github.com/FvsionAI/)
