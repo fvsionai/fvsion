@@ -34,6 +34,7 @@ class FvsionModel(BaseModel):
     prompt: str  # | list[str], required, for now, might give a default value in wrapper function, allow for list of string for multi prompts
     unique: uuid.UUID = uuid.uuid4()
     mode: ModeEnum = ModeEnum.txt2img 
+    mode_isChain = False
 
     # this is for pipe input
     height = 512
@@ -56,6 +57,8 @@ class FvsionModel(BaseModel):
 
     # other utilities
     out_image: FileModel | None # filename and path
+    api_github: str = "https://github.com/FvsionAI/fvsion"
+    api_version: str = "v00"
 
     # doYAML = False # if True generate a YAML file that save all config
     doJSON = True # if True generate a JSON file that save all config
