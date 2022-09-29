@@ -19,9 +19,9 @@ class MaskImageEnum(str, Enum):
     color = 'color' # use pydantic color, as input to select mask
 
 class FileModel(BaseModel):
-    name: str | None = None # exclude extension
-    type: str | None = None # eg. png, jpg, webp, 
-    path: str | None = None # might be better changed to pathlib.path later
+    name: str | None = "init" # exclude extension
+    type: str | None = "png" # eg. png, jpg, webp, 
+    path: str | None = "outputs/tmp" # might be better changed to pathlib.path later
 
 
 class ImageModel(BaseModel):

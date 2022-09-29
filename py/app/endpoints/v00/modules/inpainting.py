@@ -17,7 +17,7 @@ def wrapper(fv: FvsionModel):
     # Parameters and settings
     # Need to find a way to make this more robust... , e.g. join?
     pathToLocalModel = "models/stable-diffusion-v1-4"
-    pathToOutput = "output"
+    pathToOutput = "outputs"
 
 
     # from diffusers library

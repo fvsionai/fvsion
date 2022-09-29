@@ -7,7 +7,6 @@ from app.endpoints.v00.modules import txt2img, img2img, inpainting
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 import os
-import time
 
 #APIRouter creates path operations for user module
 router = APIRouter(
@@ -60,7 +59,7 @@ async def generateInpainting(fv: FvsionModel):
 async def shareFvsionModel():
     return FvsionModel.schema_json(indent=2)
 
-# to allow drawn sketch to download to output
+# to allow drawn sketch to download to /outputs/ folder
 @router.post("/save-as-base64")
 def base64_saver(data: ImageModel):
     fpname = os.path.join(f"{data.draw_image.path}/{data.draw_image.name}.{data.draw_image.type}")

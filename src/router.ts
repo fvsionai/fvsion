@@ -1,12 +1,24 @@
-import { createRouter, createWebHistory } from "vue-router";
-import { pinia } from "./stores";
+import {
+  createRouter,
+  createWebHistory,
+  createWebHashHistory,
+  createMemoryHistory
+} from "vue-router";
+import HomeView from "@/views/HomeView.vue"
+import AboutView from "@/views/AboutView.vue"
+import SupportView from "@/views/SupportView.vue"
+import Img2ImgView from "@/views/Img2ImgView.vue"
+import ProseLayout from "@/layouts/DashboardProseLayout.vue"
+import Layout from "@/layouts/DashboardLayout.vue"
+
+console.log(import.meta.env);
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: import.meta.env.PROD ? createWebHashHistory() : createWebHistory(),
   routes: [
     {
       path: "/",
-      component: () => import("@/layouts/DashboardProseLayout.vue"),
+      component: ProseLayout,
       meta: {
         requiresNoAuth: true,
       },
@@ -14,38 +26,23 @@ const router = createRouter({
         {
           path: "/",
           name: "home",
-          component: () => import("@/views/HomeView.vue"),
+          component: HomeView,
         },
-        // {
-        //   path: "/paint",
-        //   name: "paint",
-        //   component: () => import("@/views/PaintView.vue"),
-        // },
         {
           path: "/about",
           name: "about",
-          component: () => import("@/views/AboutView.vue"),
+          component: AboutView,
         },
         {
           path: "/support",
           name: "support",
-          component: () => import("@/views/SupportView.vue"),
+          component: SupportView,
         },
-        {
-          path: "/privacy",
-          name: "privacy",
-          component: () => import("@/views/PrivacyView.vue"),
-        },
-        {
-          path: "/terms",
-          name: "terms",
-          component: () => import("@/views/TermsView.vue"),
-        },
-      ],
+      ]
     },
     {
       path: "/",
-      component: () => import("@/layouts/DashboardLayout.vue"),
+      component: Layout,
       meta: {
         requiresNoAuth: true,
       },
@@ -53,7 +50,7 @@ const router = createRouter({
         {
           path: "/img2img",
           name: "img2img",
-          component: () => import("@/views/Img2ImgView.vue"),
+          component: Img2ImgView,
         },
       ],
     },

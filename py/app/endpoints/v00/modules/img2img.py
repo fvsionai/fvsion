@@ -17,7 +17,7 @@ def wrapper(fv: FvsionModel):
     # Parameters and settings
     # Need to find a way to make this more robust... , e.g. join?
     pathToLocalModel = "models/stable-diffusion-v1-4"
-    pathToOutput = "output"
+    pathToOutput = "outputs"
 
     try:
         init_image_pfname = f"{fv.init_image.path}/{fv.init_image.name}.{fv.init_image.type}"
@@ -52,7 +52,7 @@ def wrapper(fv: FvsionModel):
     # https://github.com/huggingface/diffusers/blob/91db81894b44798649b6cf54be085c205e146805/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion_img2img.py#L137
     # the actual generation happens here.
     with autocast("cuda"):
-        image = pipe(prompt=fv.prompt, init_image=init_image, strength=0.75, generator=gen, eta = fv.eta, num_inference_steps=fv.num_inference_steps, 
+        image = pipe(prompt=fv.prompt, init_image=init_image, strength=fv.strength, generator=gen, eta = fv.eta, num_inference_steps=fv.num_inference_steps, 
         guidance_scale = fv.guidance_scale).images[0]  
 
     print(f"Completed Generation. Attempting to save file")   

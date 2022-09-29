@@ -20,13 +20,13 @@ export const defaultFvsionModel = {
   init_image: {
     name: "init",
     type: "png",
-    path: "output/tmp",
+    path: "outputs/tmp",
   },
   mask_image_type: "default",
   mask_image: {
     name: "mask",
     type: "png",
-    path: "output/tmp",
+    path: "outputs/tmp",
   },
   mask_color: "white",
   height: 512,
