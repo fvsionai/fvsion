@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import PainterroContainerVue from "@/components/PainterroContainer.vue";
+import ImgInput from '@/components/ImgInput.vue';
+// import PainterroContainerVue from "@/components/PainterroContainer.vue";
 </script>
 
 <template>
@@ -9,7 +10,8 @@ import PainterroContainerVue from "@/components/PainterroContainer.vue";
     </div>
 
     <div class="col-span-1">
-      <PainterroContainerVue mode="img2img"></PainterroContainerVue>
+      <!-- <PainterroContainerVue mode="img2img"></PainterroContainerVue> -->
+      <ImgInput mode="img2img"></ImgInput>
     </div>
   </div>
 </template>

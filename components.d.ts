@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     ICarbonMenu: typeof import('~icons/carbon/menu')['default']
     ICarbonMoon: typeof import('~icons/carbon/moon')['default']
     ICarbonSun: typeof import('~icons/carbon/sun')['default']
+    ImgInput: typeof import('./src/components/ImgInput.vue')['default']
     JobStatus: typeof import('./src/components/JobStatus.vue')['default']
     Kofi: typeof import('./src/components/Kofi.vue')['default']
     LoadingIcon: typeof import('./src/components/LoadingIcon.vue')['default']

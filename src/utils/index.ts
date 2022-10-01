@@ -16,6 +16,7 @@ export const API_library = {
     "inpainting",
     "pid",
     "save-as-base64",
+    "fvsionModel"
   ],
 };
 
