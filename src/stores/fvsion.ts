@@ -32,6 +32,17 @@ export const defaultFvsionModel: FvsionModel = {
   doJSON: true,
 };
 
+export const useFvsionStore = defineStore("fvsion", {
+  state: () => ({
+    fvsion: useStorage("fvsion", defaultFvsionModel),
+  }),
+  actions: {
+    set(f: FvsionModel) {
+      this.fvsion = f;
+    },
+  },
+});
+
 interface FormInput {
   [index: string]: string | string[] | number;
   type: string;
