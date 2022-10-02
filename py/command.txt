@@ -1,5 +1,20 @@
+# install all requirements, once at the initialization stage
 pip install -r py/requirements.txt
-pyinstaller py/main.py --onefile --distpath dist
 
 
+# save the requirements to text
 pip freeze > py/requirements.txt
+
+
+# generate schema and then convert to typescript interface
+python py/dev/genSchema.p
+npx json2ts src/stores/schema.json > src/stores/schema.d.ts
+
+
+# generate python standalone
+pyinstaller main.spec -y
+
+# unused commands
+# pyinstaller py/main.py --onefile --distpath dist
+
+

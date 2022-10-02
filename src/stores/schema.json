@@ -1,0 +1,158 @@
+{
+  "title": "FvsionModel",
+  "type": "object",
+  "properties": {
+    "prompt": {
+      "title": "Prompt",
+      "type": "string"
+    },
+    "unique": {
+      "title": "Unique",
+      "default": "76c00733-9120-4334-9f35-e81222f4dffd",
+      "type": "string",
+      "format": "uuid"
+    },
+    "mode": {
+      "default": "txt2img",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ModeEnum"
+        }
+      ]
+    },
+    "init_image": {
+      "$ref": "#/definitions/FileModel"
+    },
+    "init_image_base64": {
+      "title": "Init Image Base64",
+      "type": "string"
+    },
+    "mask_image_type": {
+      "default": "default",
+      "allOf": [
+        {
+          "$ref": "#/definitions/MaskImageEnum"
+        }
+      ]
+    },
+    "mask_image": {
+      "$ref": "#/definitions/FileModel"
+    },
+    "mask_color": {
+      "title": "Mask Color",
+      "default": "white",
+      "type": "string",
+      "format": "color"
+    },
+    "out_image": {
+      "$ref": "#/definitions/FileModel"
+    },
+    "api_github": {
+      "title": "Api Github",
+      "default": "https://github.com/FvsionAI/fvsion",
+      "type": "string"
+    },
+    "api_version": {
+      "title": "Api Version",
+      "default": "v00",
+      "type": "string"
+    },
+    "mode_isChain": {
+      "title": "Mode Ischain",
+      "default": false,
+      "type": "boolean"
+    },
+    "height": {
+      "title": "Height",
+      "default": 512,
+      "type": "integer"
+    },
+    "width": {
+      "title": "Width",
+      "default": 512,
+      "type": "integer"
+    },
+    "num_inference_steps": {
+      "title": "Num Inference Steps",
+      "default": 16,
+      "type": "integer"
+    },
+    "guidance_scale": {
+      "title": "Guidance Scale",
+      "default": 7.5,
+      "type": "number"
+    },
+    "eta": {
+      "title": "Eta",
+      "default": 0.0,
+      "type": "number"
+    },
+    "strength": {
+      "title": "Strength",
+      "default": 0.85,
+      "type": "number"
+    },
+    "seed": {
+      "title": "Seed",
+      "default": 1024,
+      "type": "integer"
+    },
+    "allowNSFW": {
+      "title": "Allownsfw",
+      "default": false,
+      "type": "boolean"
+    },
+    "doJSON": {
+      "title": "Dojson",
+      "default": true,
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "prompt"
+  ],
+  "definitions": {
+    "ModeEnum": {
+      "title": "ModeEnum",
+      "description": "An enumeration.",
+      "enum": [
+        "txt2img",
+        "img2img",
+        "img2img_inpainting"
+      ],
+      "type": "string"
+    },
+    "FileModel": {
+      "title": "FileModel",
+      "type": "object",
+      "properties": {
+        "name": {
+          "title": "Name",
+          "default": "init",
+          "type": "string"
+        },
+        "type": {
+          "title": "Type",
+          "default": "png",
+          "type": "string"
+        },
+        "path": {
+          "title": "Path",
+          "default": "outputs/tmp",
+          "type": "string"
+        }
+      }
+    },
+    "MaskImageEnum": {
+      "title": "MaskImageEnum",
+      "description": "An enumeration.",
+      "enum": [
+        "default",
+        "alpha",
+        "white",
+        "color"
+      ],
+      "type": "string"
+    }
+  }
+}
