@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Painterro from "painterro";
-import { defaultFvsionModel, useImgPtroStore } from "../stores";
+import { defaultFvsionModel, ModeEnum, useImgPtroStore } from "../stores";
 import { getAPI } from "../utils";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
@@ -45,7 +45,7 @@ const props = defineProps<{
 // TODO, maybe insert useStorage, either here on in the store to save default for subsequent sessions
 // then add button to reset to default, need to be careful against custom value per page, like mode etc
 const aiInput = ref(defaultFvsionModel);
-aiInput.value.mode = props.mode;
+aiInput.value.mode = props.mode as ModeEnum;
 
 // to be made from props, i.e. based on parent view
 const apiRoot = getAPI("");
