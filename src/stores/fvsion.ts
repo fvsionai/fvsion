@@ -60,9 +60,9 @@ export const formList: FormInput[] = [
   {
     type: "range",
     class: "range range-primary",
-    min: 8,
+    min: 64,
     max: 1024,
-    step: 8,
+    step: 64,
     mode: ["txt2img"],
     model: "height",
     label: "Height",
@@ -71,9 +71,9 @@ export const formList: FormInput[] = [
   {
     type: "range",
     class: "range range-primary",
-    min: 8,
+    min: 64,
     max: 1024,
-    step: 8,
+    step: 64,
     mode: ["txt2img"],
     model: "width",
     label: "Width",
