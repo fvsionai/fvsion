@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defaultFvsionModel, formList, ModeEnum } from "../stores";
+import { formList, ModeEnum, useFvsionStore } from "../stores";
 import { getAPI } from "../utils";
 import ServerStatus from "./ServerStatus.vue";
 import { v4 as uuidv4 } from "uuid";
@@ -17,17 +17,23 @@ if (props.mode == "txt2img") {
   isImgMode.value = true;
 }
 
-// TODO, maybe insert useStorage, either here on in the store to save default for subsequent sessions
-// then add button to reset to default, need to be careful against custom value per page, like mode etc
-const aiInput = ref(defaultFvsionModel);
-aiInput.value.mode = props.mode as ModeEnum;
+// TODO, add button to reset to default, need to be careful against custom value per page, like mode etc
+// use fvsionStore to help with multipage/components input
+const fvsionStr = useFvsionStore();
+const { fvsion } = storeToRefs(fvsionStr);
+
+fvsion.value.mode = props.mode as ModeEnum;
 
 // to be made from props, i.e. based on parent view
-const apiArt = getAPI(aiInput.value.mode);
+const apiArt = getAPI(fvsion.value.mode);
 
 const genArt = (): void => {
-  aiInput.value.uuid = uuidv4();
-  let j = aiInput.value;
+  // assign a unit uuid
+  // TODO some logic like preventing resending an exact same prompt later?
+  fvsion.value.uuid = uuidv4();
+  // use toRaw to ensure objects send actually is the inner object, i.e. not the proxy
+  let j = toRaw(fvsion.value);
+  console.log(j);
 
   axios.post(apiArt, j).then((response: { data: any }) => {
     console.log(response.data);
@@ -60,7 +66,7 @@ const formSubmit = (e: any) => {
           placeholder="A beautiful cat"
           class="input input-bordered input-primary w-full"
           id="aiprompt"
-          v-model="aiInput.prompt"
+          v-model="fvsion.prompt"
         />
 
         <button class="btn btn-primary flex-none mx-1" type="submit">
@@ -81,7 +87,7 @@ const formSubmit = (e: any) => {
                 :max="f.max"
                 :step="f.step"
                 :class="f.class"
-                v-model="aiInput[f.model]"
+                v-model="fvsion[f.model]"
             /></label>
           </div>
         </div>
@@ -101,28 +107,28 @@ const formSubmit = (e: any) => {
 
     <div class="card card-body">
       <div class="mode-all">
-        <span class="text-sm p-1">Mode : {{ aiInput.mode }}</span>
+        <span class="text-sm p-1">Mode : {{ fvsion.mode }}</span>
       </div>
       <div class="mode-txt2img" v-if="!isImgMode">
-        <span class="text-sm p-1">Height : {{ aiInput.height }}</span>
-        <span class="text-sm p-1">Width : {{ aiInput.width }}</span>
+        <span class="text-sm p-1">Height : {{ fvsion.height }}</span>
+        <span class="text-sm p-1">Width : {{ fvsion.width }}</span>
       </div>
       <div class="mode-all">
         <span class="text-sm p-1"
-          >Steps : {{ aiInput.num_inference_steps }}</span
+          >Steps : {{ fvsion.num_inference_steps }}</span
         >
         <br />
-        <span class="text-sm p-1">Guidance : {{ aiInput.guidance_scale }}</span>
-        <span class="text-sm p-1">Eta : {{ aiInput.eta }}</span>
-        <span class="text-sm p-1">Seed : {{ aiInput.seed }}</span>
-        <span class="text-sm p-1">Allow NSFW : {{ aiInput.allowNSFW }}</span>
+        <span class="text-sm p-1">Guidance : {{ fvsion.guidance_scale }}</span>
+        <span class="text-sm p-1">Eta : {{ fvsion.eta }}</span>
+        <span class="text-sm p-1">Seed : {{ fvsion.seed }}</span>
+        <span class="text-sm p-1">Allow NSFW : {{ fvsion.allowNSFW }}</span>
       </div>
       <div class="mode-img2img" v-if="isImgMode">
-        <span class="text-sm p-1">Strength : {{ aiInput.strength }}</span>
+        <span class="text-sm p-1">Strength : {{ fvsion.strength }}</span>
       </div>
     </div>
     <!-- <div class="diagnostic">
-      <pre>{{ aiInput }}</pre>
+      <pre>{{ fvsion }}</pre>
     </div> -->
   </div>
 </template>
