@@ -61,24 +61,25 @@ def wrapper(fv: FvsionModel):
 
     # https://github.com/huggingface/diffusers/blob/91db81894b44798649b6cf54be085c205e146805/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion_inpaint.py#L157
     # the actual generation happens here.
-    with autocast("cuda"):
-        # image = pipe(prompt=fv.prompt, init_image=init_image, mask_image=mask_image,  strength=0.75, generator=gen, eta = fv.eta, num_inference_steps=fv.num_inference_steps, 
-        # guidance_scale = fv.guidance_scale).images[0] 
-        image = pipe(prompt=fv.prompt, init_image=init_image, mask_image=mask_image,  strength=fv.strength, generator=gen,
-        eta = fv.eta, num_inference_steps=fv.num_inference_steps, guidance_scale = fv.guidance_scale).images[0] 
+    try:
+        with autocast("cuda"):
+            images = pipe(prompt=fv.prompt, init_image=init_image, mask_image=mask_image,  strength=fv.strength, generator=gen, 
+            eta = fv.eta, num_inference_steps=fv.num_inference_steps, guidance_scale = fv.guidance_scale).images 
 
-    print(f"Completed Generation. Attempting to save file")   
+        print(f"Completed Generation. Attempting to save {len(images)} file(s)")
+    except Exception as e:
+        print(e) 
 
     # UTILITY: saving the file to a unique name, if fails, try one more time, which will generate a new secret
     try:
-        utils.saveOutput(fv=fv, pathToOutput=pathToOutput, image=image)
-        print("successfully saved files")
-        return fv
+        utils.saveOutput(fv=fv, pathToOutput=pathToOutput, image=images)
+        print(f"successfully saved {len(images)} files")
     except:
         try:
-            utils.saveOutput(fv=fv, pathToOutput=pathToOutput, image=image)
-            print("successfully saved files after second attempt")
-            return fv
+            utils.saveOutput(fv=fv, pathToOutput=pathToOutput, image=images)
+            print(f"successfully saved {len(images)} files")
         except Exception as e:
             print(e)
+
+    return fv
 

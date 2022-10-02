@@ -51,11 +51,14 @@ def wrapper(fv: FvsionModel):
 
     # https://github.com/huggingface/diffusers/blob/91db81894b44798649b6cf54be085c205e146805/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion_img2img.py#L137
     # the actual generation happens here.
-    with autocast("cuda"):
-        images = pipe(prompt=fv.prompt, init_image=init_image, strength=fv.strength, generator=gen, eta = fv.eta, num_inference_steps=fv.num_inference_steps, 
-        guidance_scale = fv.guidance_scale).images  
+    try:
+        with autocast("cuda"):
+            images = pipe(prompt=fv.prompt, init_image=init_image, strength=fv.strength, generator=gen, eta = fv.eta, num_inference_steps=fv.num_inference_steps, 
+            guidance_scale = fv.guidance_scale).images  
 
-    print(f"Completed Generation. Attempting to save {len(images)} file(s)")
+        print(f"Completed Generation. Attempting to save {len(images)} file(s)")
+    except Exception as e:
+        print(e)  
 
     # UTILITY: saving the file to a unique name, if fails, try one more time, which will generate a new secret
     try:

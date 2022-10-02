@@ -41,11 +41,14 @@ def wrapper(fv: FvsionModel):
     # print(fv) # diagnostic
 
     # the actual generation happens here.
-    with autocast("cuda"):
-        images = pipe(fv.prompt,  height=fv.height, width=fv.width, num_inference_steps=fv.num_inference_steps, 
-        guidance_scale = fv.guidance_scale,  generator=gen, eta = fv.eta).images  
+    try:
+        with autocast("cuda"):
+            images = pipe(fv.prompt,  height=fv.height, width=fv.width, num_inference_steps=fv.num_inference_steps, 
+            guidance_scale = fv.guidance_scale,  generator=gen, eta = fv.eta).images  
 
-    print(f"Completed Generation. Attempting to save {len(images)} file(s)")
+        print(f"Completed Generation. Attempting to save {len(images)} file(s)")
+    except Exception as e:
+        print(e)    
 
     # UTILITY: saving the file to a unique name, if fails, try one more time, which will generate a new secret
     try:
