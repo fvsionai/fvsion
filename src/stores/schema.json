@@ -4,11 +4,21 @@
   "properties": {
     "prompt": {
       "title": "Prompt",
-      "type": "string"
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
     },
     "unique": {
       "title": "Unique",
-      "default": "76c00733-9120-4334-9f35-e81222f4dffd",
+      "default": "64138229-2973-4f7d-882e-b484dbf6432b",
       "type": "string",
       "format": "uuid"
     },
