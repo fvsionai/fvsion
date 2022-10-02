@@ -27,11 +27,11 @@ def filenameUnique(p):
 def createFolder(path):
     pathlib.Path(path.strip('/')).mkdir(parents=True, exist_ok=True) 
 
-# UTILITY: image resize, to ensure it is always a multiple of 8
+# UTILITY: image resize, to ensure it is always a multiple of 64
 def resizeImg(image: PIL.Image):
     width, height = image.size
-    new_width = round(width/8)*8
-    new_height = round(height/8)*8
+    new_width = round(width/64)*64
+    new_height = round(height/64)*64
     return image.resize((new_width, new_height))
 
 # UTILITY: saving files

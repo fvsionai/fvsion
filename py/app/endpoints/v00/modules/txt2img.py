@@ -38,6 +38,8 @@ def wrapper(fv: FvsionModel):
 
     print("Complete pipe setup. Starting image generation.")
 
+    # print(fv) # diagnostic
+
     # the actual generation happens here.
     with autocast("cuda"):
         image = pipe(fv.prompt,  height=fv.height, width=fv.width, num_inference_steps=fv.num_inference_steps, 
