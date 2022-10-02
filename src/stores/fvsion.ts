@@ -1,34 +1,6 @@
+import { FvsionModel } from "./schema";
 
-interface fileModel {
-    name: string;
-    type: string;
-    path: string;
-}
-
-interface fvsionModel {
-  [index: string]: string | boolean | number | fileModel;
-
-  prompt: string,
-  uuid: string,
-  mode: string,
-  out_image: fileModel;
-  init_image: fileModel;
-  mask_image_type: string,
-  mask_image: fileModel;
-  mask_color: string,
-  height: number,
-  width: number,
-  num_inference_steps: number,
-  guidance_scale: number,
-  eta: number,
-  strength: number,
-  seed: number,
-  allowNSFW: boolean,
-  doJSON: boolean,
-};
-
-
-export const defaultFvsionModel: fvsionModel = {
+export const defaultFvsionModel: FvsionModel = {
   prompt: "a white cat with red hat",
   uuid: "default",
   mode: "txt2img",
@@ -60,7 +32,6 @@ export const defaultFvsionModel: fvsionModel = {
   doJSON: true,
 };
 
-
 interface FormInput {
   [index: string]: string | string[] | number;
   type: string;
@@ -84,7 +55,7 @@ export const formList: FormInput[] = [
     mode: ["txt2img"],
     model: "height",
     label: "Height",
-    label_class: ""
+    label_class: "",
   },
   {
     type: "range",
@@ -95,7 +66,7 @@ export const formList: FormInput[] = [
     mode: ["txt2img"],
     model: "width",
     label: "Width",
-    label_class: ""
+    label_class: "",
   },
   {
     type: "range",
@@ -105,8 +76,8 @@ export const formList: FormInput[] = [
     step: 1,
     mode: ["all"],
     model: "num_inference_steps",
-    label: "Inference Steps",    
-    label_class: "w-40"
+    label: "Inference Steps",
+    label_class: "w-40",
   },
   {
     type: "range",
@@ -117,7 +88,7 @@ export const formList: FormInput[] = [
     mode: ["all"],
     model: "guidance_scale",
     label: "Guidance Scale",
-    label_class: "w-40"
+    label_class: "w-40",
   },
   {
     type: "range",
@@ -128,7 +99,7 @@ export const formList: FormInput[] = [
     mode: ["all"],
     model: "eta",
     label: "Eta",
-    label_class: ""
+    label_class: "",
   },
   {
     type: "range",
@@ -139,7 +110,7 @@ export const formList: FormInput[] = [
     mode: ["all"],
     model: "seed",
     label: "Seed",
-    label_class: ""
+    label_class: "",
   },
   {
     type: "checkbox",
@@ -150,7 +121,7 @@ export const formList: FormInput[] = [
     mode: ["all"],
     model: "allowNSFW",
     label: "Allow NSFW",
-    label_class: ""
+    label_class: "",
   },
   {
     type: "range",
@@ -161,6 +132,6 @@ export const formList: FormInput[] = [
     mode: ["img2img"],
     model: "strength",
     label: "Strength",
-    label_class: ""
+    label_class: "",
   },
-]
+];
