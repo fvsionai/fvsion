@@ -5,6 +5,8 @@ pip install -r py/requirements.txt
 # save the requirements to text
 pip freeze > py/requirements.txt
 
+# manually run the python server, with hotloading enabled
+python py/main.py -r y
 
 # generate schema and then convert to typescript interface
 python py/dev/genSchema.p

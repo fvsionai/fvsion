@@ -27,6 +27,14 @@ def filenameUnique(p):
 def createFolder(path):
     pathlib.Path(path.strip('/')).mkdir(parents=True, exist_ok=True) 
 
+# UTILITY: image resize, to ensure it is always a multiple of 8
+def resizeImg(image: PIL.Image):
+    width, height = image.size
+    new_width = round(width/8)*8
+    new_height = round(height/8)*8
+    return image.resize((new_width, new_height))
+
+# UTILITY: saving files
 def saveJson(j: FvsionModel):
     with open(f"{j.out_image.path}/{j.out_image.name}.json", "w") as f:
         f.write(json.dumps(jsonable_encoder(j)))
@@ -84,21 +92,25 @@ def maskProcessing(fv: FvsionModel):
         black.paste(mask_image, (0, 0), mask_image)
         mask_image = black.convert("RGB")
     # else:
-    #     print('using black from init_image as mask')
-
-    mask_image.save(f'output/example/diagnostic_mask_{fv.mask_image_type}.png')
+    #     TODO, maybe use another technique such as custom color?
+    
+    # ensure width and height a multiple of 8
+    mask_image = resizeImg(mask_image)
+    # mask_image.save(f'output/example/diagnostic_mask_{fv.mask_image_type}.png') # for diagnostic
     return(mask_image.convert("RGB"))
 
 def initProcessing(fv: FvsionModel):
-        init_image_pfname = f"{fv.init_image.path}/{fv.init_image.name}.{fv.init_image.type}"
-        print(f'set {init_image_pfname} as init_image')
-        init_image = PIL.Image.open(init_image_pfname).convert("RGBA")
-        # create a dummy image as black background
-        white = PIL.Image.new("RGBA", init_image.size, "WHITE")
-        # paste our partially transparent image on top
-        white.paste(init_image, (0, 0), init_image)
-        white.save(f'output/example/diagnostic_init_{fv.mask_image_type}.png')
-        return(white.convert("RGB"))
+    init_image_pfname = f"{fv.init_image.path}/{fv.init_image.name}.{fv.init_image.type}"
+    print(f'set {init_image_pfname} as init_image')
+    init_image = PIL.Image.open(init_image_pfname).convert("RGBA")
+    # create a dummy image as black background
+    white = PIL.Image.new("RGBA", init_image.size, "WHITE")
+    # paste our partially transparent image on top
+    white.paste(init_image, (0, 0), init_image)
+    # ensure width and height a multiple of 8
+    white = resizeImg(white)
+    # white.save(f'output/example/diagnostic_init_{fv.mask_image_type}.png') # for diagnostic
+    return(white.convert("RGB"))
 
 
 # TODO INCOMPLETE

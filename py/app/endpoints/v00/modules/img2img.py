@@ -23,9 +23,9 @@ def wrapper(fv: FvsionModel):
         init_image_pfname = f"{fv.init_image.path}/{fv.init_image.name}.{fv.init_image.type}"
         print(f'set {init_image_pfname} as init_image')
         # require convert to RGB otherwise silent failure
-        init_image = PIL.Image.open(init_image_pfname).convert("RGB") 
-        # TODO, need some logic for resize
-        # init_image = init_image.resize((fv.height,fv.width)) 
+        init_image = PIL.Image.open(init_image_pfname).convert("RGB")
+        # require resizing to ensure the image is a multiple of 8, 
+        init_image = utils.resizeImg(init_image)
         print("success loading init_image")
     except:
         print("error loading init_image")
