@@ -2,8 +2,6 @@
 import { useRoute } from "vue-router";
 
 const router = useRouter();
-
-router.push("/");
 </script>
 
 <template>
