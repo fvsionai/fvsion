@@ -119,8 +119,13 @@ async function createWindow() {
       nodeIntegration: true,
       contextIsolation: false,
     },
-    width: 640,
+    minWidth: 780,
+    show: false, // along with win.maximize() and win.show() ensure screen is maximized before being shown.
   });
+
+  // ensure screen is maximized before being shown.
+  win.maximize();
+  win.show();
 
   if (app.isPackaged) {
     win.loadFile(indexHtml);
