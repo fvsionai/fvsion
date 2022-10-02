@@ -40,6 +40,7 @@
 1. Once completed please ensure that you are in the root directory.
 
 # Known Issues
+1. There are edge cases where electron failed to be installed using `npm i`, if so, open `package.json` file, temporaily delete the ` "electron": "2x.x.x", "electron-builder": "2x.x.x", "got": "x.x.x",` lines, save the files and run `npm i` again. Once successful, undo the changes in `package.json` i.e. re-add the deleted line, and re-run `npm i`  
 1. There might be undeleted temporary files in `C:\Users\test\AppData\Local\Temp`. Please check if you storage is heavily used. Do note that diffusers libary tend to cache files to speed up operation which also use some amount of data. More details [here](https://huggingface.co/docs/datasets/cache). 
 1. UX: Minimal loading indicator when loading generation. 
 
