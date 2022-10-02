@@ -76,6 +76,6 @@ async def read_root():
 app.include_router(api_router)
 
 if __name__ == "__main__":
-    # uvicorn.run("main:app", host='127.0.0.1', port=port, log_level="info", reload=reload)
-    uvicorn.run(app, host='127.0.0.1', port=port, log_level="info")
+    # uvicorn.run("main:app", host='127.0.0.1', port=port, log_level="info", reload=reload) # enable this row for hot reloading
+    uvicorn.run(app, host='127.0.0.1', port=port, log_level="info") # use this for building pyinstaller standalone, TODO, combine both with bug fix
     print("running")
