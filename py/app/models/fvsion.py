@@ -31,7 +31,7 @@ class ImageModel(BaseModel):
 # when a value is given for the parameters, type is auto assigned and will be used as default when not given 
 class FvsionModel(BaseModel):
     # important data
-    prompt: str  # | list[str], required, for now, might give a default value in wrapper function, allow for list of string for multi prompts
+    prompt: str | list[str] # required, for now, might give a default value in wrapper function, allow for list of string for multi prompts
     unique: uuid.UUID = uuid.uuid4()
     mode: ModeEnum = ModeEnum.txt2img 
     mode_isChain = False

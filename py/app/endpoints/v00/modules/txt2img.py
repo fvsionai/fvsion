@@ -42,20 +42,20 @@ def wrapper(fv: FvsionModel):
 
     # the actual generation happens here.
     with autocast("cuda"):
-        image = pipe(fv.prompt,  height=fv.height, width=fv.width, num_inference_steps=fv.num_inference_steps, 
-        guidance_scale = fv.guidance_scale,  generator=gen, eta = fv.eta).images[0]  
+        images = pipe(fv.prompt,  height=fv.height, width=fv.width, num_inference_steps=fv.num_inference_steps, 
+        guidance_scale = fv.guidance_scale,  generator=gen, eta = fv.eta).images  
 
-    print(f"Completed Generation. Attempting to save file")   
+    print(f"Completed Generation. Attempting to save {len(images)} file(s)")
 
     # UTILITY: saving the file to a unique name, if fails, try one more time, which will generate a new secret
     try:
-        utils.saveOutput(fv=fv, pathToOutput=pathToOutput, image=image)
-        print("successfully saved files")
-        return fv
+        utils.saveOutput(fv=fv, pathToOutput=pathToOutput, image=images)
+        print(f"successfully saved {len(images)} files")
     except:
         try:
-            utils.saveOutput(fv=fv, pathToOutput=pathToOutput, image=image)
-            print("successfully saved files after second attempt")
-            return fv
+            utils.saveOutput(fv=fv, pathToOutput=pathToOutput, image=images)
+            print(f"successfully saved {len(images)} files")
         except Exception as e:
             print(e)
+
+    return fv

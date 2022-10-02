@@ -1,4 +1,6 @@
 # Object models import
+from math import ceil, sqrt
+from tkinter import E
 from app.models.fvsion import FvsionModel, MaskImageEnum
 
 # UTILITY LIB
@@ -13,9 +15,10 @@ import numpy as np
 
 # UTILITY: create prefixes to filename to try to increase uniqueness of filename 
 def prefix():
-    timestr = time.strftime("%Y%m%d_%H%M%S")
-    secstr = secrets.token_hex(8)
-    return timestr+"_"+secstr
+    # timestr = time.strftime("%Y%m%d_%H%M%S")
+    secstr = secrets.token_hex(6)
+    # return timestr+"_"+secstr
+    return secstr # shorten prefix, exclude timestr
 
 def filenameUnique(p):
     # prompt cut in front to avoid too long prompt text, os path limit 
@@ -35,6 +38,10 @@ def resizeImg(image: PIL.Image):
     return image.resize((new_width, new_height))
 
 # UTILITY: saving files
+# required, otherwise len(images)
+def isList(l):
+    return isinstance(l, list) and not isinstance(l, str)
+
 def saveJson(j: FvsionModel):
     with open(f"{j.out_image.path}/{j.out_image.name}.json", "w") as f:
         f.write(json.dumps(jsonable_encoder(j)))
@@ -44,13 +51,29 @@ def saveImage(fv: FvsionModel, image):
     image.save(fpname)
 
 def saveOutput(fv: FvsionModel, pathToOutput, image):
-    fv.out_image.name = filenameUnique(fv.prompt)
-    fv.out_image.path = f"{pathToOutput.strip('/')}"
-    fv.out_image.type = "png"
+    if(isList(fv.prompt)):
+        # if image is multiprompts and thus a list, save files individually & in grid as well
+        for idx in range(len(image)):
+            fv.out_image.name = filenameUnique(fv.prompt[idx])
+            fv.out_image.path = f"{pathToOutput.strip('/')}"
+            fv.out_image.type = "webp" #smaller than png
 
-    saveImage(fv, image)        
-    if(fv.doJSON):
-        saveJson(fv)
+            saveImage(fv, image[idx])        
+            if(fv.doJSON):
+                saveJson(fv)
+        # save the grid as well
+        grid = image_grid(image)
+        print("built grid")
+        # save grid using last prompts name 
+        grid.save(f"{fv.out_image.path}/{fv.out_image.name}_grid.{fv.out_image.type}")
+    else:
+        fv.out_image.name = filenameUnique(fv.prompt)
+        fv.out_image.path = f"{pathToOutput.strip('/')}"
+        fv.out_image.type = "webp" #smaller than png
+
+        saveImage(fv, image[0])        
+        if(fv.doJSON):
+            saveJson(fv)
 
 # enable/disable safety (NSFW) checker
 def dummy(images, **kwargs):
@@ -112,6 +135,29 @@ def initProcessing(fv: FvsionModel):
     # white.save(f'output/example/diagnostic_init_{fv.mask_image_type}.png') # for diagnostic
     return(white.convert("RGB"))
 
+# handling multi-prompt
+
+# def breakpoints(n):
+#     if n == 1:
+#         return (1,1)
+#     if n >1 and n <= 4:
+#         return (2,2)
+
+def breakpointsSQRT(n: int):
+    num = ceil(sqrt(n))
+    return (num, num)
+     
+def image_grid(imgs):
+    # assign number of columns based on square root, e.g. 2 to 4 image will have grid 2x2, then 3x3 etc
+    rows, cols = breakpointsSQRT(len(imgs))
+
+    w, h = imgs[0].size
+    grid = PIL.Image.new('RGB', size=(cols*w, rows*h))
+    grid_w, grid_h = grid.size
+    
+    for i, img in enumerate(imgs):
+        grid.paste(img, box=(i%cols*w, i//cols*h))
+    return grid
 
 # TODO INCOMPLETE
 def RGBColorReplacement(img, orig_color, replacement_color ):
