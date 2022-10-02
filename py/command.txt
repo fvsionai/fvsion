@@ -9,7 +9,7 @@ pip freeze > py/requirements.txt
 python py/main.py -r y
 
 # generate schema and then convert to typescript interface
-python py/dev/genSchema.p
+python py/dev/genSchema.py
 npx json2ts src/stores/schema.json > src/stores/schema.ts
 
 
