@@ -35,26 +35,32 @@ const onc_image = (s: string) => {
 <template>
   <div>
     <form>
-      <label class="block">
-        <span class="sr-only">Choose File</span>
-        <input
-          type="file"
-          id="init_image"
-          accept="image/*"
-          class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-          @change="onc_image('init_image')"
-        />
-      </label>
-      <label class="block">
-        <span class="sr-only">Choose File</span>
-        <input
-          type="file"
-          id="mask_image"
-          accept="image/*"
-          class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-          @change="onc_image('mask_image')"
-        />
-      </label>
+      <div class="form-control">
+        <label for="mask_image" class="label input-group">
+          <span class="label-text w-32">Choose Input</span>
+          <input
+            type="file"
+            id="init_image"
+            accept="image/*"
+            class="hidden"
+            @change="onc_image('init_image')"
+          />
+          <span class="text-sm truncate">{{ fvsion.init_image?.name }}</span>
+        </label>
+      </div>
+      <div class="form-control">
+        <label for="mask_image" class="label input-group">
+          <span class="label-text w-32">Choose Mask</span>
+          <input
+            type="file"
+            id="mask_image"
+            accept="image/*"
+            class="hidden"
+            @change="onc_image('mask_image')"
+          />
+          <span class="text-sm truncate">{{ fvsion.mask_image?.name }}</span>
+        </label>
+      </div>
     </form>
   </div>
 </template>
