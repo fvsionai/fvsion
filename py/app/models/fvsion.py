@@ -59,6 +59,8 @@ class FvsionModel(BaseModel):
     out_image: FileModel | None # filename and path
     api_github: str = "https://github.com/FvsionAI/fvsion"
     api_version: str = "v00"
+    pathToLocalModel = "models/stable-diffusion-v1-4-fp16"
+    pathToOutput = "outputs"
 
     # doYAML = False # if True generate a YAML file that save all config
     doJSON = True # if True generate a JSON file that save all config

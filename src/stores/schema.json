@@ -18,7 +18,7 @@
     },
     "unique": {
       "title": "Unique",
-      "default": "64138229-2973-4f7d-882e-b484dbf6432b",
+      "default": "af0a8c34-54ac-421d-ad7a-e3d69d2979f5",
       "type": "string",
       "format": "uuid"
     },
@@ -111,6 +111,16 @@
       "title": "Allownsfw",
       "default": false,
       "type": "boolean"
+    },
+    "pathToLocalModel": {
+      "title": "Pathtolocalmodel",
+      "default": "models/stable-diffusion-v1-4-fp16",
+      "type": "string"
+    },
+    "pathToOutput": {
+      "title": "Pathtooutput",
+      "default": "outputs",
+      "type": "string"
     },
     "doJSON": {
       "title": "Dojson",

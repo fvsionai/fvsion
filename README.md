@@ -31,13 +31,18 @@
 1. _(Optional)_ You can run `npm run build` to generate standalone exe files. Do note however it might take a while (~30 minutes on AMD Ryzen 5 1600), especially for the first run.
 1. _(Recommended)_ Please send PR for any improvement suggestions. Very much welcomed.
 
-# Diffusers Model Download
+# Diffusers Model Download 
 1. There are two options as of today, either download manually by going to huggingface website, or using `git lfs` to handle large files. Note that the whole files total up to >5 GB
-1. `git lfs install` and `cd models` Or navigate to the `fvsion/models` folder.
-1. `git clone https://huggingface.co/CompVis/stable-diffusion-v1-4`. There will be prompt asking for your huggingface id and password for the first time.
-1. _(Optional)_ Login to `huggingface.co` and navigate to `https://huggingface.co/CompVis/stable-diffusion-v1-4/tree/main`.
-1. _(Optional)_ Downloads `stable-diffusion-v1-4` whole folder from `https://huggingface.co/CompVis/stable-diffusion-v1-4/tree/main` and copy to `models/stable-diffusion-v1-4`.
-1. Once completed please ensure that you are in the root directory.
+1. Additionally, you can use the default download version if you have **8GB VRAM** or more. If you have less VRAM, it is **highly recommended** to download from fp16 tree. Do note that even if you have VRAM >= 8GB, it is also good to have low VRAM model to ensure that you are able to run a lot more prompts in batches. The low VRAM model is just slightly slower than the normal model.
+1. Install Git LFS (large file storage) via `git lfs install` command in your favorite cmd/bash.
+1. For low VRAM, run the command in cmd/bash `git clone https://huggingface.co/CompVis/stable-diffusion-v1-4 -b fp16 models/stable-diffusion-v1-4-fp16`. There will be prompt asking for your huggingface id and password for the first time.
+1. _(Optional)_ If the above fails to work, you can manually download the models, by logging into `https://huggingface.co/login` and navigate to `https://huggingface.co/CompVis/stable-diffusion-v1-4/tree/fp16` . It is important to login first, otherwise you will receive 404 error when navigating to the download page.
+1. _(Optional)_ For low VRAM, downloads `stable-diffusion-v1-4` whole folder from `https://huggingface.co/CompVis/stable-diffusion-v1-4/tree/fp16` and copy to `models/stable-diffusion-v1-4-fp16`.
+
+1. For high VRAM, run the command in cmd/bash  `git clone https://huggingface.co/CompVis/stable-diffusion-v1-4 models/stable-diffusion-v1-4`. There will be prompt asking for your huggingface id and password for the first time.
+1. _(Optional)_ If the above fails to work, you can manually download the models, by logging into `https://huggingface.co/login` and navigate to `https://huggingface.co/CompVis/stable-diffusion-v1-4/tree/main` . It is important to login first, otherwise you will receive 404 error when navigating to the download page.
+1. _(Optional)_ For high VRAM, downloads `stable-diffusion-v1-4` whole folder from `https://huggingface.co/CompVis/stable-diffusion-v1-4/tree/main` and copy to `models/stable-diffusion-v1-4`.
+1. Once completed please ensure that you are back in the root directory.
 
 # Known Issues
 1. There are edge cases where electron failed to be installed using `npm i`, if so, open `package.json` file, temporaily delete the ` "electron": "2x.x.x", "electron-builder": "2x.x.x", "got": "x.x.x",` lines, save the files and run `npm i` again. Once successful, undo the changes in `package.json` i.e. re-add the deleted line, and re-run `npm i`  
