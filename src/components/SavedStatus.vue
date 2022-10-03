@@ -11,7 +11,6 @@ let stamp = ref(Date.now());
 let timeAgo = useTimeAgo(stamp);
 
 const updateServerStatus = () => {
-  console.log(Date.now());
   stamp.value = Date.now();
   timeAgo = useTimeAgo(stamp);
 
