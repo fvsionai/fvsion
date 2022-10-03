@@ -117,8 +117,9 @@ def maskProcessing(fv: FvsionModel):
     # else:
     #     TODO, maybe use another technique such as custom color?
     
-    # ensure width and height a multiple of 8
-    mask_image = resizeImg(mask_image)
+    # ensure width and height a multiple of 64 and same as per init_image
+    init_image = resizeImg(init_image)
+    mask_image = mask_image.resize(init_image.size)
     # mask_image.save(f'output/example/diagnostic_mask_{fv.mask_image_type}.png') # for diagnostic
     return(mask_image.convert("RGB"))
 

@@ -19,6 +19,12 @@ def wrapper(fv: FvsionModel):
     pathToLocalModel = fv.pathToLocalModel
     pathToOutput = fv.pathToOutput
 
+    # if folder has fp16 mentioned, use fp16
+    if "fp16" in pathToLocalModel:
+        revision = "fp16"
+    else:
+        revision = "main"
+
     try:
         init_image_pfname = f"{fv.init_image.path}/{fv.init_image.name}.{fv.init_image.type}"
         print(f'set {init_image_pfname} as init_image')
@@ -36,7 +42,7 @@ def wrapper(fv: FvsionModel):
     # DIFFUSERS: setup diffusers pipe
     gen = Generator("cuda").manual_seed(fv.seed)
 
-    pipe = StableDiffusionImg2ImgPipeline.from_pretrained(pathToLocalModel, revision="fp16", torch_dtype=float16, use_auth_token=False)
+    pipe = StableDiffusionImg2ImgPipeline.from_pretrained(pathToLocalModel, revision=revision, torch_dtype=float16, use_auth_token=False)
 
 
     # enable/disable safety (NSFW) checker
