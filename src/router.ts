@@ -2,15 +2,13 @@ import {
   createRouter,
   createWebHistory,
   createWebHashHistory,
- } from "vue-router";
-import HomeView from "@/views/HomeView.vue"
-import AboutView from "@/views/AboutView.vue"
-import SupportView from "@/views/SupportView.vue"
-import Img2ImgView from "@/views/Img2ImgView.vue"
-import ProseLayout from "@/layouts/DashboardProseLayout.vue"
-import Layout from "@/layouts/DashboardLayout.vue"
-
-console.log(import.meta.env);
+} from "vue-router";
+import HomeView from "@/views/HomeView.vue";
+import AboutView from "@/views/AboutView.vue";
+import SupportView from "@/views/SupportView.vue";
+import Img2ImgView from "@/views/Img2ImgView.vue";
+import ProseLayout from "@/layouts/DashboardProseLayout.vue";
+import Layout from "@/layouts/DashboardLayout.vue";
 
 const router = createRouter({
   history: import.meta.env.PROD ? createWebHashHistory() : createWebHistory(),
@@ -37,7 +35,7 @@ const router = createRouter({
           name: "support",
           component: SupportView,
         },
-      ]
+      ],
     },
     {
       path: "/",
