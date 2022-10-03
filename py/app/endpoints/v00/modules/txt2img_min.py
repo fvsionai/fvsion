@@ -1,6 +1,6 @@
 # AI ML imports
 from torch import autocast, Generator, float16, cuda
-from app.endpoints.v00.modules.external.minimal_gpu import StableDiffusionPipelineMinMemory
+from app.endpoints.v00.modules.external.minimal_gpu import StableDiffusionPipelineMinVRAM
 
 # Object models import
 from app.models.fvsion import FvsionModel
@@ -24,7 +24,7 @@ def wrapper(fv: FvsionModel):
     # manual seed disabled for min vram mode
     # gen = Generator("cuda").manual_seed(fv.seed)
 
-    pipe = StableDiffusionPipelineMinMemory.from_pretrained(pathToLocalModel, revision="main", use_auth_token=False)
+    pipe = StableDiffusionPipelineMinVRAM.from_pretrained(pathToLocalModel, revision="fp16", use_auth_token=False)
 
     # safety (NSFW) checker is disabled for min vram mode
 
@@ -52,8 +52,8 @@ def wrapper(fv: FvsionModel):
         # with autocast("cuda"):
         #     _ = pipe(fv.prompt, guidance_scale=7.5, num_inference_steps=10, output_type="numpy")  
 
-        mem_bytes = cuda.max_memory_allocated()
-        print(mem_bytes)
+        mem_bytes = float(cuda.max_memory_allocated()) / (10**9)
+        print("{:.1f}".format(mem_bytes) + " GB of VRAM used by cuda directly")
         cuda.reset_peak_memory_stats()
     except Exception as e:
         print(e)

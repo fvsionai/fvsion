@@ -25,8 +25,7 @@ async def read_root():
 async def generateTxt2Img(fv: FvsionModel):
     try:
         newFV = txt2img.wrapper(fv)
-        content = jsonable_encoder(newFV)
-        print(content)
+        content = jsonable_encoder(newFV)        
         return JSONResponse(content=content, status_code=200)
     except:
         # TODO improve error handling
@@ -36,8 +35,7 @@ async def generateTxt2Img(fv: FvsionModel):
 async def generateTxt2ImgMin(fv: FvsionModel):
     try:
         newFV = txt2img_min.wrapper(fv)
-        content = jsonable_encoder(newFV)
-        print(content)
+        content = jsonable_encoder(newFV)        
         return JSONResponse(content=content, status_code=200)
     except:
         # TODO improve error handling
@@ -47,8 +45,7 @@ async def generateTxt2ImgMin(fv: FvsionModel):
 async def generateImg2Img(fv: FvsionModel):
     try:
         newFV = img2img.wrapper(fv)
-        content = jsonable_encoder(newFV)
-        print(content)
+        content = jsonable_encoder(newFV)        
         return JSONResponse(content=content, status_code=200)
     except:
         # TODO improve error handling
@@ -58,8 +55,7 @@ async def generateImg2Img(fv: FvsionModel):
 async def generateInpainting(fv: FvsionModel):
     try:
         newFV = inpainting.wrapper(fv)
-        content = jsonable_encoder(newFV)
-        print(content)
+        content = jsonable_encoder(newFV)        
         return JSONResponse(content=content, status_code=200)
     except:
         # TODO improve error handling
