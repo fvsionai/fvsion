@@ -8,5 +8,6 @@
       ],
       "url": "https://json.schemastore.org/electron-builder"
     }
-  ]
+  ],
+  "python.defaultInterpreterPath": ".\\.venv\\Scripts\\python.exe"
 }
