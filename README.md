@@ -12,8 +12,9 @@
 1. Cross platform features incoming via Electron and packaged pyInstaller (coming soon).
 
 # Beginner Friendly Installation 
-1. Windows Installer/Executable (Coming Soon)
-1. Linux and MacOS not yet supported
+1. Windows Installer/Executable (Coming Soon).
+1. Linux is currently supported via development installation as per instruction below. Need help to create a docker image. 
+1. MacOS not yet supported
 
 # Development Installation
 1. Make sure you have [git](https://git-scm.com/downloads), [python 3.10.7](https://www.python.org/downloads/) & [virtualenv](https://pypi.org/project/virtualenv/), and [node == 18.9.1](https://nodejs.org/en/) installed.
