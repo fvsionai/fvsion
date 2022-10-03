@@ -1,5 +1,5 @@
 # AI ML imports
-from torch import autocast, Generator, float16
+from torch import autocast, Generator, float16, cuda
 from diffusers import StableDiffusionPipeline
 
 # Object models import
@@ -14,8 +14,8 @@ def wrapper(fv: FvsionModel):
     
     # Parameters and settings
     # Need to find a way to make this more robust... , e.g. join?
-    pathToLocalModel = "models/stable-diffusion-v1-4-fp16"
-    pathToOutput = "outputs"
+    pathToLocalModel = fv.pathToLocalModel
+    pathToOutput = fv.pathToOutput
 
     utils.createFolder(pathToOutput)
 
@@ -48,7 +48,8 @@ def wrapper(fv: FvsionModel):
 
         print(f"Completed Generation. Attempting to save {len(images)} file(s)")
     except Exception as e:
-        print(e)    
+        print(e)
+        return e   
 
     # UTILITY: saving the file to a unique name, if fails, try one more time, which will generate a new secret
     try:
@@ -60,5 +61,7 @@ def wrapper(fv: FvsionModel):
             print(f"successfully saved {len(images)} files")
         except Exception as e:
             print(e)
+            return e 
 
+    # if successful return fv
     return fv
