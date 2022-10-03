@@ -3,7 +3,7 @@
  */
 {
   appId: "Fvsion",
-  asar: false,
+  asar: true,
   directories: {
     output: "release/${version}",
   },
