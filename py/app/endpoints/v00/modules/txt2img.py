@@ -19,11 +19,12 @@ def wrapper(fv: FvsionModel):
 
     utils.createFolder(pathToOutput)
 
-
+    cuda.reset_peak_memory_stats()
     # DIFFUSERS: setup diffusers pipe
     gen = Generator("cuda").manual_seed(fv.seed)
 
     pipe = StableDiffusionPipeline.from_pretrained(pathToLocalModel, revision="fp16", torch_dtype=float16, use_auth_token=False)
+    pipe.set_progress_bar_config(disable=None)
 
 
     # enable/disable safety (NSFW) checker
@@ -47,6 +48,10 @@ def wrapper(fv: FvsionModel):
             guidance_scale = fv.guidance_scale,  generator=gen, eta = fv.eta).images  
 
         print(f"Completed Generation. Attempting to save {len(images)} file(s)")
+
+        mem_bytes = cuda.max_memory_allocated()
+        print(mem_bytes)
+        cuda.reset_peak_memory_stats()
     except Exception as e:
         print(e)
         return e   

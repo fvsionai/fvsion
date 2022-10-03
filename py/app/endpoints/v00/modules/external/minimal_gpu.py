@@ -1,5 +1,6 @@
 # https://github.com/piEsposito/diffusers/tree/minimal-memory-usage-stable-diffusion
-# buggy, doesnt't clear memory once run completed, doesnt seems to help with batch prompts, still same max of 4 prompts in a list
+# still buggy, doesnt't clear memory once run completed, doesnt seems to help with batch prompts, still same max of 4 prompts in a list
+# however, it seems to manage to get <2.3 GB VRAM use (checked via cuda.max_memory_allocated() but not at the task manager performance monitoring)
 
 import inspect
 import warnings
@@ -14,7 +15,6 @@ from diffusers.models import AutoencoderKL, UNet2DConditionModel
 from diffusers.pipeline_utils import DiffusionPipeline
 from diffusers.schedulers import DDIMScheduler, LMSDiscreteScheduler, PNDMScheduler
 from diffusers.pipelines.stable_diffusion import StableDiffusionPipelineOutput
-from diffusers.pipelines.stable_diffusion.safety_checker import StableDiffusionSafetyChecker
 
 
 class StableDiffusionPipelineMinMemory(DiffusionPipeline):
@@ -50,7 +50,6 @@ class StableDiffusionPipelineMinMemory(DiffusionPipeline):
         tokenizer: CLIPTokenizer,
         unet: UNet2DConditionModel,
         scheduler: Union[DDIMScheduler, PNDMScheduler, LMSDiscreteScheduler],
-        safety_checker: StableDiffusionSafetyChecker,
         feature_extractor: CLIPFeatureExtractor,
     ):
         super().__init__()
@@ -61,7 +60,6 @@ class StableDiffusionPipelineMinMemory(DiffusionPipeline):
             tokenizer=tokenizer,
             unet=unet,
             scheduler=scheduler,
-            safety_checker=safety_checker,
             feature_extractor=feature_extractor,
         )
 
@@ -277,16 +275,15 @@ class StableDiffusionPipelineMinMemory(DiffusionPipeline):
         image = self.vae.decode(latents.to(self.vae.device)).sample
 
         image = (image / 2 + 0.5).clamp(0, 1)
-        image = image.to(self.safety_checker.dtype).cpu().permute(0, 2, 3, 1).numpy()
+        image = image.cpu().permute(0, 2, 3, 1).numpy()
 
-        # # run safety checker
-        # safety_cheker_input = self.feature_extractor(self.numpy_to_pil(image), return_tensors="pt").to(self.safety_checker.dtype).to(self.device)
-        # image, has_nsfw_concept = self.safety_checker(images=image, clip_input=safety_cheker_input.pixel_values)
-
+        # remove safety checker
+        dummy_flag = [False]*len(image)
+        
         if output_type == "pil":
             image = self.numpy_to_pil(image)
 
         if not return_dict:
-            return (image, "dummy")
+            return (image, dummy_flag)
 
-        return StableDiffusionPipelineOutput(images=image, nsfw_content_detected=[False]*len(image))
+        return StableDiffusionPipelineOutput(images=image, nsfw_content_detected=dummy_flag)

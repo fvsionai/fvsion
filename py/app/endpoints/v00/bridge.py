@@ -32,16 +32,16 @@ async def generateTxt2Img(fv: FvsionModel):
         # TODO improve error handling
         return JSONResponse(content={"error": "image generation error"}, status_code=500)
 
-# @router.post("/txt2img_min")
-# async def generateTxt2ImgMin(fv: FvsionModel):
-#     try:
-#         newFV = txt2img_min.wrapper(fv)
-#         content = jsonable_encoder(newFV)
-#         print(content)
-#         return JSONResponse(content=content, status_code=200)
-#     except:
-#         # TODO improve error handling
-#         return JSONResponse(content={"error": "image generation error"}, status_code=500)
+@router.post("/txt2img_min")
+async def generateTxt2ImgMin(fv: FvsionModel):
+    try:
+        newFV = txt2img_min.wrapper(fv)
+        content = jsonable_encoder(newFV)
+        print(content)
+        return JSONResponse(content=content, status_code=200)
+    except:
+        # TODO improve error handling
+        return JSONResponse(content={"error": "image generation error"}, status_code=500)
 
 @router.post("/img2img")
 async def generateImg2Img(fv: FvsionModel):
