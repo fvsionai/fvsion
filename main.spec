@@ -31,7 +31,7 @@ a = Analysis(
     binaries=[],
     datas=datas,
     hiddenimports=[
-        'main.py',
+        'main',
         'uvicorn.logging',
         'uvicorn.loops',
         'uvicorn.loops.auto',

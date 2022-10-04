@@ -12,9 +12,14 @@ python py/main.py -r y
 python py/dev/genSchema.py
 npx json2ts src/stores/schema.json > src/stores/schema.ts
 
-
 # generate python standalone
 pyinstaller main.spec -y
+
+
+# windows powershell command
+Start-Process -FilePath "dist_py/main/main.exe" -ArgumentList "-p 4243"
+
+
 
 # unused commands
 # pyinstaller py/main.py --onefile --distpath dist

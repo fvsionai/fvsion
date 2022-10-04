@@ -7,13 +7,13 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# files & folders for dev
 node_modules
 dist
 dist_py
 build
+release
 dist-ssr
-*.local
-
 pid.txt
 .env
 
@@ -25,6 +25,5 @@ pid.txt
 *.njsproj
 *.sln
 *.sw?
-
-release
 .vscode/.debug.env
+*.local
