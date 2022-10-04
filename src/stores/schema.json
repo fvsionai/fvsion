@@ -18,7 +18,7 @@
     },
     "unique": {
       "title": "Unique",
-      "default": "af0a8c34-54ac-421d-ad7a-e3d69d2979f5",
+      "default": "e007f1b7-65b9-4a8a-a5bf-c26441ad6635",
       "type": "string",
       "format": "uuid"
     },
@@ -138,7 +138,8 @@
       "enum": [
         "txt2img",
         "img2img",
-        "img2img_inpainting"
+        "inpainting",
+        "lowvram"
       ],
       "type": "string"
     },

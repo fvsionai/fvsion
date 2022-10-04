@@ -65,7 +65,7 @@ const formSubmit = (e: any) => {
         <input
           type="text"
           placeholder="A beautiful cat"
-          class="input input-bordered input-primary w-full"
+          class="input input-bordered input-primary w-full text-black"
           id="aiprompt"
           v-model="fvsion.prompt"
         />

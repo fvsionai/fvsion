@@ -55,8 +55,8 @@ def wrapper(fv: FvsionModel):
 
         print(f"Completed Generation. Attempting to save {len(images)} file(s)")
 
-        mem_bytes = cuda.max_memory_allocated()
-        print(mem_bytes)
+        mem_bytes = float(cuda.max_memory_allocated()) / (10**9)
+        print("{:.1f}".format(mem_bytes) + " GB of VRAM used by cuda directly")
         cuda.reset_peak_memory_stats()
     except Exception as e:
         print(e)

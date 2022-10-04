@@ -10,7 +10,8 @@ import uuid
 class ModeEnum(str, Enum):
     txt2img = 'txt2img'
     img2img = 'img2img'
-    img2img_inpainting = 'img2img_inpainting'
+    inpainting = 'inpainting'
+    lowvram = 'lowvram'
 
 class MaskImageEnum(str, Enum):
     default = 'default' # use separate file (white as area to be changed)
