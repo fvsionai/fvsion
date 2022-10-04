@@ -36,29 +36,6 @@ const onc_image = (s: string) => {
   <div class="pt-2">
     <div>
       <span>Image Input</span>
-      <!-- <span>Image and Mask Input</span> -->
-      <!-- <div class="form-control">
-        <label class="label cursor-pointer">
-          <span class="label-text">Image-to-Image Mode</span>
-          <input
-            type="radio"
-            name="radio-mode"
-            class="radio checked:bg-primary"
-            checked
-          />
-        </label>
-      </div>
-      <div class="form-control">
-        <label class="label cursor-pointer">
-          <span class="label-text">Image Inpainting</span>
-          <input
-            type="radio"
-            name="radio-mode"
-            class="radio checked:bg-primary"
-            checked
-          />
-        </label>
-      </div> -->
     </div>
     <div class="form-control">
       <label for="init_image" class="label input-group justify-start">
@@ -70,25 +47,10 @@ const onc_image = (s: string) => {
           class="hidden"
           @change="onc_image('init_image')"
         />
-        <span class="text-sm truncate text-left ml-1">{{
+        <span class="text-sm truncate text-left ml-1 text-black">{{
           fvsion.init_image?.name
         }}</span>
       </label>
     </div>
-    <!-- <div class="form-control">
-      <label for="mask_image" class="label input-group justify-start">
-        <span class="label-text w-32">Choose Mask</span>
-        <input
-          type="file"
-          id="mask_image"
-          accept="image/*"
-          class="hidden"
-          @change="onc_image('mask_image')"
-        />
-        <span class="text-sm truncate text-left ml-1">{{
-          fvsion.mask_image?.name
-        }}</span>
-      </label>
-    </div> -->
   </div>
 </template>

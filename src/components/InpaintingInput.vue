@@ -36,18 +36,6 @@ const onc_image = (s: string) => {
   <div class="pt-2">
     <div>
       <span>Image and Mask Input</span>
-
-      <div class="form-control">
-        <label class="label cursor-pointer">
-          <span class="label-text">Image Inpainting</span>
-          <input
-            type="radio"
-            name="radio-mode"
-            class="radio checked:bg-primary"
-            checked
-          />
-        </label>
-      </div>
     </div>
     <div class="form-control">
       <label for="init_image" class="label input-group justify-start">
@@ -59,7 +47,7 @@ const onc_image = (s: string) => {
           class="hidden"
           @change="onc_image('init_image')"
         />
-        <span class="text-sm truncate text-left ml-1">{{
+        <span class="text-sm truncate text-left ml-1 text-black">{{
           fvsion.init_image?.name
         }}</span>
       </label>
@@ -74,22 +62,48 @@ const onc_image = (s: string) => {
           class="hidden"
           @change="onc_image('mask_image')"
         />
-        <span class="text-sm truncate text-left ml-1">{{
+        <span class="text-sm truncate text-left ml-1 text-black">{{
           fvsion.mask_image?.name
         }}</span>
       </label>
     </div>
-
+    <div class="border-t-4 border-slate-300"></div>
     <div class="form-control">
-      <label class="label cursor-pointer">
-        <span class="label-text">Image-to-Image Mode</span>
+      <label class="label cursor-pointer input-group">
+        <span class="label-text">Mask Default (use separate mask file)</span>
         <input
           type="radio"
           name="radio-mode"
           class="radio checked:bg-primary"
-          checked
+          value="default"
+          v-model="fvsion.mask_image_type"
         />
       </label>
     </div>
+    <div class="form-control">
+      <label class="label cursor-pointer input-group">
+        <span class="label-text">Mask Use Alpha</span>
+        <input
+          type="radio"
+          name="radio-mode"
+          class="radio checked:bg-primary"
+          value="alpha"
+          v-model="fvsion.mask_image_type"
+        />
+      </label>
+    </div>
+    <div class="form-control">
+      <label class="label cursor-pointer input-group">
+        <span class="label-text">Mask Use White</span>
+        <input
+          type="radio"
+          name="radio-mode"
+          class="radio checked:bg-primary"
+          value="white"
+          v-model="fvsion.mask_image_type"
+        />
+      </label>
+    </div>
+    <span>{{ fvsion.mask_image_type }}</span>
   </div>
 </template>

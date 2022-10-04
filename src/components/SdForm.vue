@@ -12,7 +12,7 @@ const props = defineProps<{
 const isImgMode = ref(false);
 
 // TODO, once painterro error fixed, maybe can improve this logic later
-if (["img2img"].includes(props.mode)) {
+if (["img2img", "inpainting"].includes(props.mode)) {
   isImgMode.value = true;
 } else {
   isImgMode.value = false;
@@ -93,17 +93,6 @@ const formSubmit = (e: any) => {
           </div>
         </div>
       </div>
-
-      <!-- <div class="form-control">
-          <label class="label input-group">
-            <span class="label-text">Init Image</span>
-            <input
-              type="file"
-              accept="image/*"
-              name="init_file"
-              @change="changeImg"
-          /></label>
-        </div> -->
     </form>
 
     <div class="card card-body">

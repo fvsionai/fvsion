@@ -11,7 +11,6 @@ declare module '@vue/runtime-core' {
     AppTopBar: typeof import('./src/components/AppTopBar.vue')['default']
     BrandLogo: typeof import('./src/components/images/BrandLogo.vue')['default']
     BrandType: typeof import('./src/components/images/BrandType.vue')['default']
-    copy: typeof import('./src/components/ImgInput copy.vue')['default']
     FormKitExample: typeof import('./src/components/FormKitExample.vue')['default']
     ICarbonMenu: typeof import('~icons/carbon/menu')['default']
     ICarbonMoon: typeof import('~icons/carbon/moon')['default']

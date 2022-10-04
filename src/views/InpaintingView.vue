@@ -5,11 +5,11 @@ import InpaintingInput from "@/components/InpaintingInput.vue";
 <template>
   <div class="grid md:grid-cols-2 grid-cols-1">
     <div class="col-span-1">
-      <SdForm mode="img2img"></SdForm>
+      <SdForm mode="inpainting"></SdForm>
     </div>
 
     <div class="col-span-1">
-      <InpaintingInput mode="img2img"></InpaintingInput>
+      <InpaintingInput mode="inpainting"></InpaintingInput>
     </div>
   </div>
 </template>

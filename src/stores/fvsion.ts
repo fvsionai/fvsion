@@ -140,7 +140,7 @@ export const formList: FormInput[] = [
     min: 0,
     max: 1,
     step: 0.01,
-    mode: ["img2img"],
+    mode: ["img2img", "inpainting"],
     model: "strength",
     label: "Strength",
     label_class: "",
