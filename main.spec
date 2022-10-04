@@ -1,5 +1,8 @@
 # -*- mode: python ; coding: utf-8 -*-
-
+import PyInstaller.config
+PyInstaller.config.CONF['distpath'] = "./dist_py"
+# custom dist folder is assigned above, currently using default /build folder
+# PyInstaller.config.CONF['workpath'] = "./build" 
 
 from PyInstaller.utils.hooks import collect_data_files
 from PyInstaller.utils.hooks import copy_metadata
