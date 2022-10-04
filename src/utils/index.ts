@@ -14,9 +14,10 @@ export const API_library = {
     "txt2img",
     "img2img",
     "inpainting",
+    "lowvram",
     "pid",
     "save-as-base64",
-    "fvsionModel"
+    "fvsionModel",
   ],
 };
 
@@ -25,7 +26,7 @@ export function getAPI(s: string) {
     return API_library.root + API_library.version + "/" + s;
   } else {
     throw new Error("API not found");
-  } 
+  }
 }
 
 export function checkPID() {

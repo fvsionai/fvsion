@@ -28,8 +28,18 @@ const navLinks = [
     icon: "ic:baseline-home",
   },
   {
-    text: "img2img",
+    text: "Img2Img",
     to: "/img2img",
+    icon: "ic:baseline-home",
+  },
+  {
+    text: "Inpainting",
+    to: "/inpainting",
+    icon: "ic:baseline-home",
+  },
+  {
+    text: "lowVRAM",
+    to: "/lowvram",
     icon: "ic:baseline-home",
   },
 ];

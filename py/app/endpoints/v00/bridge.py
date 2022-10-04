@@ -3,7 +3,7 @@ from fileinput import filename
 from urllib import request
 from fastapi import APIRouter
 from app.models.fvsion import FvsionModel, ImageModel
-from app.endpoints.v00.modules import txt2img, img2img, inpainting, txt2img_min
+from app.endpoints.v00.modules import txt2img, img2img, inpainting, lowvram
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 import os
@@ -31,10 +31,10 @@ async def generateTxt2Img(fv: FvsionModel):
         # TODO improve error handling
         return JSONResponse(content={"error": "image generation error"}, status_code=500)
 
-@router.post("/txt2img_min")
-async def generateTxt2ImgMin(fv: FvsionModel):
+@router.post("/lowvram")
+async def generateLowVRAM(fv: FvsionModel):
     try:
-        newFV = txt2img_min.wrapper(fv)
+        newFV = lowvram.wrapper(fv)
         content = jsonable_encoder(newFV)        
         return JSONResponse(content=content, status_code=200)
     except:

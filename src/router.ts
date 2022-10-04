@@ -7,6 +7,8 @@ import HomeView from "@/views/HomeView.vue";
 import AboutView from "@/views/AboutView.vue";
 import SupportView from "@/views/SupportView.vue";
 import Img2ImgView from "@/views/Img2ImgView.vue";
+import InpaintingView from "@/views/InpaintingView.vue";
+import LowVRAMView from "@/views/LowVRAMView.vue";
 import ProseLayout from "@/layouts/DashboardProseLayout.vue";
 import Layout from "@/layouts/DashboardLayout.vue";
 
@@ -35,6 +37,11 @@ const router = createRouter({
           name: "support",
           component: SupportView,
         },
+        {
+          path: "/lowvram",
+          name: "lowvram",
+          component: LowVRAMView,
+        },
       ],
     },
     {
@@ -48,6 +55,11 @@ const router = createRouter({
           path: "/img2img",
           name: "img2img",
           component: Img2ImgView,
+        },
+        {
+          path: "/inpainting",
+          name: "inpainting",
+          component: InpaintingView,
         },
       ],
     },
