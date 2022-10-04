@@ -74,7 +74,15 @@ const formSubmit = (e: any) => {
           Generate Art
         </button>
       </div>
-
+      <div class="form-control">
+        <label class="label input-group">
+          <span class="label-text">Allow NSFW</span>
+          <input
+            type="checkbox"
+            class="checkbox checkbox-primary"
+            v-model="fvsion['allowNSFW']"
+        /></label>
+      </div>
       <div v-for="f in formList">
         <div v-if="isModeIn(f.mode)">
           <div class="form-control">
@@ -89,34 +97,21 @@ const formSubmit = (e: any) => {
                 :step="f.step"
                 :class="f.class"
                 v-model="fvsion[f.model]"
-            /></label>
+              />
+            </label>
+            <input
+              type="number"
+              :min="f.min"
+              :max="f.max"
+              :step="f.step"
+              class="input input-bordered input-primary w-24 text-black"
+              v-model="fvsion[f.model]"
+            />
           </div>
         </div>
       </div>
     </form>
 
-    <div class="card card-body">
-      <div class="mode-all">
-        <span class="text-sm p-1">Mode : {{ fvsion.mode }}</span>
-      </div>
-      <div class="mode-txt2img" v-if="!isImgMode">
-        <span class="text-sm p-1">Height : {{ fvsion.height }}</span>
-        <span class="text-sm p-1">Width : {{ fvsion.width }}</span>
-      </div>
-      <div class="mode-all">
-        <span class="text-sm p-1"
-          >Steps : {{ fvsion.num_inference_steps }}</span
-        >
-        <br />
-        <span class="text-sm p-1">Guidance : {{ fvsion.guidance_scale }}</span>
-        <span class="text-sm p-1">Eta : {{ fvsion.eta }}</span>
-        <span class="text-sm p-1">Seed : {{ fvsion.seed }}</span>
-        <span class="text-sm p-1">Allow NSFW : {{ fvsion.allowNSFW }}</span>
-      </div>
-      <div class="mode-img2img" v-if="isImgMode">
-        <span class="text-sm p-1">Strength : {{ fvsion.strength }}</span>
-      </div>
-    </div>
     <!-- <div class="diagnostic">
       <pre>{{ fvsion }}</pre>
     </div> -->
