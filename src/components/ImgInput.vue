@@ -33,34 +33,62 @@ const onc_image = (s: string) => {
 </script>
 
 <template>
-  <div>
-    <form>
-      <div class="form-control">
-        <label for="mask_image" class="label input-group">
-          <span class="label-text w-32">Choose Input</span>
+  <div class="pt-2">
+    <div>
+      <span>Image Input</span>
+      <!-- <span>Image and Mask Input</span> -->
+      <!-- <div class="form-control">
+        <label class="label cursor-pointer">
+          <span class="label-text">Image-to-Image Mode</span>
           <input
-            type="file"
-            id="init_image"
-            accept="image/*"
-            class="hidden"
-            @change="onc_image('init_image')"
+            type="radio"
+            name="radio-mode"
+            class="radio checked:bg-primary"
+            checked
           />
-          <span class="text-sm truncate">{{ fvsion.init_image?.name }}</span>
         </label>
       </div>
       <div class="form-control">
-        <label for="mask_image" class="label input-group">
-          <span class="label-text w-32">Choose Mask</span>
+        <label class="label cursor-pointer">
+          <span class="label-text">Image Inpainting</span>
           <input
-            type="file"
-            id="mask_image"
-            accept="image/*"
-            class="hidden"
-            @change="onc_image('mask_image')"
+            type="radio"
+            name="radio-mode"
+            class="radio checked:bg-primary"
+            checked
           />
-          <span class="text-sm truncate">{{ fvsion.mask_image?.name }}</span>
         </label>
-      </div>
-    </form>
+      </div> -->
+    </div>
+    <div class="form-control">
+      <label for="init_image" class="label input-group justify-start">
+        <span class="label-text w-32">Choose Input</span>
+        <input
+          type="file"
+          id="init_image"
+          accept="image/*"
+          class="hidden"
+          @change="onc_image('init_image')"
+        />
+        <span class="text-sm truncate text-left ml-1">{{
+          fvsion.init_image?.name
+        }}</span>
+      </label>
+    </div>
+    <!-- <div class="form-control">
+      <label for="mask_image" class="label input-group justify-start">
+        <span class="label-text w-32">Choose Mask</span>
+        <input
+          type="file"
+          id="mask_image"
+          accept="image/*"
+          class="hidden"
+          @change="onc_image('mask_image')"
+        />
+        <span class="text-sm truncate text-left ml-1">{{
+          fvsion.mask_image?.name
+        }}</span>
+      </label>
+    </div> -->
   </div>
 </template>

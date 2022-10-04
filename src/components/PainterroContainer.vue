@@ -79,7 +79,9 @@ onMounted(() => {
     ],
     saveHandler: sendAxios,
     // onChange: changeSaveToStore,
-  }).show();
+  });
+
+  ptro.show();
 });
 </script>
 

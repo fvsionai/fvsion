@@ -11,10 +11,11 @@ const props = defineProps<{
 
 const isImgMode = ref(false);
 
-if (props.mode == "txt2img") {
-  isImgMode.value = false;
-} else {
+// TODO, once painterro error fixed, maybe can improve this logic later
+if (["img2img"].includes(props.mode)) {
   isImgMode.value = true;
+} else {
+  isImgMode.value = false;
 }
 
 // TODO, add button to reset to default, need to be careful against custom value per page, like mode etc
@@ -57,7 +58,7 @@ const formSubmit = (e: any) => {
     class="flex flex-col flex-wrap justify-between gap-2 px-2 md:flex-row w-full pt-2"
   >
     <ServerStatus></ServerStatus>
-    <SavedStatus v-if="isImgMode"></SavedStatus>
+    <!-- <SavedStatus v-if="isImgMode"></SavedStatus> -->
 
     <form class="w-full" @submit="formSubmit" name="aiform">
       <div class="flex flex-row w-full">
