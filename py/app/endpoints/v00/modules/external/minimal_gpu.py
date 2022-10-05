@@ -17,7 +17,7 @@ from diffusers.schedulers import DDIMScheduler, LMSDiscreteScheduler, PNDMSchedu
 from diffusers.pipelines.stable_diffusion import StableDiffusionPipelineOutput
 
 
-class StableDiffusionPipelineMinVRAM(DiffusionPipeline):
+class StableDiffusionLowVRAMPipeline(DiffusionPipeline):
     r"""
     Pipeline for text-to-image generation using Stable Diffusion.
     This model inherits from [`DiffusionPipeline`]. Check the superclass documentation for the generic methods the

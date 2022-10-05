@@ -1,6 +1,6 @@
 # AI ML imports
 from torch import autocast, Generator, float16, cuda
-from app.endpoints.v00.modules.external.minimal_gpu import StableDiffusionPipelineMinVRAM
+from app.endpoints.v00.modules.external.minimal_gpu import StableDiffusionLowVRAMPipeline
 
 # Object models import
 from app.models.fvsion import FvsionModel
@@ -24,7 +24,7 @@ def wrapper(fv: FvsionModel):
     # manual seed disabled for min vram mode
     # gen = Generator("cuda").manual_seed(fv.seed)
 
-    pipe = StableDiffusionPipelineMinVRAM.from_pretrained(pathToLocalModel, revision="fp16", use_auth_token=False)
+    pipe = StableDiffusionLowVRAMPipeline.from_pretrained(pathToLocalModel, revision="fp16", use_auth_token=False)
 
     # safety (NSFW) checker is disabled for min vram mode
 
