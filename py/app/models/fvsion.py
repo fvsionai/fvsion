@@ -4,7 +4,7 @@ from pydantic import BaseModel, validator
 from pydantic.color import Color
 
 from enum import Enum
-import uuid
+import uuid, os
 
 # mode to follow diffusers pipeline functions, relatively specific
 class ModeEnum(str, Enum):
@@ -53,7 +53,7 @@ class FvsionModel(BaseModel):
     mask_color: Color | None = Color('white')
 
     # other 
-    seed = 1024
+    seed = int.from_bytes(os.urandom(2), "big")
     allowNSFW = False
 
     # other utilities
