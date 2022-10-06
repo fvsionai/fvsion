@@ -1,10 +1,8 @@
-from distutils import extension
-from turtle import width
 from pydantic import BaseModel, validator
 from pydantic.color import Color
 
 from enum import Enum
-import uuid, os
+import uuid
 
 # mode to follow diffusers pipeline functions, relatively specific
 class ModeEnum(str, Enum):
@@ -20,14 +18,14 @@ class MaskImageEnum(str, Enum):
     color = 'color' # use pydantic color, as input to select mask
 
 class FileModel(BaseModel):
-    name: str | None = "init" # exclude extension
-    type: str | None = "png" # eg. png, jpg, webp, 
-    path: str | None = "outputs/tmp" # might be better changed to pathlib.path later
-
+    name: str = "init" # exclude extension
+    type: str = "png" # eg. png, jpg, webp, 
+    path: str = "outputs/tmp" # might be better changed to pathlib.path later
 
 class ImageModel(BaseModel):
     image: str
     draw_image: FileModel | None 
+
 
 # when a value is given for the parameters, type is auto assigned and will be used as default when not given 
 class FvsionModel(BaseModel):
@@ -53,11 +51,11 @@ class FvsionModel(BaseModel):
     mask_color: Color | None = Color('white')
 
     # other 
-    seed = int.from_bytes(os.urandom(2), "big")
+    seed : int | None = None
     allowNSFW = False
 
     # other utilities
-    out_image: FileModel | None # filename and path
+    out_image = FileModel()  # filename and path
     api_github: str = "https://github.com/FvsionAI/fvsion"
     api_version: str = "v00"
     pathToLocalModel = "models/stable-diffusion-v1-4-fp16"
@@ -67,9 +65,9 @@ class FvsionModel(BaseModel):
     doJSON = True # if True generate a JSON file that save all config
 
     @validator('height', 'width')
-    def h_and_w_must_be_multiple_of_8(cls, v):
-        if v % 8 != 0:
-            raise ValueError('height and weight must be multiple of 8')
+    def h_and_w_must_be_multiple_of_64(cls, v):
+        if v % 64 != 0:
+            raise ValueError('height and weight must be multiple of 64')
         return v
 
     @validator('strength')
@@ -78,7 +76,12 @@ class FvsionModel(BaseModel):
             raise ValueError('strength must be between 0 <= x <= 1')
         return v
 
-
+    class Config:
+        schema_extra = {
+            "example": {
+                "prompt": "a photo of an astronaut riding a horse on mars",
+            }
+        }
 
 
 ## https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion.py
