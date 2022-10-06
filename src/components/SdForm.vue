@@ -25,8 +25,9 @@ const { fvsion } = storeToRefs(fvsionStr);
 
 fvsion.value.mode = props.mode as ModeEnum;
 
-// to be made from props, i.e. based on parent view
-const apiArt = getAPI(fvsion.value.mode);
+// change API to unified "pipe" for t2i, i2i, inpainting (except lowvram, still buggy), fvsion(.value).mode will automatically assign the right pipe in diffusers_pipe
+const api = props.mode == "lowvram" ? "lowvram" : "pipe";
+const apiArt = getAPI(api);
 
 const genArt = (): void => {
   // assign a unit uuid
@@ -59,7 +60,7 @@ const formSubmit = (e: any) => {
   >
     <ServerStatus></ServerStatus>
     <!-- <SavedStatus v-if="isImgMode"></SavedStatus> -->
-
+    <span>Mode: {{ props.mode }}</span>
     <form class="w-full" @submit="formSubmit" name="aiform">
       <div class="flex flex-row w-full">
         <input

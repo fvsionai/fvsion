@@ -22,7 +22,7 @@ from app.endpoints.v00.modules import utils
 
 
 # testing tile
-from app.endpoints.v00.modules.custom import FvsionPipeline, preprocess_init_image, preprocess_mask
+from py.app.endpoints.v00.modules.custom_pipe import FvsionPipeline, preprocess_init_image, preprocess_mask
 
 
 from typing import Optional, List

@@ -1,9 +1,7 @@
 import base64
-from fileinput import filename
-from urllib import request
 from fastapi import APIRouter
 from app.models.fvsion import FvsionModel, ImageModel
-from app.endpoints.v00.modules import txt2img, img2img, inpainting, lowvram
+from app.endpoints.v00.modules import diffusers_pipe, lowvram
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 import os
@@ -15,52 +13,38 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
+
+@router.post("/pipe")
+async def generate_pipe(fv: FvsionModel):
+    try:
+        newFV = diffusers_pipe.wrapper(fv)
+        content = jsonable_encoder(newFV)        
+        return JSONResponse(content=content, status_code=200)
+    except Exception as e:
+        # TODO improve error handling
+        print(e)
+        return JSONResponse(content={"error": "image generation error", "message": str(e)}, status_code=500)
+
+
+@router.post("/lowvram")
+async def generate_pipe(fv: FvsionModel):
+    try:
+        newFV = lowvram.wrapper(fv)
+        content = jsonable_encoder(newFV)        
+        return JSONResponse(content=content, status_code=200)
+    except Exception as e:
+        # TODO improve error handling
+        print(e)
+        return JSONResponse(content={"error": "image generation error", "message": str(e)}, status_code=500)
+
+# utilities
+# get PID, use to check system is online
 @router.get("/pid")
 # Get the python child of child pid, for kill instructions
 async def read_root():
     return {"pid": str(os.getpid())}
 
-
-@router.post("/txt2img")
-async def generateTxt2Img(fv: FvsionModel):
-    try:
-        newFV = txt2img.wrapper(fv)
-        content = jsonable_encoder(newFV)        
-        return JSONResponse(content=content, status_code=200)
-    except:
-        # TODO improve error handling
-        return JSONResponse(content={"error": "image generation error"}, status_code=500)
-
-@router.post("/lowvram")
-async def generateLowVRAM(fv: FvsionModel):
-    try:
-        newFV = lowvram.wrapper(fv)
-        content = jsonable_encoder(newFV)        
-        return JSONResponse(content=content, status_code=200)
-    except:
-        # TODO improve error handling
-        return JSONResponse(content={"error": "image generation error"}, status_code=500)
-
-@router.post("/img2img")
-async def generateImg2Img(fv: FvsionModel):
-    try:
-        newFV = img2img.wrapper(fv)
-        content = jsonable_encoder(newFV)        
-        return JSONResponse(content=content, status_code=200)
-    except:
-        # TODO improve error handling
-        return JSONResponse(content={"error": "image generation error"}, status_code=500)
-
-@router.post("/inpainting")
-async def generateInpainting(fv: FvsionModel):
-    try:
-        newFV = inpainting.wrapper(fv)
-        content = jsonable_encoder(newFV)        
-        return JSONResponse(content=content, status_code=200)
-    except:
-        # TODO improve error handling
-        return JSONResponse(content={"error": "image generation error"}, status_code=500)
-
+# get the fvsion model as json schema
 @router.get("/fvsionModel")
 async def shareFvsionModel():
     return FvsionModel.schema_json(indent=2)

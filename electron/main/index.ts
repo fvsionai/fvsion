@@ -21,8 +21,10 @@ import { app, BrowserWindow, shell, ipcMain, session } from "electron";
 import { release } from "os";
 import { join } from "path";
 
-// Disable GPU Acceleration for Windows 7
-if (release().startsWith("6.1")) app.disableHardwareAcceleration();
+// // Disable GPU Acceleration for Windows 7
+// if (release().startsWith("6.1")) app.disableHardwareAcceleration();
+// Disable GPU Acceleration for all, to reduce VRAM usage.
+app.disableHardwareAcceleration();
 
 // Set application name for Windows 10+ notifications
 if (process.platform === "win32") app.setAppUserModelId(app.getName());

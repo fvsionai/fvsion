@@ -75,6 +75,20 @@ def saveOutput(fv: FvsionModel, pathToOutput, image):
         if(fv.doJSON):
             saveJson(fv)
 
+def save(fv: FvsionModel, images: PIL.Image):
+    # UTILITY: saving the file to a unique name, if fails, try one more time, which will generate a new secret
+    try:
+        # print(fv) # diagnostic
+        saveOutput(fv=fv, pathToOutput=fv.pathToOutput, image=images)
+        print(f"successfully saved {len(images)} files")
+    except:
+        try:
+            saveOutput(fv=fv, pathToOutput=fv.pathToOutput, image=images)
+            print(f"successfully saved {len(images)} files")
+        except Exception as e:
+            print(e)
+
+
 # enable/disable safety (NSFW) checker
 def dummy(images, **kwargs):
     return images, False

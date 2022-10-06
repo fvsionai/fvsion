@@ -18,7 +18,7 @@
     },
     "unique": {
       "title": "Unique",
-      "default": "e007f1b7-65b9-4a8a-a5bf-c26441ad6635",
+      "default": "5ef1de48-4714-413e-90af-861701d6e623",
       "type": "string",
       "format": "uuid"
     },
@@ -54,8 +54,9 @@
       "type": "string",
       "format": "color"
     },
-    "out_image": {
-      "$ref": "#/definitions/FileModel"
+    "seed": {
+      "title": "Seed",
+      "type": "integer"
     },
     "api_github": {
       "title": "Api Github",
@@ -102,15 +103,23 @@
       "default": 0.85,
       "type": "number"
     },
-    "seed": {
-      "title": "Seed",
-      "default": 1024,
-      "type": "integer"
-    },
     "allowNSFW": {
       "title": "Allownsfw",
       "default": false,
       "type": "boolean"
+    },
+    "out_image": {
+      "title": "Out Image",
+      "default": {
+        "name": "init",
+        "type": "png",
+        "path": "outputs/tmp"
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/FileModel"
+        }
+      ]
     },
     "pathToLocalModel": {
       "title": "Pathtolocalmodel",
@@ -131,6 +140,10 @@
   "required": [
     "prompt"
   ],
+  "example": {
+    "prompt": "a photo of an astronaut riding a horse on mars",
+    "mode": "txt2img"
+  },
   "definitions": {
     "ModeEnum": {
       "title": "ModeEnum",

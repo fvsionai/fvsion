@@ -56,23 +56,15 @@ def wrapper(fv: FvsionModel):
         cuda.reset_peak_memory_stats()
 
         # delete variables and empty cache
+        # delete variables and empty cache
         del pipe, mem_bytes
         cuda.empty_cache() 
     except Exception as e:
         print(e)
-        return e   
+        return {"error": str(e)}   
 
-    # UTILITY: saving the file to a unique name, if fails, try one more time, which will generate a new secret
-    try:
-        utils.saveOutput(fv=fv, pathToOutput=pathToOutput, image=images)
-        print(f"successfully saved {len(images)} files")
-    except:
-        try:
-            utils.saveOutput(fv=fv, pathToOutput=pathToOutput, image=images)
-            print(f"successfully saved {len(images)} files")
-        except Exception as e:
-            print(e)
-            return e 
-
+    utils.save(fv, images)
+    del images
+    cuda.empty_cache()
     # if successful return fv
     return fv
