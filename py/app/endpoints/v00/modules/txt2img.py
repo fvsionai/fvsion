@@ -58,6 +58,10 @@ def wrapper(fv: FvsionModel):
         mem_bytes = float(cuda.max_memory_allocated()) / (10**9)
         print("{:.1f}".format(mem_bytes) + " GB of VRAM used by cuda directly")
         cuda.reset_peak_memory_stats()
+
+        # delete variables and empty cache
+        del pipe, mem_bytes
+        cuda.empty_cache() 
     except Exception as e:
         print(e)
         return e   

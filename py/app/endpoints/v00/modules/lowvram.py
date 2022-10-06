@@ -49,12 +49,15 @@ def wrapper(fv: FvsionModel):
 
         print(f"Completed Generation. Attempting to save {len(images)} file(s)")
 
-        # with autocast("cuda"):
-        #     _ = pipe(fv.prompt, guidance_scale=7.5, num_inference_steps=10, output_type="numpy")  
+ 
 
         mem_bytes = float(cuda.max_memory_allocated()) / (10**9)
         print("{:.1f}".format(mem_bytes) + " GB of VRAM used by cuda directly")
         cuda.reset_peak_memory_stats()
+
+        # delete variables and empty cache
+        del pipe, mem_bytes
+        cuda.empty_cache() 
     except Exception as e:
         print(e)
         return e   

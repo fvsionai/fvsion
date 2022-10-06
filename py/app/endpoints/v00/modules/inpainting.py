@@ -1,5 +1,5 @@
 # AI ML imports
-from torch import autocast, Generator, float16
+from torch import autocast, Generator, float16, cuda
 from diffusers import StableDiffusionInpaintPipeline
 
 # Object models import
@@ -48,6 +48,7 @@ def wrapper(fv: FvsionModel):
 
     utils.createFolder(pathToOutput)
 
+    cuda.reset_peak_memory_stats()
     # DIFFUSERS: setup diffusers pipe
     gen = Generator("cuda").manual_seed(fv.seed)
 
@@ -72,6 +73,13 @@ def wrapper(fv: FvsionModel):
             eta = fv.eta, num_inference_steps=fv.num_inference_steps, guidance_scale = fv.guidance_scale).images 
 
         print(f"Completed Generation. Attempting to save {len(images)} file(s)")
+
+        mem_bytes = float(cuda.max_memory_allocated()) / (10**9)
+        print("{:.1f}".format(mem_bytes) + " GB of VRAM used by cuda directly")
+        cuda.reset_peak_memory_stats()
+        # delete variables and empty cache
+        del pipe, mem_bytes
+        cuda.empty_cache() 
     except Exception as e:
         print(e) 
 
