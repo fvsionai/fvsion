@@ -41,7 +41,7 @@ class FvsionModel(BaseModel):
     num_inference_steps = 16
     guidance_scale = 7.5
     eta = 0.0
-    strength = 0.85 #for img2img, higher more variation especially useful for inpainting, other default is 0.75
+    strength = 0.85 #for img2img, closer to 0 means reproduce init_image, while higher value mean it follows prompts  
 
     # this is for pipe input specific to img2img / inpainting
     init_image: FileModel | None 
@@ -80,6 +80,7 @@ class FvsionModel(BaseModel):
         schema_extra = {
             "example": {
                 "prompt": "a photo of an astronaut riding a horse on mars",
+                "mode": ModeEnum.txt2img
             }
         }
 

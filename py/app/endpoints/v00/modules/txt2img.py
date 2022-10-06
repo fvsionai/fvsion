@@ -1,4 +1,5 @@
 # AI ML imports
+import os
 from torch import autocast, Generator, float16, cuda
 from diffusers import StableDiffusionPipeline
 
@@ -26,9 +27,15 @@ def wrapper(fv: FvsionModel):
     utils.createFolder(pathToOutput)
 
     cuda.reset_peak_memory_stats()
-    # DIFFUSERS: setup diffusers pipe
-    gen = Generator("cuda").manual_seed(fv.seed)
 
+    # if seed is provided, use manual seed, else random seed
+    if(fv.seed is not None):
+        gen = Generator("cuda").manual_seed(fv.seed)
+    else:
+        fv.seed = int.from_bytes(os.urandom(2), "big")
+        gen = Generator("cuda")
+
+    # DIFFUSERS: setup diffusers pipe
     pipe = StableDiffusionPipeline.from_pretrained(pathToLocalModel, revision=revision, torch_dtype=float16, use_auth_token=False)
     pipe.set_progress_bar_config(disable=None)
 
@@ -68,6 +75,7 @@ def wrapper(fv: FvsionModel):
 
     # UTILITY: saving the file to a unique name, if fails, try one more time, which will generate a new secret
     try:
+        # print(fv) # diagnostic
         utils.saveOutput(fv=fv, pathToOutput=pathToOutput, image=images)
         print(f"successfully saved {len(images)} files")
     except:
