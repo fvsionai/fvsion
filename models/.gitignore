@@ -2,4 +2,5 @@
 *
 */
 !.gitignore
+!download_models.bat
 !add-models-here
