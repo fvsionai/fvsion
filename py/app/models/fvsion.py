@@ -17,6 +17,14 @@ class MaskImageEnum(str, Enum):
     white = 'white' # use same file as init, but using color white as mask
     color = 'color' # use pydantic color, as input to select mask
 
+class RealESRGANEnum(str, Enum):
+    RealESRGAN_x2plus: "RealESRGAN_x2plus"
+    RealESRGAN_x4plus: "RealESRGAN_x4plus"
+    RealESRGAN_x4plus_anime_6B: "RealESRGAN_x4plus_anime_6B"
+    
+    
+
+
 class FileModel(BaseModel):
     name: str = "init" # exclude extension
     type: str = "png" # eg. png, jpg, webp, 
@@ -30,7 +38,7 @@ class UpscalerModel(BaseModel):
     face: str = "gfpgan"
     face_version: str = "GFPGANv1.4"
     bg: str = "realesrgan"
-    bg_version: str = "RealESRGAN_x2plus"
+    bg_version: RealESRGANEnum.RealESRGAN_x4plus
     factor: int = 2
     suffix: str = "upscaled"
     only_center_face: bool = False

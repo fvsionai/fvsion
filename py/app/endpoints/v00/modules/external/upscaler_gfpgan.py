@@ -30,24 +30,34 @@ def upscaler(fv: FvsionModel):
 
     # ------------------------ set up background upsampler ------------------------
     if fv.upscaler.bg == 'realesrgan':
-        if not torch.cuda.is_available():  # CPU
-            import warnings
-            warnings.warn('The unoptimized RealESRGAN is slow on CPU. We do not use it. '
-                          'If you really want to use it, please modify the corresponding codes.')
-            bg_upsampler = None
-        else:
-            from basicsr.archs.rrdbnet_arch import RRDBNet
-            from realesrgan import RealESRGANer
+        from basicsr.archs.rrdbnet_arch import RRDBNet
+        from realesrgan import RealESRGANer
+
+        if(fv.upscaler.bg_version == "RealESRGAN_x2plus"):
             model = RRDBNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=23, num_grow_ch=32, scale=2)
-            bg_upsampler = RealESRGANer(
-                scale=2,
-                model_path='models/RealESRGAN/RealESRGAN_x2plus.pth',
-                model=model,
-                tile=400,
-                tile_pad=10,
-                pre_pad=0,
-                half=True)  # need to set False in CPU mode
-            print(f"set {fv.upscaler.bg} as bg upscaler")
+            model_path = 'models/RealESRGAN/RealESRGAN_x2plus.pth'
+            netscale = 2
+        
+        elif(fv.upscaler.bg_version == "RealESRGAN_x4plus"):
+            model = RRDBNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=23, num_grow_ch=32, scale=4)
+            model_path = 'models/RealESRGAN/RealESRGAN_x4plus.pth'
+            netscale = 4
+        
+        elif(fv.upscaler.bg_version == "RealESRGAN_x4plus_anime_6B"):
+            model = RRDBNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=6, num_grow_ch=32, scale=4)
+            model_path = 'models/RealESRGAN/RealESRGAN_x4plus_anime_6B.pth'
+            netscale = 4                      
+        
+        bg_upsampler = RealESRGANer(
+            scale=netscale,
+            model_path=model_path,
+            model=model,
+            tile=400,
+            tile_pad=10,
+            pre_pad=0,
+            half=True)  # need to set False in CPU mode
+            
+        print(f"set {fv.upscaler.bg}:{fv.upscaler.bg_version} as bg upscaler")
     else:
         bg_upsampler = None
 
@@ -124,9 +134,13 @@ def upscaler(fv: FvsionModel):
                 extension = fv.upscaler.type
 
             if fv.upscaler.suffix is not None:
-                save_restore_path = os.path.join(outputs_dir, 'restored_imgs', f'{basename}_{fv.upscaler.suffix}.{extension}')
+                save_restore_path = os.path.join(outputs_dir, f'{basename}_{fv.upscaler.suffix}.{extension}')
             else:
-                save_restore_path = os.path.join(outputs_dir, 'restored_imgs', f'{basename}.{extension}')
+                save_restore_path = os.path.join(outputs_dir, f'{basename}.{extension}')
             imwrite(restored_img, save_restore_path)
 
-    print(f'Results are in the [{outputs_dir}] folder.')
+            print(f'Results are in the [{outputs_dir}] folder.')
+
+            fv.out_image.name = fv.out_image.name + "_" + fv.upscaler.suffix
+            return fv
+

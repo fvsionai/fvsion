@@ -1,7 +1,7 @@
 import base64
 from fastapi import APIRouter
 from app.models.fvsion import FvsionModel, ImageModel
-from app.endpoints.v00.modules import diffusers_pipe, lowvram
+from app.endpoints.v00.modules import diffusers_pipe, lowvram, upscaler
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 import os
@@ -27,7 +27,7 @@ async def generate_pipe(fv: FvsionModel):
 
 
 @router.post("/lowvram")
-async def generate_pipe(fv: FvsionModel):
+async def generate_pipe_lowvram(fv: FvsionModel):
     try:
         newFV = lowvram.wrapper(fv)
         content = jsonable_encoder(newFV)        
@@ -36,6 +36,18 @@ async def generate_pipe(fv: FvsionModel):
         # TODO improve error handling
         print(e)
         return JSONResponse(content={"error": "image generation error", "message": str(e)}, status_code=500)
+
+@router.post("/upscaler")
+async def generate_upscaler(fv: FvsionModel):
+    try:
+        newFV = upscaler.wrapper(fv)
+        content = jsonable_encoder(newFV)        
+        return JSONResponse(content=content, status_code=200)
+    except Exception as e:
+        # TODO improve error handling
+        print(e)
+        return JSONResponse(content={"error": "image generation error", "message": str(e)}, status_code=500)
+
 
 # utilities
 # get PID, use to check system is online
