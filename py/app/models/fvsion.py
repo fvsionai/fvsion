@@ -26,6 +26,19 @@ class ImageModel(BaseModel):
     image: str
     draw_image: FileModel | None 
 
+class UpscalerModel(BaseModel):
+    face: str = "gfpgan"
+    face_version: str = "GFPGANv1.4"
+    bg: str = "realesrgan"
+    bg_version: str = "RealESRGAN_x2plus"
+    factor: int = 2
+    suffix: str = "upscaled"
+    only_center_face: bool = False
+    has_aligned: bool = False
+    weight: float = 0.5
+    type: str = "auto" # if auto, same as original ext/type, else follow  
+
+
 
 # when a value is given for the parameters, type is auto assigned and will be used as default when not given 
 class FvsionModel(BaseModel):
@@ -60,6 +73,8 @@ class FvsionModel(BaseModel):
     api_version: str = "v00"
     pathToLocalModel = "models/stable-diffusion-v1-4-fp16"
     pathToOutput = "outputs"
+
+    upscaler: UpscalerModel|None = UpscalerModel() 
 
     # doYAML = False # if True generate a YAML file that save all config
     doJSON = True # if True generate a JSON file that save all config
