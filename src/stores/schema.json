@@ -18,7 +18,7 @@
     },
     "unique": {
       "title": "Unique",
-      "default": "5ef1de48-4714-413e-90af-861701d6e623",
+      "default": "c07e6824-7773-404e-930f-013f9dca858c",
       "type": "string",
       "format": "uuid"
     },
@@ -68,8 +68,29 @@
       "default": "v00",
       "type": "string"
     },
-    "mode_isChain": {
-      "title": "Mode Ischain",
+    "upscaler": {
+      "title": "Upscaler",
+      "default": {
+        "face": "gfpgan",
+        "face_version": "GFPGANv1.4",
+        "bg": "realesrgan",
+        "factor": 2,
+        "suffix": "upscaled",
+        "weight": 0.5,
+        "type": "auto",
+        "only_center_face": false,
+        "has_aligned": false,
+        "save_extras": false,
+        "bg_version": "RealESRGAN_x4plus"
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/UpscalerModel"
+        }
+      ]
+    },
+    "mode_is_chain": {
+      "title": "Mode Is Chain",
       "default": false,
       "type": "boolean"
     },
@@ -121,13 +142,13 @@
         }
       ]
     },
-    "pathToLocalModel": {
-      "title": "Pathtolocalmodel",
+    "path_to_local_model": {
+      "title": "Path To Local Model",
       "default": "models/stable-diffusion-v1-4-fp16",
       "type": "string"
     },
-    "pathToOutput": {
-      "title": "Pathtooutput",
+    "path_to_outputs": {
+      "title": "Path To Outputs",
       "default": "outputs",
       "type": "string"
     },
@@ -142,7 +163,17 @@
   ],
   "example": {
     "prompt": "a photo of an astronaut riding a horse on mars",
-    "mode": "txt2img"
+    "mode": "txt2img",
+    "init_image": {
+      "name": "init",
+      "type": "png",
+      "path": "outputs/tmp"
+    },
+    "out_image": {
+      "name": "init",
+      "type": "png",
+      "path": "outputs"
+    }
   },
   "definitions": {
     "ModeEnum": {
@@ -152,7 +183,24 @@
         "txt2img",
         "img2img",
         "inpainting",
-        "lowvram"
+        "lowvram",
+        "upscaler",
+        "chain"
+      ],
+      "type": "string"
+    },
+    "TypeEnum": {
+      "title": "TypeEnum",
+      "description": "An enumeration.",
+      "enum": [
+        "auto",
+        "png",
+        "jpeg",
+        "jpg",
+        "webp",
+        "bmp",
+        "gif",
+        "ppm"
       ],
       "type": "string"
     },
@@ -166,9 +214,12 @@
           "type": "string"
         },
         "type": {
-          "title": "Type",
           "default": "png",
-          "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/definitions/TypeEnum"
+            }
+          ]
         },
         "path": {
           "title": "Path",
@@ -187,6 +238,83 @@
         "color"
       ],
       "type": "string"
+    },
+    "UpscalerEnum": {
+      "title": "UpscalerEnum",
+      "description": "An enumeration.",
+      "enum": [
+        "RealESRGAN_x2plus",
+        "RealESRGAN_x4plus",
+        "RealESRGAN_x4plus_anime_6B"
+      ],
+      "type": "string"
+    },
+    "UpscalerModel": {
+      "title": "UpscalerModel",
+      "type": "object",
+      "properties": {
+        "face": {
+          "title": "Face",
+          "default": "gfpgan",
+          "type": "string"
+        },
+        "face_version": {
+          "title": "Face Version",
+          "default": "GFPGANv1.4",
+          "type": "string"
+        },
+        "bg": {
+          "title": "Bg",
+          "default": "realesrgan",
+          "type": "string"
+        },
+        "factor": {
+          "title": "Factor",
+          "default": 2,
+          "type": "integer"
+        },
+        "suffix": {
+          "title": "Suffix",
+          "default": "upscaled",
+          "type": "string"
+        },
+        "weight": {
+          "title": "Weight",
+          "default": 0.5,
+          "type": "number"
+        },
+        "type": {
+          "default": "auto",
+          "allOf": [
+            {
+              "$ref": "#/definitions/TypeEnum"
+            }
+          ]
+        },
+        "only_center_face": {
+          "title": "Only Center Face",
+          "default": false,
+          "type": "boolean"
+        },
+        "has_aligned": {
+          "title": "Has Aligned",
+          "default": false,
+          "type": "boolean"
+        },
+        "save_extras": {
+          "title": "Save Extras",
+          "default": false,
+          "type": "boolean"
+        },
+        "bg_version": {
+          "default": "RealESRGAN_x4plus",
+          "allOf": [
+            {
+              "$ref": "#/definitions/UpscalerEnum"
+            }
+          ]
+        }
+      }
     }
   }
 }

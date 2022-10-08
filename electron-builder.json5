@@ -5,7 +5,7 @@
   appId: "Fvsion",
   asar: true,
   directories: {
-    output: "release/${version}",
+    output: "dist_electron",
   },
   files: ["dist"],
   mac: {
@@ -25,6 +25,6 @@
     oneClick: false,
     perMachine: false,
     allowToChangeInstallationDirectory: true,
-    deleteAppDataOnUninstall: false,
+    deleteAppDataOnUninstall: true,
   },
 }

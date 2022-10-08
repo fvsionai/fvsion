@@ -14,7 +14,7 @@
     "build:py": "pyinstaller main.spec",
     "build:e": "electron-builder",
     "build": "npm run build:vite && npm run build:e",
-    "exec": "start release/0.0.1/win-unpacked/fvsion.exe",
+    "exec": "start dist_electron/win-unpacked/fvsion.exe",
     "be": "npm run build && npm run exec",
     "preview": "vite preview"
   },
@@ -22,6 +22,7 @@
     "node": "18.9.1"
   },
   "dependencies": {
+    "@splidejs/vue-splide": "0.6.12",
     "@vueuse/core": "9.2.0",
     "@vueuse/head": "0.7.12",
     "axios": "0.27.2",
@@ -33,13 +34,14 @@
     "vue": "3.2.39",
     "vue-axios": "3.4.1",
     "vue-router": "4.1.5",
-    "vue-tsc": "0.40.13"
+    "vue-tsc": "1.0.0"
   },
   "devDependencies": {
     "@iconify/json": "2.1.114",
     "@tailwindcss/typography": "0.5.7",
     "@types/uuid": "8.3.4",
     "@vitejs/plugin-vue": "3.1.0",
+    "@vue/compiler-sfc": "3.2.40",
     "autoprefixer": "10.4.12",
     "daisyui": "2.31.0",
     "electron": "21.0.1",

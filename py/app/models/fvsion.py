@@ -10,6 +10,8 @@ class ModeEnum(str, Enum):
     img2img = 'img2img'
     inpainting = 'inpainting'
     lowvram = 'lowvram'
+    upscaler = 'upscaler'
+    chain = 'chain'
 
 class MaskImageEnum(str, Enum):
     default = 'default' # use separate file (white as area to be changed)
@@ -17,17 +19,25 @@ class MaskImageEnum(str, Enum):
     white = 'white' # use same file as init, but using color white as mask
     color = 'color' # use pydantic color, as input to select mask
 
-class RealESRGANEnum(str, Enum):
-    RealESRGAN_x2plus: "RealESRGAN_x2plus"
-    RealESRGAN_x4plus: "RealESRGAN_x4plus"
-    RealESRGAN_x4plus_anime_6B: "RealESRGAN_x4plus_anime_6B"
+class UpscalerEnum(str, Enum):
+    RealESRGAN_x2plus = "RealESRGAN_x2plus"
+    RealESRGAN_x4plus = "RealESRGAN_x4plus"
+    RealESRGAN_x4plus_anime_6B = "RealESRGAN_x4plus_anime_6B"
     
-    
+class TypeEnum(str, Enum):
+    auto = "auto"
+    png = "png"
+    jpeg = "jpeg"
+    jpg = "jpg"
+    webp = "webp"
+    bmp = "bmp"
+    gif = "gif"
+    ppm = "ppm"
 
 
 class FileModel(BaseModel):
     name: str = "init" # exclude extension
-    type: str = "png" # eg. png, jpg, webp, 
+    type: TypeEnum = "png" # eg. png, jpg, webp, 
     path: str = "outputs/tmp" # might be better changed to pathlib.path later
 
 class ImageModel(BaseModel):
@@ -38,13 +48,14 @@ class UpscalerModel(BaseModel):
     face: str = "gfpgan"
     face_version: str = "GFPGANv1.4"
     bg: str = "realesrgan"
-    bg_version: RealESRGANEnum.RealESRGAN_x4plus
+    bg_version = UpscalerEnum.RealESRGAN_x4plus
     factor: int = 2
     suffix: str = "upscaled"
+    weight: float = 0.5
+    type: TypeEnum = "auto" # if auto, same as original ext/type, else follow custom definition 
     only_center_face: bool = False
     has_aligned: bool = False
-    weight: float = 0.5
-    type: str = "auto" # if auto, same as original ext/type, else follow  
+    save_extras: bool = False
 
 
 
@@ -54,7 +65,7 @@ class FvsionModel(BaseModel):
     prompt: str | list[str] # required, for now, might give a default value in wrapper function, allow for list of string for multi prompts
     unique: uuid.UUID = uuid.uuid4()
     mode: ModeEnum = ModeEnum.txt2img 
-    mode_isChain = False
+    mode_is_chain = False
 
     # this is for pipe input
     height = 512
@@ -79,8 +90,8 @@ class FvsionModel(BaseModel):
     out_image = FileModel()  # filename and path
     api_github: str = "https://github.com/FvsionAI/fvsion"
     api_version: str = "v00"
-    pathToLocalModel = "models/stable-diffusion-v1-4-fp16"
-    pathToOutput = "outputs"
+    path_to_local_model = "models/stable-diffusion-v1-4-fp16"
+    path_to_outputs = "outputs"
 
     upscaler: UpscalerModel|None = UpscalerModel() 
 
@@ -103,7 +114,9 @@ class FvsionModel(BaseModel):
         schema_extra = {
             "example": {
                 "prompt": "a photo of an astronaut riding a horse on mars",
-                "mode": ModeEnum.txt2img
+                "mode": ModeEnum.txt2img,
+                "init_image": FileModel(name="init", path="outputs/tmp", type="png"),
+                "out_image": FileModel(name="init", path="outputs", type="png")
             }
         }
 

@@ -13,6 +13,7 @@ from app.endpoints.v00.modules.external.custom_gfpgan import GFPGANer
 
 
 def upscaler(fv: FvsionModel):
+    # print(fv)
     # ------------------------ input & output ------------------------
     if fv.init_image.path.endswith('/'):
         fv.init_image.path = fv.init_image.path[:-1]
@@ -63,11 +64,16 @@ def upscaler(fv: FvsionModel):
 
     # ------------------------ set up GFPGAN restorer ------------------------
 
-    if fv.upscaler.face == 'gfpgan' :
+    if fv.upscaler.face_version == 'GFPGANv1.4' :
         arch = 'clean'
         channel_multiplier = 2
         model_name = 'GFPGANv1.4'
-        print(f"set {fv.upscaler.face} as main upscaler")
+        print(f"set {fv.upscaler.face} as face upscaler")
+    elif fv.upscaler.face_version == 'RestoreFormer' :
+        arch = 'RestoreFormer'
+        channel_multiplier = 2
+        model_name = 'RestoreFormer'
+        print(f"set {fv.upscaler.face} as face upscaler")
     else:
         raise ValueError(f'Wrong model selected {fv.upscaler.face}.')
 
@@ -110,21 +116,22 @@ def upscaler(fv: FvsionModel):
             paste_back=True,
             weight=fv.upscaler.weight)
 
-        # save faces
-        for idx, (cropped_face, restored_face) in enumerate(zip(cropped_faces, restored_faces)):
-            # save cropped face
-            save_crop_path = os.path.join(outputs_dir, 'cropped_faces', f'{basename}_{idx:02d}.png')
-            imwrite(cropped_face, save_crop_path)
-            # save restored face
-            if fv.upscaler.suffix is not None:
-                save_face_name = f'{basename}_{idx:02d}_{fv.upscaler.suffix}.png'
-            else:
-                save_face_name = f'{basename}_{idx:02d}.png'
-            save_restore_path = os.path.join(outputs_dir, 'restored_faces', save_face_name)
-            imwrite(restored_face, save_restore_path)
-            # save comparison image
-            cmp_img = np.concatenate((cropped_face, restored_face), axis=1)
-            imwrite(cmp_img, os.path.join(outputs_dir, 'cmp', f'{basename}_{idx:02d}.png'))
+        if fv.upscaler.save_extras:
+            # save faces extras, for comparison, if enabled, (default = False)
+            for idx, (cropped_face, restored_face) in enumerate(zip(cropped_faces, restored_faces)):
+                # save cropped face
+                save_crop_path = os.path.join(outputs_dir, 'cropped_faces', f'{basename}_{idx:02d}.png')
+                imwrite(cropped_face, save_crop_path)
+                # save restored face
+                if fv.upscaler.suffix is not None:
+                    save_face_name = f'{basename}_{idx:02d}_{fv.upscaler.suffix}.png'
+                else:
+                    save_face_name = f'{basename}_{idx:02d}.png'
+                save_restore_path = os.path.join(outputs_dir, 'restored_faces', save_face_name)
+                imwrite(restored_face, save_restore_path)
+                # save comparison image
+                cmp_img = np.concatenate((cropped_face, restored_face), axis=1)
+                imwrite(cmp_img, os.path.join(outputs_dir, 'cmp', f'{basename}_{idx:02d}.png'))
 
         # save restored img
         if restored_img is not None:

@@ -3,12 +3,17 @@ import {
   createWebHistory,
   createWebHashHistory,
 } from "vue-router";
+
 import HomeView from "@/views/HomeView.vue";
 import AboutView from "@/views/AboutView.vue";
 import SupportView from "@/views/SupportView.vue";
 import Img2ImgView from "@/views/Img2ImgView.vue";
 import InpaintingView from "@/views/InpaintingView.vue";
 import LowVRAMView from "@/views/LowVRAMView.vue";
+import UpscalerView from "@/views/UpscalerView.vue";
+import ChainView from "@/views/ChainView.vue";
+import GalleryView from "@/views/GalleryView.vue";
+
 import ProseLayout from "@/layouts/DashboardProseLayout.vue";
 import Layout from "@/layouts/DashboardLayout.vue";
 
@@ -41,6 +46,21 @@ const router = createRouter({
           path: "/lowvram",
           name: "lowvram",
           component: LowVRAMView,
+        },
+        {
+          path: "/upscaler",
+          name: "upscaler",
+          component: UpscalerView,
+        },
+        {
+          path: "/chain",
+          name: "chain",
+          component: ChainView,
+        },
+        {
+          path: "/gallery",
+          name: "gallery",
+          component: GalleryView,
         },
       ],
     },

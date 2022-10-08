@@ -42,6 +42,21 @@ const navLinks = [
     to: "/lowvram",
     icon: "ic:baseline-home",
   },
+  {
+    text: "upscaler",
+    to: "/upscaler",
+    icon: "ic:baseline-home",
+  },
+  {
+    text: "chain",
+    to: "/chain",
+    icon: "ic:baseline-home",
+  },
+  {
+    text: "gallery",
+    to: "/gallery",
+    icon: "ic:baseline-home",
+  },
 ];
 
 const navLinksSecond = [

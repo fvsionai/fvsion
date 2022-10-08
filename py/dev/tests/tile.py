@@ -37,8 +37,8 @@ def wrapper(fv: FvsionModel):
 
     # Parameters and settings
     # Need to find a way to make this more robust... , e.g. join?
-    pathToLocalModel = fv.pathToLocalModel
-    pathToOutput = fv.pathToOutput
+    path_to_local_model = fv.path_to_local_model
+    path_to_outputs = fv.path_to_outputs
 
     # scheduler = PNDMScheduler(
     #     beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear"
@@ -50,7 +50,7 @@ def wrapper(fv: FvsionModel):
     )
     
     pipe = FvsionPipeline.from_pretrained(
-        pathToLocalModel,
+        path_to_local_model,
         scheduler=scheduler,
         revision="fp16",
         torch_dtype=torch.float16,

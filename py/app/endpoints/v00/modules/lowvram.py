@@ -14,17 +14,17 @@ def wrapper(fv: FvsionModel):
     
     # Parameters and settings
     # Need to find a way to make this more robust... , e.g. join?
-    pathToLocalModel = fv.pathToLocalModel
-    pathToOutput = fv.pathToOutput
+    path_to_local_model = fv.path_to_local_model
+    path_to_outputs = fv.path_to_outputs
 
-    utils.createFolder(pathToOutput)
+    utils.createFolder(path_to_outputs)
 
     cuda.reset_peak_memory_stats()
     # DIFFUSERS: setup diffusers pipe
     # manual seed disabled for min vram mode
     # gen = Generator("cuda").manual_seed(fv.seed)
 
-    pipe = StableDiffusionLowVRAMPipeline.from_pretrained(pathToLocalModel, revision="fp16", use_auth_token=False)
+    pipe = StableDiffusionLowVRAMPipeline.from_pretrained(path_to_local_model, revision="fp16", use_auth_token=False)
 
     # safety (NSFW) checker is disabled for min vram mode
 

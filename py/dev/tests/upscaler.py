@@ -41,7 +41,7 @@ from app.endpoints.v00.modules.external import upscaler_gfpgan
 # mask_image=FileModel(name= "mask", type= "png", path= "outputs/tmp"), 
 # mask_color= "white", 
 # out_image=FileModel(name= "99094cd144fe_a-fantasy-landscape-trending-o", type= "webp", path= "outputs"), 
-# api_github= "https://github.com/FvsionAI/fvsion", api_version= "v00", mode_isChain= False, height= 512, width= 512, num_inference_steps= 30, guidance_scale= 6.5, eta= 0.0, strength= 0.85, seed= 1024, allowNSFW= True, pathToLocalModel= "models/stable-diffusion-v1-4-fp16", pathToOutput= "outputs", doJSON= True)
+# api_github= "https://github.com/FvsionAI/fvsion", api_version= "v00", mode_isChain= False, height= 512, width= 512, num_inference_steps= 30, guidance_scale= 6.5, eta= 0.0, strength= 0.85, seed= 1024, allowNSFW= True, path_to_local_model= "models/stable-diffusion-v1-4-fp16", path_to_outputs= "outputs", doJSON= True)
 
 fv = FvsionModel(prompt="test", mode="txt2img", upscaler=UpscalerModel(), init_image=FileModel(name="99094cd144fe_a-fantasy-landscape-trending-o", type="webp", path="outputs"), out_image=FileModel(name="99094cd144fe_a-fantasy-landscape-trending-o", type="webp", path="outputs"))
 

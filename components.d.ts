@@ -11,7 +11,9 @@ declare module '@vue/runtime-core' {
     AppTopBar: typeof import('./src/components/AppTopBar.vue')['default']
     BrandLogo: typeof import('./src/components/images/BrandLogo.vue')['default']
     BrandType: typeof import('./src/components/images/BrandType.vue')['default']
+    ChainForm: typeof import('./src/components/ChainForm.vue')['default']
     FormKitExample: typeof import('./src/components/FormKitExample.vue')['default']
+    GalleryDisplay: typeof import('./src/components/GalleryDisplay.vue')['default']
     ICarbonMenu: typeof import('~icons/carbon/menu')['default']
     ICarbonMoon: typeof import('~icons/carbon/moon')['default']
     ICarbonSun: typeof import('~icons/carbon/sun')['default']
@@ -28,6 +30,8 @@ declare module '@vue/runtime-core' {
     SavedStatus: typeof import('./src/components/SavedStatus.vue')['default']
     SdForm: typeof import('./src/components/SdForm.vue')['default']
     ServerStatus: typeof import('./src/components/ServerStatus.vue')['default']
+    SocialMedia: typeof import('./src/components/SocialMedia.vue')['default']
+    UpForm: typeof import('./src/components/UpForm.vue')['default']
     VIconButton: typeof import('./src/components/VIconButton.vue')['default']
   }
 }
