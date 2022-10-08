@@ -65,7 +65,7 @@ class FvsionModel(BaseModel):
     prompt: str | list[str] # required, for now, might give a default value in wrapper function, allow for list of string for multi prompts
     unique: uuid.UUID = uuid.uuid4()
     mode: ModeEnum = ModeEnum.txt2img 
-    mode_isChain = False
+    mode_is_chain = False
 
     # this is for pipe input
     height = 512
@@ -90,8 +90,8 @@ class FvsionModel(BaseModel):
     out_image = FileModel()  # filename and path
     api_github: str = "https://github.com/FvsionAI/fvsion"
     api_version: str = "v00"
-    pathToLocalModel = "models/stable-diffusion-v1-4-fp16"
-    pathToOutput = "outputs"
+    path_to_local_model = "models/stable-diffusion-v1-4-fp16"
+    path_to_outputs = "outputs"
 
     upscaler: UpscalerModel|None = UpscalerModel() 
 

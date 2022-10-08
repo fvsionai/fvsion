@@ -18,7 +18,7 @@
     },
     "unique": {
       "title": "Unique",
-      "default": "b872c2b4-39fc-406f-9c62-2c6ac98d9309",
+      "default": "c07e6824-7773-404e-930f-013f9dca858c",
       "type": "string",
       "format": "uuid"
     },
@@ -89,8 +89,8 @@
         }
       ]
     },
-    "mode_isChain": {
-      "title": "Mode Ischain",
+    "mode_is_chain": {
+      "title": "Mode Is Chain",
       "default": false,
       "type": "boolean"
     },
@@ -142,13 +142,13 @@
         }
       ]
     },
-    "pathToLocalModel": {
-      "title": "Pathtolocalmodel",
+    "path_to_local_model": {
+      "title": "Path To Local Model",
       "default": "models/stable-diffusion-v1-4-fp16",
       "type": "string"
     },
-    "pathToOutput": {
-      "title": "Pathtooutput",
+    "path_to_outputs": {
+      "title": "Path To Outputs",
       "default": "outputs",
       "type": "string"
     },

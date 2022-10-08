@@ -50,12 +50,12 @@ def saveImage(fv: FvsionModel, image):
     fpname = f"{fv.out_image.path}/{fv.out_image.name}.{fv.out_image.type}" 
     image.save(fpname)
 
-def saveOutput(fv: FvsionModel, pathToOutput, image):
+def saveOutput(fv: FvsionModel, path_to_outputs, image):
     if(isList(fv.prompt)):
         # if image is multiprompts and thus a list, save files individually & in grid as well
         for idx in range(len(image)):
             fv.out_image.name = filenameUnique(fv.prompt[idx])
-            fv.out_image.path = f"{pathToOutput.strip('/')}"
+            fv.out_image.path = f"{path_to_outputs.strip('/')}"
             fv.out_image.type = "webp" #smaller than png
 
             saveImage(fv, image[idx])        
@@ -68,7 +68,7 @@ def saveOutput(fv: FvsionModel, pathToOutput, image):
         grid.save(f"{fv.out_image.path}/{fv.out_image.name}_grid.{fv.out_image.type}")
     else:
         fv.out_image.name = filenameUnique(fv.prompt)
-        fv.out_image.path = f"{pathToOutput.strip('/')}"
+        fv.out_image.path = f"{path_to_outputs.strip('/')}"
         fv.out_image.type = "webp" #smaller than png
 
         saveImage(fv, image[0])        
@@ -79,11 +79,11 @@ def save(fv: FvsionModel, images: PIL.Image):
     # UTILITY: saving the file to a unique name, if fails, try one more time, which will generate a new secret
     try:
         # print(fv) # diagnostic
-        saveOutput(fv=fv, pathToOutput=fv.pathToOutput, image=images)
+        saveOutput(fv=fv, path_to_outputs=fv.path_to_outputs, image=images)
         print(f"successfully saved {len(images)} files")
     except:
         try:
-            saveOutput(fv=fv, pathToOutput=fv.pathToOutput, image=images)
+            saveOutput(fv=fv, path_to_outputs=fv.path_to_outputs, image=images)
             print(f"successfully saved {len(images)} files")
         except Exception as e:
             print(e)

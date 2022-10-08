@@ -14,16 +14,16 @@ def wrapper(fv: FvsionModel):
     
     # Parameters and settings
     # TODO might, need to find a way to make this more robust... , e.g. join?
-    pathToLocalModel = fv.pathToLocalModel
-    pathToOutput = fv.pathToOutput
+    path_to_local_model = fv.path_to_local_model
+    path_to_outputs = fv.path_to_outputs
 
     # if folder has fp16 mentioned, use fp16
-    if "fp16" in pathToLocalModel:
+    if "fp16" in path_to_local_model:
         revision = "fp16"
     else:
         revision = "main"
 
-    utils.createFolder(pathToOutput)
+    utils.createFolder(path_to_outputs)
 
     # reset track stats, used in conjunction with mem_bytes 
     cuda.reset_peak_memory_stats()
@@ -38,25 +38,25 @@ def wrapper(fv: FvsionModel):
     
     # DIFFUSERS: setup diffusers pipe
     if(fv.mode == "txt2img"):
-        pipe = StableDiffusionPipeline.from_pretrained(pathToLocalModel, revision=revision, torch_dtype=float16, use_auth_token=False)
+        pipe = StableDiffusionPipeline.from_pretrained(path_to_local_model, revision=revision, torch_dtype=float16, use_auth_token=False)
         kwargs = {"prompt": fv.prompt, "generator": gen, "height":fv.height, "width":fv.width, "num_inference_steps":fv.num_inference_steps, 
             "guidance_scale" : fv.guidance_scale, "eta" : fv.eta }
 
     elif(fv.mode == "img2img"):
-        pipe = StableDiffusionImg2ImgPipeline.from_pretrained(pathToLocalModel, revision=revision, torch_dtype=float16, use_auth_token=False)
+        pipe = StableDiffusionImg2ImgPipeline.from_pretrained(path_to_local_model, revision=revision, torch_dtype=float16, use_auth_token=False)
         init_image = utils.initProcessing(fv)
         kwargs = {"prompt": fv.prompt, "generator": gen, "num_inference_steps":fv.num_inference_steps, 
             "guidance_scale" : fv.guidance_scale, "eta" : fv.eta, "init_image":init_image, "strength":fv.strength, }
 
     elif(fv.mode == "inpainting"):
-        pipe = StableDiffusionInpaintPipeline.from_pretrained(pathToLocalModel, revision=revision, torch_dtype=float16, use_auth_token=False)
+        pipe = StableDiffusionInpaintPipeline.from_pretrained(path_to_local_model, revision=revision, torch_dtype=float16, use_auth_token=False)
         init_image = utils.initProcessing(fv)
         mask_image = utils.maskProcessing(fv)
         kwargs = {"prompt": fv.prompt, "generator": gen, "num_inference_steps":fv.num_inference_steps, 
             "guidance_scale" : fv.guidance_scale, "eta" : fv.eta, "init_image":init_image, "strength":fv.strength, "mask_image":mask_image}
     
     elif(fv.mode == "lowvram"):
-        pipe = StableDiffusionLowVRAMPipeline.from_pretrained(pathToLocalModel, revision=revision, torch_dtype=float32, use_auth_token=False)
+        pipe = StableDiffusionLowVRAMPipeline.from_pretrained(path_to_local_model, revision=revision, torch_dtype=float32, use_auth_token=False)
         pipe.enable_minimal_memory_usage()
         pipe.enable_attention_slicing()
         kwargs = {"prompt": fv.prompt, "height":fv.height, "width":fv.width, "num_inference_steps":fv.num_inference_steps, 
