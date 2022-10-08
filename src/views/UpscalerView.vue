@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import ImgInput from "@/components/ImgInput.vue";
 import UpForm from "@/components/UpForm.vue";
 </script>
 

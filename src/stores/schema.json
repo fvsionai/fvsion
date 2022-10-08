@@ -18,7 +18,7 @@
     },
     "unique": {
       "title": "Unique",
-      "default": "35bba8c5-2dff-4e33-9348-dc59ad667666",
+      "default": "b872c2b4-39fc-406f-9c62-2c6ac98d9309",
       "type": "string",
       "format": "uuid"
     },
@@ -184,7 +184,8 @@
         "img2img",
         "inpainting",
         "lowvram",
-        "upscaler"
+        "upscaler",
+        "chain"
       ],
       "type": "string"
     },

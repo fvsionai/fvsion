@@ -11,6 +11,7 @@ class ModeEnum(str, Enum):
     inpainting = 'inpainting'
     lowvram = 'lowvram'
     upscaler = 'upscaler'
+    chain = 'chain'
 
 class MaskImageEnum(str, Enum):
     default = 'default' # use separate file (white as area to be changed)

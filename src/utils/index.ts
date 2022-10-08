@@ -11,12 +11,13 @@ export const API_library = {
   version: "v00",
   functionList: [
     "",
-    "pipe",
-    "upscaler",
+    "chain",
+    "fvsionModel",
     "lowvram",
     "pid",
+    "pipe",
     "save-as-base64",
-    "fvsionModel",
+    "upscaler",
   ],
 };
 

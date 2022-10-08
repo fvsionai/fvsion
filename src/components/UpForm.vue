@@ -26,9 +26,8 @@ const { fvsion } = storeToRefs(fvsionStr);
 
 fvsion.value.mode = props.mode as ModeEnum;
 
-// change API to unified "pipe" for t2i, i2i, inpainting (except lowvram, still buggy), fvsion(.value).mode will automatically assign the right pipe in diffusers_pipe
-const api = props.mode;
-const apiImage = getAPI(api);
+// api limit to only upscaler for UpForm
+const apiImage = getAPI("upscaler");
 
 const genImage = (): void => {
   // assign a unit uuid
