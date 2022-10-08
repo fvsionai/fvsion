@@ -63,16 +63,16 @@ def upscaler(fv: FvsionModel):
 
     # ------------------------ set up GFPGAN restorer ------------------------
 
-    if fv.upscaler.face_version == 'gfpgan' :
+    if fv.upscaler.face_version == 'GFPGANv1.4' :
         arch = 'clean'
         channel_multiplier = 2
         model_name = 'GFPGANv1.4'
-        print(f"set {fv.upscaler.face} as main upscaler")
-    if fv.upscaler.face_version == 'RestoreFormer' :
+        print(f"set {fv.upscaler.face} as face upscaler")
+    elif fv.upscaler.face_version == 'RestoreFormer' :
         arch = 'RestoreFormer'
         channel_multiplier = 2
         model_name = 'RestoreFormer'
-        print(f"set {fv.upscaler.face} as main upscaler")
+        print(f"set {fv.upscaler.face} as face upscaler")
     else:
         raise ValueError(f'Wrong model selected {fv.upscaler.face}.')
 

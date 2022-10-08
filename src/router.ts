@@ -45,6 +45,11 @@ const router = createRouter({
           name: "lowvram",
           component: LowVRAMView,
         },
+        {
+          path: "/upscaler",
+          name: "upscaler",
+          component: UpscalerView,
+        },
       ],
     },
     {
@@ -63,11 +68,6 @@ const router = createRouter({
           path: "/inpainting",
           name: "inpainting",
           component: InpaintingView,
-        },
-        {
-          path: "/upscaler",
-          name: "upscaler",
-          component: UpscalerView,
         },
       ],
     },

@@ -5,9 +5,9 @@ export const defaultFvsionModel: FvsionModel = {
   uuid: "default",
   mode: "txt2img",
   out_image: {
-    name: "string",
-    type: "string",
-    path: "string",
+    name: "init",
+    type: "png",
+    path: "outputs",
   },
   init_image: {
     name: "init",

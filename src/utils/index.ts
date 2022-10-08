@@ -9,7 +9,15 @@ export * from "./app.config";
 export const API_library = {
   root: "http://localhost:4242/api/",
   version: "v00",
-  functionList: ["", "pipe", "lowvram", "pid", "save-as-base64", "fvsionModel"],
+  functionList: [
+    "",
+    "pipe",
+    "upscaler",
+    "lowvram",
+    "pid",
+    "save-as-base64",
+    "fvsionModel",
+  ],
 };
 
 export function getAPI(s: string) {

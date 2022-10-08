@@ -33,18 +33,19 @@ const { fvsion } = storeToRefs(fvsionStr);
 fvsion.value.mode = props.mode as ModeEnum;
 
 // change API to unified "pipe" for t2i, i2i, inpainting (except lowvram, still buggy), fvsion(.value).mode will automatically assign the right pipe in diffusers_pipe
-const api = props.mode == "lowvram" ? "lowvram" : "pipe";
-const apiArt = getAPI(api);
+const api = props.mode;
+const apiImage = getAPI(api);
 
-const genArt = (): void => {
+const genImage = (): void => {
   // assign a unit uuid
   // TODO some logic like preventing resending an exact same prompt later?
   fvsion.value.uuid = uuidv4();
+
   // use toRaw to ensure objects send actually is the inner object, i.e. not the proxy
   let j = toRaw(fvsion.value);
   console.log(j);
 
-  axios.post(apiArt, j).then((response: { data: any }) => {
+  axios.post(apiImage, j).then((response: { data: any }) => {
     console.log(response.data);
   });
 };
@@ -58,25 +59,22 @@ const isModeIn = (s: string[]) => {
 const onc_upscaler = (s: string) => {
   // e.g. factor --> upscaler_factor as id
   const params = document.getElementById("upscaler_" + s) as HTMLInputElement;
-  console.log(params);
-  console.log(s);
 
   // if upscaler params found, update it
   if (params) {
     // get the default/current upscalermodel from store/refs
     const umodel = fvsion.value.upscaler as UpscalerModel;
 
-    // overwrite the latest parameters from input
     if (params.type == "range" || params.type == "number") {
       // if range or number, then change to number
       umodel[s] = Number(params.value);
     } else {
-      // take as is, i.e. string
+      // else take as is, i.e. string
       umodel[s] = params.value;
     }
 
+    // overwrite the latest parameters from input
     fvsion.value["upscaler"] = umodel;
-    console.log(fvsion.value["upscaler"]);
   }
 };
 
@@ -99,10 +97,10 @@ const onc_image = (s: string) => {
   }
 };
 
-// when Generate Button clicked, perform genArt()
+// when Generate Button clicked, perform genImage()
 const formSubmit = (e: any) => {
   e.preventDefault();
-  genArt();
+  genImage();
 };
 </script>
 

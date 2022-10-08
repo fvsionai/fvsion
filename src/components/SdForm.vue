@@ -27,9 +27,9 @@ fvsion.value.mode = props.mode as ModeEnum;
 
 // change API to unified "pipe" for t2i, i2i, inpainting (except lowvram, still buggy), fvsion(.value).mode will automatically assign the right pipe in diffusers_pipe
 const api = props.mode == "lowvram" ? "lowvram" : "pipe";
-const apiArt = getAPI(api);
+const apiImage = getAPI(api);
 
-const genArt = (): void => {
+const genImage = (): void => {
   // assign a unit uuid
   // TODO some logic like preventing resending an exact same prompt later?
   fvsion.value.uuid = uuidv4();
@@ -37,7 +37,7 @@ const genArt = (): void => {
   let j = toRaw(fvsion.value);
   console.log(j);
 
-  axios.post(apiArt, j).then((response: { data: any }) => {
+  axios.post(apiImage, j).then((response: { data: any }) => {
     console.log(response.data);
   });
 };
@@ -47,10 +47,10 @@ const isModeIn = (s: string[]) => {
   return s.includes("all") || s.includes(props.mode);
 };
 
-// when Generate Button clicked, perform genArt()
+// when Generate Button clicked, perform genImage()
 const formSubmit = (e: any) => {
   e.preventDefault();
-  genArt();
+  genImage();
 };
 </script>
 
@@ -72,7 +72,7 @@ const formSubmit = (e: any) => {
         />
 
         <button class="btn btn-primary flex-none mx-1" type="submit">
-          Generate Art
+          Generate Image
         </button>
       </div>
       <div class="form-control">
