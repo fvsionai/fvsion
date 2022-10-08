@@ -30,6 +30,18 @@ export const defaultFvsionModel: FvsionModel = {
   seed: 1024,
   allowNSFW: false,
   doJSON: true,
+  upscaler: {
+    bg: "realesrgan",
+    bg_version: "RealESRGAN_x4plus",
+    face: "gfpgan",
+    face_version: "GFPGANv1.4",
+    factor: 2,
+    suffix: "upscaled",
+    only_center_face: false,
+    has_aligned: false,
+    weight: 0.5,
+    type: "auto",
+  },
 };
 
 export const useFvsionStore = defineStore("fvsion", {

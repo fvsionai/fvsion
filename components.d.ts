@@ -28,6 +28,7 @@ declare module '@vue/runtime-core' {
     SavedStatus: typeof import('./src/components/SavedStatus.vue')['default']
     SdForm: typeof import('./src/components/SdForm.vue')['default']
     ServerStatus: typeof import('./src/components/ServerStatus.vue')['default']
+    UpForm: typeof import('./src/components/UpForm.vue')['default']
     VIconButton: typeof import('./src/components/VIconButton.vue')['default']
   }
 }

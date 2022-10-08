@@ -3,12 +3,15 @@ import {
   createWebHistory,
   createWebHashHistory,
 } from "vue-router";
+
 import HomeView from "@/views/HomeView.vue";
 import AboutView from "@/views/AboutView.vue";
 import SupportView from "@/views/SupportView.vue";
 import Img2ImgView from "@/views/Img2ImgView.vue";
 import InpaintingView from "@/views/InpaintingView.vue";
 import LowVRAMView from "@/views/LowVRAMView.vue";
+import UpscalerView from "@/views/UpscalerView.vue";
+
 import ProseLayout from "@/layouts/DashboardProseLayout.vue";
 import Layout from "@/layouts/DashboardLayout.vue";
 
@@ -60,6 +63,11 @@ const router = createRouter({
           path: "/inpainting",
           name: "inpainting",
           component: InpaintingView,
+        },
+        {
+          path: "/upscaler",
+          name: "upscaler",
+          component: UpscalerView,
         },
       ],
     },

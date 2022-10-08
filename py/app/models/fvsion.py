@@ -17,10 +17,10 @@ class MaskImageEnum(str, Enum):
     white = 'white' # use same file as init, but using color white as mask
     color = 'color' # use pydantic color, as input to select mask
 
-class RealESRGANEnum(str, Enum):
-    RealESRGAN_x2plus: "RealESRGAN_x2plus"
-    RealESRGAN_x4plus: "RealESRGAN_x4plus"
-    RealESRGAN_x4plus_anime_6B: "RealESRGAN_x4plus_anime_6B"
+class UpscalerEnum(str, Enum):
+    RealESRGAN_x2plus = "RealESRGAN_x2plus"
+    RealESRGAN_x4plus = "RealESRGAN_x4plus"
+    RealESRGAN_x4plus_anime_6B = "RealESRGAN_x4plus_anime_6B"
     
     
 
@@ -38,7 +38,7 @@ class UpscalerModel(BaseModel):
     face: str = "gfpgan"
     face_version: str = "GFPGANv1.4"
     bg: str = "realesrgan"
-    bg_version: RealESRGANEnum.RealESRGAN_x4plus
+    bg_version = UpscalerEnum.RealESRGAN_x4plus
     factor: int = 2
     suffix: str = "upscaled"
     only_center_face: bool = False
@@ -103,7 +103,9 @@ class FvsionModel(BaseModel):
         schema_extra = {
             "example": {
                 "prompt": "a photo of an astronaut riding a horse on mars",
-                "mode": ModeEnum.txt2img
+                "mode": ModeEnum.txt2img,
+                "init_image": FileModel(name="init", path="outputs/tmp", type="png"),
+                "out_image": FileModel(name="init", path="outputs", type="png")
             }
         }
 
