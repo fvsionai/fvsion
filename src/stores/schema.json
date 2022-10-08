@@ -18,7 +18,7 @@
     },
     "unique": {
       "title": "Unique",
-      "default": "1d56b834-60ec-424a-b17e-f95c7cf2d787",
+      "default": "35bba8c5-2dff-4e33-9348-dc59ad667666",
       "type": "string",
       "format": "uuid"
     },
@@ -76,10 +76,11 @@
         "bg": "realesrgan",
         "factor": 2,
         "suffix": "upscaled",
-        "only_center_face": false,
-        "has_aligned": false,
         "weight": 0.5,
         "type": "auto",
+        "only_center_face": false,
+        "has_aligned": false,
+        "save_extras": false,
         "bg_version": "RealESRGAN_x4plus"
       },
       "allOf": [
@@ -182,7 +183,23 @@
         "txt2img",
         "img2img",
         "inpainting",
-        "lowvram"
+        "lowvram",
+        "upscaler"
+      ],
+      "type": "string"
+    },
+    "TypeEnum": {
+      "title": "TypeEnum",
+      "description": "An enumeration.",
+      "enum": [
+        "auto",
+        "png",
+        "jpeg",
+        "jpg",
+        "webp",
+        "bmp",
+        "gif",
+        "ppm"
       ],
       "type": "string"
     },
@@ -196,9 +213,12 @@
           "type": "string"
         },
         "type": {
-          "title": "Type",
           "default": "png",
-          "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/definitions/TypeEnum"
+            }
+          ]
         },
         "path": {
           "title": "Path",
@@ -257,6 +277,19 @@
           "default": "upscaled",
           "type": "string"
         },
+        "weight": {
+          "title": "Weight",
+          "default": 0.5,
+          "type": "number"
+        },
+        "type": {
+          "default": "auto",
+          "allOf": [
+            {
+              "$ref": "#/definitions/TypeEnum"
+            }
+          ]
+        },
         "only_center_face": {
           "title": "Only Center Face",
           "default": false,
@@ -267,15 +300,10 @@
           "default": false,
           "type": "boolean"
         },
-        "weight": {
-          "title": "Weight",
-          "default": 0.5,
-          "type": "number"
-        },
-        "type": {
-          "title": "Type",
-          "default": "auto",
-          "type": "string"
+        "save_extras": {
+          "title": "Save Extras",
+          "default": false,
+          "type": "boolean"
         },
         "bg_version": {
           "default": "RealESRGAN_x4plus",

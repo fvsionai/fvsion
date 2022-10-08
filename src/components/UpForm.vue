@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import {
-  FileModel,
-  ModeEnum,
-  useFvsionStore,
-  Upscaler,
-  UpscalerModel,
-} from "../stores";
+import { FileModel, ModeEnum, useFvsionStore, UpscalerModel } from "../stores";
 import { getAPI } from "../utils";
 import ServerStatus from "./ServerStatus.vue";
 import { v4 as uuidv4 } from "uuid";
@@ -40,6 +34,7 @@ const genImage = (): void => {
   // assign a unit uuid
   // TODO some logic like preventing resending an exact same prompt later?
   fvsion.value.uuid = uuidv4();
+  fvsion.value.upscaler = toRaw(upscaler.value) as UpscalerModel;
 
   // use toRaw to ensure objects send actually is the inner object, i.e. not the proxy
   let j = toRaw(fvsion.value);
@@ -54,6 +49,20 @@ const genImage = (): void => {
 const isModeIn = (s: string[]) => {
   return s.includes("all") || s.includes(props.mode);
 };
+
+const upscale_default = ref({
+  bg: "realesrgan",
+  bg_version: "RealESRGAN_x4plus",
+  face: "gfpgan",
+  face_version: "GFPGANv1.4",
+  factor: 2,
+  suffix: "upscaled",
+  only_center_face: false,
+  has_aligned: false,
+  weight: 0.5,
+  type: "auto",
+});
+const upscaler = useStorage("upscaler", upscale_default);
 
 // update upscaler values
 const onc_upscaler = (s: string) => {
@@ -90,7 +99,7 @@ const onc_image = (s: string) => {
     const fmodel: FileModel = {
       name: name,
       path: fpath,
-      type: type,
+      type: type as FileModel["type"],
     };
 
     fvsion.value[s] = fmodel;
@@ -112,7 +121,27 @@ const formSubmit = (e: any) => {
     <!-- <SavedStatus v-if="isImgMode"></SavedStatus> -->
     <span>Mode: {{ props.mode }}</span>
     <form class="w-full" @submit="formSubmit" name="upscaleform">
-      <div class="flex flex-row w-full">
+      <div class="flex flex-row w-full justify-between">
+        <div>
+          <div>
+            <span>Image Input</span>
+          </div>
+          <div class="form-control">
+            <label for="init_image" class="label input-group justify-start">
+              <span class="label-text w-32">Choose Input</span>
+              <input
+                type="file"
+                id="init_image"
+                accept="image/*"
+                class="hidden"
+                @change="onc_image('init_image')"
+              />
+              <span class="text-sm truncate text-left ml-1 text-black">{{
+                fvsion.init_image?.name
+              }}</span>
+            </label>
+          </div>
+        </div>
         <button class="btn btn-primary flex-none mx-1" type="submit">
           Upscale Image
         </button>
@@ -125,17 +154,28 @@ const formSubmit = (e: any) => {
           max="8"
           step="1"
           id="upscaler_factor"
-          @change="onc_upscaler('factor')"
+          v-model="upscaler.factor"
+        />
+        <input
+          type="number"
+          class="input input-primary"
+          min="2"
+          max="8"
+          step="1"
+          id="upscaler_factor"
+          v-model="upscaler.factor"
         />
       </div>
       <div class="form-control w-full max-w-xs">
         <label class="label">
-          <span class="label-text">Pick Upscaler Options</span>
+          <span class="label-text"
+            >Pick Upscaler Options {{ upscaler.bg_version }}</span
+          >
         </label>
         <select
           id="upscaler_bg_version"
           class="select select-primary max-w-xs"
-          @change="onc_upscaler('bg_version')"
+          v-model="upscaler.bg_version"
         >
           <option>RealESRGAN_x2plus</option>
           <option>RealESRGAN_x4plus</option>
@@ -149,7 +189,7 @@ const formSubmit = (e: any) => {
         <select
           id="upscaler_face_version"
           class="select select-primary max-w-xs"
-          @change="onc_upscaler('face_version')"
+          v-model="upscaler.face_version"
         >
           <option>GFPGANv1.4</option>
           <option>RestoreFormer</option>
