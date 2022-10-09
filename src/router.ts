@@ -60,7 +60,7 @@ const router = createRouter({
         {
           path: "/gallery",
           name: "gallery",
-          component: ChainView,
+          component: GalleryView,
         },
       ],
     },

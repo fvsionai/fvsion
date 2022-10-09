@@ -22,6 +22,7 @@
     "node": "18.9.1"
   },
   "dependencies": {
+    "@splidejs/vue-splide": "0.6.12",
     "@vueuse/core": "9.2.0",
     "@vueuse/head": "0.7.12",
     "axios": "0.27.2",

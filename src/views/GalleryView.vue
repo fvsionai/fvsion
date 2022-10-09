@@ -3,5 +3,5 @@ import GalleryDisplay from "@/components/GalleryDisplay.vue";
 </script>
 
 <template>
-  <GalleryDisplay mode="txt2img"></GalleryDisplay>
+  <GalleryDisplay></GalleryDisplay>
 </template>
