@@ -18,7 +18,6 @@ const PYPATH = app.isPackaged
   : join(process.env.DIST, "../py");
 
 import { app, BrowserWindow, shell, ipcMain, session } from "electron";
-import { release } from "os";
 import { join } from "path";
 
 // // Disable GPU Acceleration for Windows 7
