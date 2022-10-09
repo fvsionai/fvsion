@@ -24,7 +24,7 @@ const onc_image = (s: string) => {
     const fmodel: FileModel = {
       name: name,
       path: fpath,
-      type: type,
+      type: type as FileModel["type"],
     };
 
     fvsion.value[s] = fmodel;
