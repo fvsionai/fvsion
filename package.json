@@ -14,7 +14,7 @@
     "build:py": "pyinstaller main.spec",
     "build:e": "electron-builder",
     "build": "npm run build:vite && npm run build:e",
-    "exec": "start release/0.0.1/win-unpacked/fvsion.exe",
+    "exec": "start dist_electron/win-unpacked/fvsion.exe",
     "be": "npm run build && npm run exec",
     "preview": "vite preview"
   },
