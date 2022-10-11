@@ -63,6 +63,7 @@ class UpscalerModel(BaseModel):
 class FvsionModel(BaseModel):
     # important data
     prompt: str | list[str] # required, for now, might give a default value in wrapper function, allow for list of string for multi prompts
+    negative_prompt: str | list[str] | None = None # negative prompts, things to be removed from models/image generation
     unique: uuid.UUID = uuid.uuid4()
     mode: ModeEnum = ModeEnum.txt2img 
     mode_is_chain = False

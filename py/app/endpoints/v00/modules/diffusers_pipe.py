@@ -39,20 +39,20 @@ def wrapper(fv: FvsionModel):
     # DIFFUSERS: setup diffusers pipe
     if(fv.mode == "txt2img"):
         pipe = StableDiffusionPipeline.from_pretrained(path_to_local_model, revision=revision, torch_dtype=float16, use_auth_token=False)
-        kwargs = {"prompt": fv.prompt, "generator": gen, "height":fv.height, "width":fv.width, "num_inference_steps":fv.num_inference_steps, 
+        kwargs = {"prompt": fv.prompt, "negative_prompt": fv.negative_prompt, "generator": gen, "height":fv.height, "width":fv.width, "num_inference_steps":fv.num_inference_steps, 
             "guidance_scale" : fv.guidance_scale, "eta" : fv.eta }
 
     elif(fv.mode == "img2img"):
         pipe = StableDiffusionImg2ImgPipeline.from_pretrained(path_to_local_model, revision=revision, torch_dtype=float16, use_auth_token=False)
         init_image = utils.initProcessing(fv)
-        kwargs = {"prompt": fv.prompt, "generator": gen, "num_inference_steps":fv.num_inference_steps, 
+        kwargs = {"prompt": fv.prompt, "negative_prompt": fv.negative_prompt, "generator": gen, "num_inference_steps":fv.num_inference_steps, 
             "guidance_scale" : fv.guidance_scale, "eta" : fv.eta, "init_image":init_image, "strength":fv.strength, }
 
     elif(fv.mode == "inpainting"):
         pipe = StableDiffusionInpaintPipeline.from_pretrained(path_to_local_model, revision=revision, torch_dtype=float16, use_auth_token=False)
         init_image = utils.initProcessing(fv)
         mask_image = utils.maskProcessing(fv)
-        kwargs = {"prompt": fv.prompt, "generator": gen, "num_inference_steps":fv.num_inference_steps, 
+        kwargs = {"prompt": fv.prompt, "negative_prompt": fv.negative_prompt, "generator": gen, "num_inference_steps":fv.num_inference_steps, 
             "guidance_scale" : fv.guidance_scale, "eta" : fv.eta, "init_image":init_image, "strength":fv.strength, "mask_image":mask_image}
     
     elif(fv.mode == "lowvram"):

@@ -38,22 +38,22 @@ const navLinks = [
     icon: "ic:baseline-home",
   },
   {
-    text: "lowVRAM",
+    text: "Low VRAM",
     to: "/lowvram",
     icon: "ic:baseline-home",
   },
   {
-    text: "upscaler",
+    text: "Upscaler",
     to: "/upscaler",
     icon: "ic:baseline-home",
   },
+  // {
+  //   text: "chain",
+  //   to: "/chain",
+  //   icon: "ic:baseline-home",
+  // },
   {
-    text: "chain",
-    to: "/chain",
-    icon: "ic:baseline-home",
-  },
-  {
-    text: "gallery",
+    text: "Gallery",
     to: "/gallery",
     icon: "ic:baseline-home",
   },

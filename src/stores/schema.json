@@ -16,9 +16,23 @@
         }
       ]
     },
+    "negative_prompt": {
+      "title": "Negative Prompt",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
     "unique": {
       "title": "Unique",
-      "default": "c07e6824-7773-404e-930f-013f9dca858c",
+      "default": "aa6fd991-ecbd-4bff-8b2b-2d619da235d3",
       "type": "string",
       "format": "uuid"
     },

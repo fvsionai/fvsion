@@ -77,6 +77,17 @@ const formSubmit = (e: any) => {
       </div>
       <div class="form-control">
         <label class="label input-group">
+          <span class="label-text">Negative Prompt</span>
+          <input
+            type="text"
+            placeholder="black cat"
+            class="input input-bordered input-primary w-full text-black"
+            id="negative_prompt"
+            v-model="fvsion.negative_prompt"
+        /></label>
+      </div>
+      <div class="form-control">
+        <label class="label input-group">
           <span class="label-text">Allow NSFW</span>
           <input
             type="checkbox"
