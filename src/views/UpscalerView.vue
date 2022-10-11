@@ -3,9 +3,9 @@ import UpForm from "@/components/UpForm.vue";
 </script>
 
 <template>
-  <div class="grid md:grid-cols-2 grid-cols-1">
-    <div class="col-span-2">
-      <UpForm mode="upscaler"></UpForm>
-    </div>
+  <div
+    class="prose mx-auto dark:prose-invert dark:text-white md:prose-xl md:w-screen"
+  >
+    <UpForm mode="upscaler"></UpForm>
   </div>
 </template>

@@ -22,7 +22,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      component: ProseLayout,
+      component: Layout,
       meta: {
         requiresNoAuth: true,
       },

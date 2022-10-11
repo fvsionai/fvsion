@@ -3,7 +3,7 @@ import ImgInput from "@/components/ImgInput.vue";
 </script>
 
 <template>
-  <div class="grid md:grid-cols-2 grid-cols-1">
+  <div class="grid md:grid-cols-2 grid-cols-1 mx-8">
     <div class="col-span-1">
       <SdForm mode="img2img"></SdForm>
     </div>

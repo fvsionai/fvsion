@@ -146,15 +146,20 @@ const formSubmit = (e: any) => {
         </button>
       </div>
       <div>
-        <input
-          type="range"
-          class="range range-primary"
-          min="2"
-          max="8"
-          step="1"
-          id="upscaler_factor"
-          v-model="upscaler.factor"
-        />
+        <div class="form-control">
+          <label class="label input-group">
+            <span class="label-text w-32">Factor</span>
+            <input
+              type="range"
+              class="range range-primary"
+              min="2"
+              max="8"
+              step="1"
+              id="upscaler_factor"
+              v-model="upscaler.factor"
+            />
+          </label>
+        </div>
         <input
           type="number"
           class="input input-primary text-black"
@@ -167,7 +172,7 @@ const formSubmit = (e: any) => {
       </div>
       <div class="form-control w-full max-w-xs">
         <label class="label">
-          <span class="label-text"
+          <span class="label-text text-black dark:text-white"
             >Pick Upscaler Options {{ upscaler.bg_version }}</span
           >
         </label>
@@ -183,7 +188,9 @@ const formSubmit = (e: any) => {
       </div>
       <div class="form-control w-full max-w-xs text-black">
         <label class="label">
-          <span class="label-text">Pick Face Restoration Options</span>
+          <span class="label-text text-black dark:text-white"
+            >Pick Face Restoration Options</span
+          >
         </label>
         <select
           id="upscaler_face_version"

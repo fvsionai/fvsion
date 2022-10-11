@@ -3,5 +3,9 @@ import SdForm from "@/components/SdForm.vue";
 </script>
 
 <template>
-  <SdForm mode="lowvram"></SdForm>
+  <div
+    class="prose mx-auto dark:prose-invert dark:text-white md:prose-xl md:w-screen"
+  >
+    <SdForm mode="lowvram"></SdForm>
+  </div>
 </template>

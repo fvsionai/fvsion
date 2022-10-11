@@ -4,6 +4,10 @@ import SocialMedia from "@/components/SocialMedia.vue";
 </script>
 
 <template>
-  <GalleryDisplay></GalleryDisplay>
-  <!-- <SocialMedia></SocialMedia> -->
+  <div
+    class="prose mx-auto dark:prose-invert dark:text-white md:prose-xl md:w-screen"
+  >
+    <GalleryDisplay></GalleryDisplay>
+    <!-- <SocialMedia></SocialMedia> -->
+  </div>
 </template>
