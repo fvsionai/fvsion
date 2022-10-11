@@ -1,16 +1,20 @@
 # Adapted from https://github.com/TencentARC/GFPGAN/blob/master/inference_gfpgan.py (MIT)
-import cv2
-import numpy as np
-import os
-import torch
-from basicsr.utils import imwrite
+
+
+
+
+
+
+
 
 # Object models import
 from app.models.fvsion import FvsionModel
 
 # import customized GFPGANer
 from app.endpoints.v00.modules.external.custom_gfpgan import GFPGANer
-
+import cv2
+import numpy as np
+import os
 
 def upscaler(fv: FvsionModel):
     # print(fv)
@@ -121,17 +125,17 @@ def upscaler(fv: FvsionModel):
             for idx, (cropped_face, restored_face) in enumerate(zip(cropped_faces, restored_faces)):
                 # save cropped face
                 save_crop_path = os.path.join(outputs_dir, 'cropped_faces', f'{basename}_{idx:02d}.png')
-                imwrite(cropped_face, save_crop_path)
+                cv2.imwrite(cropped_face, save_crop_path)
                 # save restored face
                 if fv.upscaler.suffix is not None:
                     save_face_name = f'{basename}_{idx:02d}_{fv.upscaler.suffix}.png'
                 else:
                     save_face_name = f'{basename}_{idx:02d}.png'
                 save_restore_path = os.path.join(outputs_dir, 'restored_faces', save_face_name)
-                imwrite(restored_face, save_restore_path)
+                cv2.imwrite(restored_face, save_restore_path)
                 # save comparison image
                 cmp_img = np.concatenate((cropped_face, restored_face), axis=1)
-                imwrite(cmp_img, os.path.join(outputs_dir, 'cmp', f'{basename}_{idx:02d}.png'))
+                cv2.imwrite(cmp_img, os.path.join(outputs_dir, 'cmp', f'{basename}_{idx:02d}.png'))
 
         # save restored img
         if restored_img is not None:
@@ -144,7 +148,7 @@ def upscaler(fv: FvsionModel):
                 save_restore_path = os.path.join(outputs_dir, f'{basename}_{fv.upscaler.suffix}.{extension}')
             else:
                 save_restore_path = os.path.join(outputs_dir, f'{basename}.{extension}')
-            imwrite(restored_img, save_restore_path)
+            cv2.imwrite(restored_img, save_restore_path)
 
             print(f'Results are in the [{outputs_dir}] folder.')
 

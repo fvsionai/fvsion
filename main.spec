@@ -20,6 +20,7 @@ datas += copy_metadata('filelock')
 datas += copy_metadata('numpy')
 datas += copy_metadata('tokenizers')
 datas += copy_metadata('importlib_metadata')
+datas += copy_metadata('basicsr')
 
 
 block_cipher = None
@@ -42,6 +43,8 @@ a = Analysis(
         'uvicorn.protocols.websockets.auto',
         'uvicorn.lifespan',
         'uvicorn.lifespan.on',
+        'basicsr',
+        'basicsr.archs',
     ],
     hookspath=[],
     hooksconfig={},
@@ -67,7 +70,7 @@ a.datas = datas_upd
 exe = EXE(
     pyz,
     a.scripts,
-    [],
+    [('W ignore', None, 'OPTION')],
     exclude_binaries=True,
     name='main',
     debug=False,

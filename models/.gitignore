@@ -2,5 +2,5 @@
 *
 */
 !.gitignore
-!download_models.bat
+!download_upscale_models.bat
 !add-models-here

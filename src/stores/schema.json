@@ -32,7 +32,7 @@
     },
     "unique": {
       "title": "Unique",
-      "default": "aa6fd991-ecbd-4bff-8b2b-2d619da235d3",
+      "default": "a2c4576f-a698-4206-85da-0f6ac2db28cb",
       "type": "string",
       "format": "uuid"
     },
@@ -172,9 +172,7 @@
       "type": "boolean"
     }
   },
-  "required": [
-    "prompt"
-  ],
+  "required": ["prompt"],
   "example": {
     "prompt": "a photo of an astronaut riding a horse on mars",
     "mode": "txt2img",
@@ -206,16 +204,7 @@
     "TypeEnum": {
       "title": "TypeEnum",
       "description": "An enumeration.",
-      "enum": [
-        "auto",
-        "png",
-        "jpeg",
-        "jpg",
-        "webp",
-        "bmp",
-        "gif",
-        "ppm"
-      ],
+      "enum": ["auto", "png", "jpeg", "jpg", "webp", "bmp", "gif", "ppm"],
       "type": "string"
     },
     "FileModel": {
@@ -245,12 +234,7 @@
     "MaskImageEnum": {
       "title": "MaskImageEnum",
       "description": "An enumeration.",
-      "enum": [
-        "default",
-        "alpha",
-        "white",
-        "color"
-      ],
+      "enum": ["default", "alpha", "white", "color"],
       "type": "string"
     },
     "UpscalerEnum": {
