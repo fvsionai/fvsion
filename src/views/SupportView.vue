@@ -5,10 +5,20 @@ import Kofi from "@/components/Kofi.vue";
 <template>
   <h1 class="text-3xl font-medium">Support</h1>
 
-  <div>
+  <div class="not-prose">
     <p>You can support me, the developer for Fvsion App by;</p>
-    <ul>
-      <li>sharing about this website on forums and social media</li>
+    <ul class="list-disc">
+      <li>sharing about this tools on forums and social media</li>
+      <li>
+        suggesting features and even better create a Pull Request for new
+        features at
+        <a
+          href="https://github.com/FvsionAI/fvsion"
+          class="text-primary"
+          target="_blank"
+          >github.com/FvsionAI/fvsion</a
+        >
+      </li>
       <li>
         direct donation via
         <a href="https://ko-fi.com/hafiidz" target="_blank"

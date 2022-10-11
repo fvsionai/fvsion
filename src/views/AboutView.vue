@@ -22,8 +22,26 @@
                 >electron-vite-vue-fastapi boilerplate</a
               >
             </li>
+            <li>
+              Homepage at
+              <a
+                href="https://github.com/FvsionAI/fvsion"
+                class="text-primary"
+                target="_blank"
+                >github.com/FvsionAI/fvsion</a
+              >
+            </li>
+            <li>
+              Discord link:
+              <a
+                href="https://discord.gg/DJYYdPZc"
+                class="text-primary"
+                target="_blank"
+                >https://discord.gg/DJYYdPZc</a
+              >
+            </li>
           </ul>
-          <p>Update as of 22 Sept 2022</p>
+          <p>Update as of 11 Oct 2022</p>
           <p>Storyteller and fun-maker</p>
         </div>
 

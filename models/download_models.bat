@@ -22,6 +22,7 @@ goto askGFPGAN
 :dlGFPGAN
 ECHO Downloading GFPGAN model from Github
 curl --create-dirs -A "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64)" -L "https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.4.pth" -o %~dp0/GFPGAN/GFPGANv1.4.pth --ssl-no-revoke
+curl --create-dirs -A "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64)" -L "https://github.com/TencentARC/GFPGAN/releases/download/v1.3.4/RestoreFormer.pth" -o %~dp0/GFPGAN/RestoreFormer.pth --ssl-no-revoke
 goto askRealESRGAN
 
 :askRealESRGAN
