@@ -3,6 +3,10 @@
 1. `Fvsion`, pronounced `Fusion` is a quick bundle of `FastAPI` + `Vite and Vue` + `Stable Diffusion` with async first design.
 1. Built on top of [electron-vite-vue-fastapi boilerplate](https://github.com/Hafiidz/electron-vite-vue-fastapi).
 
+![image](https://user-images.githubusercontent.com/3688500/195201878-45f72826-f784-41c7-b152-95da9f736724.png)
+
+<!-- ![image](https://user-images.githubusercontent.com/3688500/195201501-6d08280a-7be0-4f89-9d52-54f95e7eb6b5.png) -->
+
 # Features & Motivation
 
 1. Independent frontend and backend, choose what you need and as you need.
