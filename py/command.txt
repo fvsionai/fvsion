@@ -2,8 +2,9 @@
 pip install -r py/requirements.txt
 
 
-# save the requirements to text
+# save the requirements to text (create a new file at root to ease docker setup later)
 pip freeze > py/requirements.txt
+pip freeze > requirements.txt
 
 # manually run the python server, with hotloading enabled
 python py/main.py -r y
