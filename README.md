@@ -18,6 +18,7 @@
 
 # Beginner Friendly Installation for Windows
 
+0. First, if you have some programming background, it is highly recommended to follow [development installation](https://github.com/fvsionai/fvsion/wiki/2.-Installation#development-installation), to get the latest version and full NodeJS and Python capabilities. However, if you are new, and just wanted to get standalone AI image generation started, please follow the next step.
 1. Download Windows Installer/Executable [https://github.com/fvsionai/fvsion/releases](https://github.com/fvsionai/fvsion/releases).
 2. Make sure you have all 3 binary zip files (fvsion.zip.z001/2/3) in the same folder. You can unzip them via winzip or 7zip (https://www.7-zip.org/download.html)
    ![image](https://user-images.githubusercontent.com/3688500/195199551-6d589fb9-4e90-4e91-a62e-422caa50f84e.png)
