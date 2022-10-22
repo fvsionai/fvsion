@@ -105,7 +105,7 @@ const formSubmit = (e: any) => {
               :min="f.min"
               :max="f.max"
               :step="f.step"
-              class="input input-bordered input-primary w-24 text-black"
+              class="input input-bordered input-primary w-40 text-center text-black"
               v-model="fvsion[f.model]"
             />
           </div>
